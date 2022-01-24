@@ -1,0 +1,43 @@
+@{
+    ViewBag.I18N_Name = "Name";
+    ViewBag.I18N_Age = "Alter";
+    ViewBag.I18N_City = "Wohnort";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (@ViewBag.Id == null) {
+    <table>
+        <tr>
+            <th>@ViewBag.I18N_Name</th>
+            <th>@ViewBag.I18N_Age</th>
+            <th>@ViewBag.I18N_City</th>
+        </tr>
+        @foreach(var person in @ViewBag.Persons) {
+            <tr>
+                <td><a href="/Home/Person/@person.Id">@person.Name</a></td>
+                <td>@person.Age</td>
+                <td>@person.City.Name</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <table>
+        <tr>
+            <th>@ViewBag.I18N_Name</th>
+            <td>@ViewBag.Person.Name</td>
+        </tr>
+        <tr>
+            <th>@ViewBag.I18N_Age</th>
+            <td>@ViewBag.Person.Age</td>
+        </tr>
+        <tr>
+            <th>@ViewBag.I18N_City</th>
+            <td>@ViewBag.Person.City.Name</td>
+        </tr>
+    </table>
+    
+    <a href="/Home/Person/">Zu&uuml;ck</a>
+}

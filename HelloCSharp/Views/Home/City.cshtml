@@ -1,0 +1,29 @@
+@{
+    ViewBag.I18N_Name = "Name";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (@ViewBag.Id == null) {
+    <table>
+        <tr>
+            <th>@ViewBag.I18N_Name</th>
+        </tr>
+        @foreach(var city in @ViewBag.Cities) {
+            <tr>
+                <td><a href="/Home/City/@city.Id">@city.Name</a></td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <table>
+        <tr>
+            <th>@ViewBag.I18N_Name</th>
+            <td>@ViewBag.City.Name</td>
+        </tr>
+    </table>
+    
+    <a href="/Home/City/">Zu&uuml;ck</a>
+}

@@ -1,0 +1,21 @@
+@using HelloCSharp.Database
+@{
+    ViewBag.Persons = Database.GetInstance().FindAllPersons();
+    ViewBag.Cities = Database.GetInstance().FindAllCities();
+}
+
+<h2><a href="/Home/Person">Personen</a></h2>
+
+<ul>
+    @foreach(var person in @ViewBag.Persons) {
+        <li><a href="/Home/Person/@person.Id">@person.Name</a></li>
+    }
+</ul>
+
+<h2><a href="/Home/City">St&auml;dte</a></h2>
+
+<ul>
+    @foreach(var city in @ViewBag.Cities) {
+        <li><a href="/Home/City/@city.Id">@city.Name</a></li>
+    }
+</ul>
