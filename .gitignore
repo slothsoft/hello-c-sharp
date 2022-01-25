@@ -1,4 +1,15 @@
+# IDE settings
 .idea/
 .vs/
+
+# should be recreated via "package restore"
 packages/
+
+# don't know where this comes from but it gets generated often
 nuget.exe
+
+# Compiler output
+**/bin
+**/obj
+**/Debug
+
