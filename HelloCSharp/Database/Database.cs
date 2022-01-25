@@ -25,7 +25,7 @@ namespace HelloCSharp.Database
 
         private SQLiteConnection _connection;
         
-        private Database()
+        internal Database()
         {
             _connection = new SQLiteConnection("Data Source=:memory:");
             _connection.Open();
