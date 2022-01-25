@@ -17,7 +17,7 @@
             <tr>
                 <td><a href="/Home/Person/@person.Id">@person.Name</a></td>
                 <td>@person.Age</td>
-                <td>@person.City.Name</td>
+                <td><a href="/Home/City/@person.City.Id">@person.City.Name</a></td>
             </tr>
         }
     </table>
@@ -35,7 +35,7 @@ else
         </tr>
         <tr>
             <th>@ViewBag.I18N_City</th>
-            <td>@ViewBag.Person.City.Name</td>
+            <td><a href="/Home/City/@ViewBag.Person.City.Id">@ViewBag.Person.City.Name</a></td>
         </tr>
     </table>
     
