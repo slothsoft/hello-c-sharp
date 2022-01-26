@@ -2,20 +2,14 @@ using System;
 
 namespace HelloCSharp.Models
 {
-    public struct City
+    public class City : Identifiable
     {
         
-        public City(int id, String name)
+        public City(Int32? id, String name) : base(id)
         {
-            Id = id;
             Name = name;
         }
 
-        public bool HasId()
-        {
-            return Id != null;
-        }
-        public int Id { get; }
         public String Name { get; }
 
         public override string ToString() => $"City {Name} ({Id})";

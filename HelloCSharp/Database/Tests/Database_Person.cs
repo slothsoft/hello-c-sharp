@@ -38,9 +38,9 @@ namespace HelloCSharp.Database
                 _classUnderTest.GetPerson(-1);
                 Assert.Fail("Needs more exceptions!");
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
-                Assert.AreEqual("Could not find person with ID -1", e.Message);
+                Assert.AreEqual("Could not find entity with ID -1", e.Message);
             }
         }
         

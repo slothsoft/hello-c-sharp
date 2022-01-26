@@ -36,9 +36,9 @@ namespace HelloCSharp.Database
                 _classUnderTest.GetCity(-1);
                 Assert.Fail("Needs more exceptions!");
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
-                Assert.AreEqual("Could not find city with ID -1", e.Message);
+                Assert.AreEqual("Could not find entity with ID -1", e.Message);
             }
         }
         
