@@ -137,12 +137,12 @@
         <Compile Include="Database\CityRepository.cs" />
         <Compile Include="Database\Database.cs" />
         <Compile Include="Database\PersonRepository.cs" />
-        <Compile Include="Database\Repository.cs" />
+        <Compile Include="Database\IRepository.cs" />
         <Compile Include="Database\Tests\AbstractRepositoryTest.cs" />
-        <Compile Include="Database\Tests\CityRepositoyTest.cs" />
-        <Compile Include="Database\Tests\Database_City.cs" />
-        <Compile Include="Database\Tests\Database_Person.cs" />
-        <Compile Include="Database\Tests\PersonRepositoyTest.cs" />
+        <Compile Include="Database\Tests\CityRepositoryTest.cs" />
+        <Compile Include="Database\Tests\DatabaseCity.cs" />
+        <Compile Include="Database\Tests\DatabasePerson.cs" />
+        <Compile Include="Database\Tests\PersonRepositoryTest.cs" />
         <Compile Include="Global.asax.cs">
             <DependentUpon>Global.asax</DependentUpon>
         </Compile>

@@ -1,14 +1,14 @@
 using System;
 using NUnit.Framework;
 
-namespace HelloCSharp.Database
+namespace HelloCSharp.Database.Tests
 {
     [TestFixture]
-    public class Database_City
+    public class DatabaseCity
     {
 
         /* This is the one city we test for by ID, so don't change it (or change the tests, too) */
-        private const int PILTOVER_ID = 1;
+        private const int PiltoverId = 1;
         
         private Database _classUnderTest;
         
@@ -21,10 +21,10 @@ namespace HelloCSharp.Database
         [Test]
         public void GetCity()
         {
-            var result = _classUnderTest.GetCity(PILTOVER_ID);
+            var result = _classUnderTest.GetCity(PiltoverId);
 
             Assert.NotNull(result);
-            Assert.AreEqual(PILTOVER_ID, result.Id);
+            Assert.AreEqual(PiltoverId, result.Id);
             Assert.AreEqual("Piltover", result.Name);
         }
         
@@ -50,9 +50,9 @@ namespace HelloCSharp.Database
             Assert.NotNull(result);
             Assert.IsTrue(result.Count >= 2);
 
-            var city = result.Find(c => c.Id == PILTOVER_ID);
+            var city = result.Find(c => c.Id == PiltoverId);
             Assert.NotNull(city);
-            Assert.AreEqual(PILTOVER_ID, city.Id);
+            Assert.AreEqual(PiltoverId, city.Id);
             Assert.AreEqual("Piltover", city.Name);
         }
 

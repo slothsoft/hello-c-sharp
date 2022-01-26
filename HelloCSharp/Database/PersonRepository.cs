@@ -31,7 +31,7 @@ namespace HelloCSharp.Database
             );           
         }
         
-        internal override String CreateSelectById(Int32 id)
+        protected override String CreateSelectById(Int32 id)
         {
             return CreateBasicSelect() + " WHERE person.id = " + id;
         }

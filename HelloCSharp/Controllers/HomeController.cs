@@ -1,5 +1,4 @@
 ﻿using System;
-using HelloCSharp.Database;
 using System.Web.Mvc;
 
 namespace HelloCSharp.Controllers
@@ -11,7 +10,7 @@ namespace HelloCSharp.Controllers
             return View();
         }
 
-        public ActionResult Person(String id)
+        public ActionResult Person(string id)
         {
             if (id == null) {
                 ViewBag.Persons = Database.Database.GetInstance().FindAllPersons();
@@ -25,7 +24,7 @@ namespace HelloCSharp.Controllers
             return View();
         }
         
-        public ActionResult City(String id)
+        public ActionResult City(string id)
         {
             if (id == null) {
                 ViewBag.Cities = Database.Database.GetInstance().FindAllCities();

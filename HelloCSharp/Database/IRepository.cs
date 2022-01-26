@@ -4,7 +4,7 @@ using HelloCSharp.Models;
 
 namespace HelloCSharp.Database
 {
-    public interface Repository<T>
+    public interface IRepository<T>
         where T : Identifiable
     {
         List<T> FindByFilter(Predicate<T> filter);
