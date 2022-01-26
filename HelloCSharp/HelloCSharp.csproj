@@ -133,13 +133,21 @@
         <Compile Include="App_Start\FilterConfig.cs" />
         <Compile Include="App_Start\RouteConfig.cs" />
         <Compile Include="Controllers\HomeController.cs" />
+        <Compile Include="Database\AbstractRepository.cs" />
+        <Compile Include="Database\CityRepository.cs" />
         <Compile Include="Database\Database.cs" />
+        <Compile Include="Database\PersonRepository.cs" />
+        <Compile Include="Database\Repository.cs" />
+        <Compile Include="Database\Tests\AbstractRepositoryTest.cs" />
+        <Compile Include="Database\Tests\CityRepositoyTest.cs" />
         <Compile Include="Database\Tests\Database_City.cs" />
         <Compile Include="Database\Tests\Database_Person.cs" />
+        <Compile Include="Database\Tests\PersonRepositoyTest.cs" />
         <Compile Include="Global.asax.cs">
             <DependentUpon>Global.asax</DependentUpon>
         </Compile>
         <Compile Include="Models\City.cs" />
+        <Compile Include="Models\Identifiable.cs" />
         <Compile Include="Models\Person.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>

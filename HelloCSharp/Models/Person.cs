@@ -2,22 +2,16 @@ using System;
 
 namespace HelloCSharp.Models
 {
-    public struct Person
+    public class Person : Identifiable
     {
         
-        public Person(Int32? id, String name, int age, City city)
+        public Person(Int32? id, String name, int age, City city) : base(id)
         {
-            Id = id;
             Name = name;
             Age = age;
             City = city;
         }
 
-        public bool HasId()
-        {
-            return Id != null;
-        }
-        public Int32? Id { get; }
         public String Name { get; }
         public int Age { get; }
         public City City { get; }
