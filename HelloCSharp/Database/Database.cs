@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
+using System.Reflection;
 using HelloCSharp.Models;
 
 namespace HelloCSharp.Database
@@ -33,7 +35,12 @@ namespace HelloCSharp.Database
         internal static void InitDatabase(SQLiteConnection connection)
         {
             using (var command = connection.CreateCommand()) {
-                command.CommandText = File.ReadAllText("C:\\Users\\sschulz\\IdeaProjects\\HelloCSharp\\HelloCSharp\\Database\\init-db.sql");
+                var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(@"HelloCSharp.Database.init-db.sql");
+                using (var reader = new StreamReader(stream))
+                {
+                    command.CommandText = reader.ReadToEnd();
+                }
+
                 command.ExecuteNonQuery();
             }
         }
