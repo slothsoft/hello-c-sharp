@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using HelloCSharp.Models;
 
@@ -31,9 +32,14 @@ namespace HelloCSharp.Database
             );           
         }
         
-        protected override String CreateSelectById(Int32 id)
+        protected override string CreateSelectById(Int32 id)
         {
             return CreateBasicSelect() + " WHERE person.id = " + id;
+        }
+       
+        public List<Person> FindByCityId(int cityId)
+        {
+            return FindByFilter(p => p.City.Id == cityId);
         }
     }
 }
