@@ -23,7 +23,7 @@ namespace HelloCSharp.Database
             return FindAll().FindAll(filter);
         }
         
-        public List<T> FindAll()
+        public virtual List<T> FindAll()
         {
             using (var command = _connection.CreateCommand())
             {
@@ -32,7 +32,7 @@ namespace HelloCSharp.Database
             }
         }
 
-        protected virtual String CreateBasicSelect()
+        protected virtual string CreateBasicSelect()
         {
             return this._select;
         }
@@ -49,7 +49,7 @@ namespace HelloCSharp.Database
 
         protected abstract T ConvertToT(SQLiteDataReader reader);
         
-        public T GetById(Int32 id)
+        public T GetById(int id)
         {
             var result = FindById(id);
             if (result == null)
@@ -65,13 +65,11 @@ namespace HelloCSharp.Database
             {
                 command.CommandText = CreateSelectById(id);
                 var reader = command.ExecuteReader();
-                if (reader.Read())
-                    return ConvertToT(reader);
-                return null;
+                return reader.Read() ? ConvertToT(reader) : null;
             }
         }
 
-        protected virtual String CreateSelectById(Int32 id)
+        protected virtual string CreateSelectById(Int32 id)
         {
             return CreateBasicSelect() + " WHERE id = " + id;
         }

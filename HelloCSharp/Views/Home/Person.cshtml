@@ -1,7 +1,10 @@
+@using HelloCSharp.Database
+@using HelloCSharp.Models
 @{
     ViewBag.I18N_Name = "Name";
     ViewBag.I18N_Age = "Alter";
     ViewBag.I18N_City = "Wohnort";
+    ViewBag.I18N_Relationships = "Beziehungen";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -12,12 +15,14 @@
             <th>@ViewBag.I18N_Name</th>
             <th>@ViewBag.I18N_Age</th>
             <th>@ViewBag.I18N_City</th>
+            <th>@ViewBag.I18N_Relationships</th>
         </tr>
         @foreach(var person in @ViewBag.Persons) {
             <tr>
                 <td><a href="/Home/Person/@person.Id">@person.Name</a></td>
                 <td>@person.Age</td>
                 <td><a href="/Home/City/@person.City.Id">@person.City.Name</a></td>
+                <td>@Database.GetInstance().FindRelationshipsByPersonId(person.Id).Count</td>
             </tr>
         }
     </table>
@@ -36,6 +41,17 @@ else
         <tr>
             <th>@ViewBag.I18N_City</th>
             <td><a href="/Home/City/@ViewBag.Person.City.Id">@ViewBag.Person.City.Name</a></td>
+        </tr>
+        <tr>
+            <th>@ViewBag.I18N_Relationships</th>
+            <td>
+                <ul class="simple-ul">
+                    @foreach (var relationship in @Database.GetInstance().FindRelationshipsByPersonId(ViewBag.Person.Id))
+                    {
+                        <li><a href="/Home/Person/@relationship.FromId">@relationship.FromName</a> @RelationshipTypeMethods.Message(relationship.Type) <a href="/Home/Person/@relationship.ToId">@relationship.ToName</a></li>
+                    }
+                </ul>
+            </td>
         </tr>
     </table>
     

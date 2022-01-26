@@ -29,10 +29,7 @@ namespace HelloCSharp.Database.Tests
         [TearDown]
         public void TearDown()
         {
-            if (_connection != null)
-            {
-                _connection.Close();
-            }
+            _connection?.Close();
         }
 
         [Test]

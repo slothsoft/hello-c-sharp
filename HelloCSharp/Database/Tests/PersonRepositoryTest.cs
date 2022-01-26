@@ -4,6 +4,7 @@ using NUnit.Framework;
 
 namespace HelloCSharp.Database.Tests
 {
+    [TestFixture]
     public class PersonRepositoryTest : AbstractRepositoryTest<PersonRepository, Person>
     {
         protected override PersonRepository CreateRepository(SQLiteConnection connection)

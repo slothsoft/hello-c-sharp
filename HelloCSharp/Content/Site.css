@@ -45,3 +45,11 @@ table tr:nth-child(odd){
 table tr:nth-child(even){
     background: #f0ffff;
 }
+
+/* Simple unsorted list without dots or indention */
+
+.simple-ul {
+    list-style-type:none;
+    padding: 0;
+    margin: 0;
+}

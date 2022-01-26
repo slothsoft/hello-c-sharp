@@ -138,17 +138,23 @@
         <Compile Include="Database\Database.cs" />
         <Compile Include="Database\PersonRepository.cs" />
         <Compile Include="Database\IRepository.cs" />
+        <Compile Include="Database\RelationshipRepository.cs" />
         <Compile Include="Database\Tests\AbstractRepositoryTest.cs" />
         <Compile Include="Database\Tests\CityRepositoryTest.cs" />
         <Compile Include="Database\Tests\DatabaseCityTest.cs" />
         <Compile Include="Database\Tests\DatabasePersonTest.cs" />
         <Compile Include="Database\Tests\PersonRepositoryTest.cs" />
+        <Compile Include="Database\Tests\RelationshipRepositoryTest.cs" />
         <Compile Include="Global.asax.cs">
             <DependentUpon>Global.asax</DependentUpon>
         </Compile>
         <Compile Include="Models\City.cs" />
         <Compile Include="Models\Identifiable.cs" />
         <Compile Include="Models\Person.cs" />
+        <Compile Include="Models\Relationship.cs" />
+        <Compile Include="Models\RelationshipType.cs" />
+        <Compile Include="Models\RelationshipTypeMethods.cs" />
+        <Compile Include="Models\Tests\RelationshipTypeTest.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>

@@ -20,6 +20,7 @@ namespace HelloCSharp.Database
 
         private readonly CityRepository _cityRepository;
         private readonly PersonRepository _personRepository;
+        private readonly RelationshipRepository _relationshipRepository;
         
         internal Database()
         {
@@ -30,6 +31,7 @@ namespace HelloCSharp.Database
 
             this._cityRepository = new CityRepository(_connection);
             this._personRepository = new PersonRepository(_connection);
+            this._relationshipRepository = new RelationshipRepository(_connection);
         }
         
         internal static void InitDatabase(SQLiteConnection connection)
@@ -69,7 +71,12 @@ namespace HelloCSharp.Database
         {
             return _personRepository.FindByCityId(cityId);
         }
-        
+
+        public List<Relationship> FindRelationshipsByPersonId(int personId)
+        {
+            return _relationshipRepository.FindByPersonId(personId);
+        }
+
         public void Close()
         {
             _connection.Close();

@@ -1,7 +1,7 @@
 @using HelloCSharp.Database
 @{
     ViewBag.I18N_Name = "Name";
-    ViewBag.I18N_Population = "Bev&ouml;ölkerung";
+    ViewBag.I18N_Population = "Bevolkerung";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -29,7 +29,7 @@ else
         </tr>
         <tr>
             <th>@ViewBag.I18N_Population</th>
-        <td><ul style="list-style-type:none;padding: 0;margin: 0;">
+        <td><ul class="simple-ul">
                 @foreach (var person in @Database.GetInstance().FindPersonsByCityId(ViewBag.City.Id))
                 {
                     <li><a href="/Home/Person/@person.Id">@person.Name</a></li>
