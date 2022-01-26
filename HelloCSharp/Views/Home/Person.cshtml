@@ -22,7 +22,7 @@
                 <td><a href="/Home/Person/@person.Id">@person.Name</a></td>
                 <td>@person.Age</td>
                 <td><a href="/Home/City/@person.City.Id">@person.City.Name</a></td>
-                <td>@Database.GetInstance().FindRelationshipsByPersonId(person.Id).Count</td>
+                <td>@Database.GetInstance().RelationshipRepository.FindByPersonId(person.Id).Count</td>
             </tr>
         }
     </table>
@@ -46,7 +46,7 @@ else
             <th>@ViewBag.I18N_Relationships</th>
             <td>
                 <ul class="simple-ul">
-                    @foreach (var relationship in @Database.GetInstance().FindRelationshipsByPersonId(ViewBag.Person.Id))
+                    @foreach (var relationship in @Database.GetInstance().RelationshipRepository.FindByPersonId(ViewBag.Person.Id))
                     {
                         <li><a href="/Home/Person/@relationship.FromId">@relationship.FromName</a> @RelationshipTypeMethods.Message(relationship.Type) <a href="/Home/Person/@relationship.ToId">@relationship.ToName</a></li>
                     }

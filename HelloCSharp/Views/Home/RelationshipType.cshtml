@@ -1,7 +1,7 @@
 @using HelloCSharp.Database
 @{
     ViewBag.I18N_Name = "Name";
-    ViewBag.I18N_Population = "Bevolkerung";
+    ViewBag.I18N_Number = "Anzahl";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -10,12 +10,12 @@
     <table>
         <tr>
             <th>@ViewBag.I18N_Name</th>
-            <th>@ViewBag.I18N_Population</th>
+            <th>@ViewBag.I18N_Number</th>
         </tr>
         @foreach(var city in @ViewBag.Cities) {
             <tr>
                 <td><a href="/Home/City/@city.Id">@city.Name</a></td>
-                <td>@Database.GetInstance().PersonRepository.FindByCityId(city.Id).Count</td>
+                <td>@Database.GetInstance().RelationshipRepository.FindByPersonId(city.Id).Count</td>
             </tr>
         }
     </table>
@@ -28,9 +28,9 @@ else
             <td>@ViewBag.City.Name</td>
         </tr>
         <tr>
-            <th>@ViewBag.I18N_Population</th>
+            <th>@ViewBag.I18N_Number</th>
         <td><ul class="simple-ul">
-                @foreach (var person in @Database.GetInstance().PersonRepository.FindByCityId(ViewBag.City.Id))
+                @foreach (var person in @Database.GetInstance().RelationshipRepository.FindByPersonId(ViewBag.City.Id))
                 {
                     <li><a href="/Home/Person/@person.Id">@person.Name</a></li>
                 }

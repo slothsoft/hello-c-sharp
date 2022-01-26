@@ -17,10 +17,6 @@ namespace HelloCSharp.Database
         }
 
         private readonly SQLiteConnection _connection;
-
-        private readonly CityRepository _cityRepository;
-        private readonly PersonRepository _personRepository;
-        private readonly RelationshipRepository _relationshipRepository;
         
         internal Database()
         {
@@ -29,9 +25,9 @@ namespace HelloCSharp.Database
 
             InitDatabase(_connection);
 
-            this._cityRepository = new CityRepository(_connection);
-            this._personRepository = new PersonRepository(_connection);
-            this._relationshipRepository = new RelationshipRepository(_connection);
+            this.CityRepository = new CityRepository(_connection);
+            this.PersonRepository = new PersonRepository(_connection);
+            this.RelationshipRepository = new RelationshipRepository(_connection);
         }
         
         internal static void InitDatabase(SQLiteConnection connection)
@@ -47,35 +43,11 @@ namespace HelloCSharp.Database
             }
         }
 
-        public List<Person> FindAllPersons()
-        {
-            return _personRepository.FindAll();
-        }
-
-        public Person GetPerson(int id)
-        {
-            return _personRepository.GetById(id);
-        }
+        public CityRepository CityRepository { get; }
         
-        public List<City> FindAllCities()
-        {
-            return _cityRepository.FindAll();
-        }
+        public PersonRepository PersonRepository { get; }
         
-        public City GetCity(int id)
-        {
-            return _cityRepository.GetById(id);
-        }
-
-        public List<Person> FindPersonsByCityId(int cityId)
-        {
-            return _personRepository.FindByCityId(cityId);
-        }
-
-        public List<Relationship> FindRelationshipsByPersonId(int personId)
-        {
-            return _relationshipRepository.FindByPersonId(personId);
-        }
+        public RelationshipRepository RelationshipRepository { get; }
 
         public void Close()
         {
