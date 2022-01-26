@@ -1,7 +1,7 @@
 @using HelloCSharp.Database
 @{
-    ViewBag.Persons = Database.GetInstance().FindAllPersons();
-    ViewBag.Cities = Database.GetInstance().FindAllCities();
+    ViewBag.Persons = Database.GetInstance().PersonRepository.FindAll();
+    ViewBag.Cities = Database.GetInstance().CityRepository.FindAll();
 }
 
 <h2><a href="/Home/Person">Personen</a></h2>

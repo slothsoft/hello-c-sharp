@@ -32,9 +32,9 @@ namespace HelloCSharp.Models.Tests
         [Test]
         public void OppositeForAll()
         {
-            foreach (var relationshipType in Enum.GetValues(typeof(RelationshipType)))
+            foreach (var relationshipType in RelationshipTypeMethods.Values())
             {
-                Assert.AreEqual(RelationshipTypeMethods.Opposite((RelationshipType) relationshipType), ((RelationshipType)relationshipType).Opposite());
+                Assert.AreEqual(RelationshipTypeMethods.Opposite(relationshipType), ((RelationshipType)relationshipType).Opposite());
             }
         }
         
@@ -61,9 +61,9 @@ namespace HelloCSharp.Models.Tests
         [Test]
         public void MessageForAll()
         {
-            foreach (var relationshipType in Enum.GetValues(typeof(RelationshipType)))
+            foreach (var relationshipType in RelationshipTypeMethods.Values())
             {
-                Assert.NotNull(((RelationshipType)relationshipType).Message());
+                Assert.NotNull(relationshipType.Message());
             }
         }
 
