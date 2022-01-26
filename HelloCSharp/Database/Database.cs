@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
@@ -12,17 +11,13 @@ namespace HelloCSharp.Database
 
         public static Database GetInstance()
         {
-            if (_instance == null)
-            {
-                _instance = new Database();
-            }
-            return _instance;
+            return _instance ?? (_instance = new Database());
         }
 
-        private SQLiteConnection _connection;
+        private readonly SQLiteConnection _connection;
 
-        private CityRepository _cityRepository;
-        private PersonRepository _personRepository;
+        private readonly CityRepository _cityRepository;
+        private readonly PersonRepository _personRepository;
         
         internal Database()
         {

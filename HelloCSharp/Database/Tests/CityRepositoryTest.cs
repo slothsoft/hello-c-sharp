@@ -1,11 +1,10 @@
-using System;
 using System.Data.SQLite;
 using HelloCSharp.Models;
 using NUnit.Framework;
 
 namespace HelloCSharp.Database.Tests
 {
-    public class CityRepositoyTest : AbstractRepositoryTest<CityRepository, City>
+    public class CityRepositoryTest : AbstractRepositoryTest<CityRepository, City>
     {
         protected override CityRepository CreateRepository(SQLiteConnection connection)
         {

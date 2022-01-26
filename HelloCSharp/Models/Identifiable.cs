@@ -1,11 +1,9 @@
-using System;
-
 namespace HelloCSharp.Models
 {
     public class Identifiable
     {
         
-        public Identifiable(Int32? id)
+        protected Identifiable(int? id)
         {
             Id = id;
         }
@@ -15,6 +13,6 @@ namespace HelloCSharp.Models
             return Id != null;
         }
         
-        public Int32? Id { get; }
+        public int? Id { get; }
     }
 }

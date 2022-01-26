@@ -1,19 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Web.UI.WebControls;
 using HelloCSharp.Models;
 
 namespace HelloCSharp.Database
 {
-    public abstract class AbstractRepository<T>  : Repository<T>
+    public abstract class AbstractRepository<T>  : IRepository<T>
         where T : Identifiable
     {
 
-        protected SQLiteConnection _connection;
-        private String _select;
+        private readonly SQLiteConnection _connection;
+        private readonly string _select;
 
-        internal AbstractRepository(SQLiteConnection connection, String select)
+        internal AbstractRepository(SQLiteConnection connection, string select)
         {
             this._connection = connection;
             this._select = select;
@@ -72,7 +71,7 @@ namespace HelloCSharp.Database
             }
         }
 
-        internal virtual String CreateSelectById(Int32 id)
+        protected virtual String CreateSelectById(Int32 id)
         {
             return CreateBasicSelect() + " WHERE id = " + id;
         }

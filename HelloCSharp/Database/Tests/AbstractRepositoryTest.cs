@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace HelloCSharp.Database.Tests
 {
     public abstract class AbstractRepositoryTest<R, T>
-        where R : Repository<T>
+        where R : IRepository<T>
         where T : Identifiable
     {
 

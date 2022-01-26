@@ -1,15 +1,14 @@
 using System;
-using HelloCSharp.Models;
 using NUnit.Framework;
 
-namespace HelloCSharp.Database
+namespace HelloCSharp.Database.Tests
 {
     [TestFixture]
-    public class Database_Person
+    public class DatabasePerson
     {
 
         /* This is the one person we test for by ID, so don't change it (or change the tests, too) */
-        private const int POWDER_ID = 2;
+        private const int PowderId = 2;
         
         private Database _classUnderTest;
         
@@ -22,10 +21,10 @@ namespace HelloCSharp.Database
         [Test]
         public void GetPerson()
         {
-            var result = _classUnderTest.GetPerson(POWDER_ID);
+            var result = _classUnderTest.GetPerson(PowderId);
 
             Assert.NotNull(result);
-            Assert.AreEqual(POWDER_ID, result.Id);
+            Assert.AreEqual(PowderId, result.Id);
             Assert.AreEqual("Powder", result.Name);
             Assert.AreEqual(17, result.Age);
         }
@@ -52,9 +51,9 @@ namespace HelloCSharp.Database
             Assert.NotNull(result);
             Assert.IsTrue(result.Count >= 3);
 
-            var person = result.Find(c => c.Id == POWDER_ID);
+            var person = result.Find(c => c.Id == PowderId);
             Assert.NotNull(person);
-            Assert.AreEqual(POWDER_ID, person.Id);
+            Assert.AreEqual(PowderId, person.Id);
             Assert.AreEqual("Powder", person.Name);
             Assert.AreEqual(17, person.Age);
         }
