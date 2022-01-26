@@ -64,6 +64,11 @@ namespace HelloCSharp.Database
         {
             return _cityRepository.GetById(id);
         }
+
+        public List<Person> FindPersonsByCityId(int cityId)
+        {
+            return _personRepository.FindByCityId(cityId);
+        }
         
         public void Close()
         {

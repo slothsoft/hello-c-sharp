@@ -12,7 +12,7 @@ namespace HelloCSharp.Database.Tests
 
         
         private SQLiteConnection _connection;
-        private R _classUnderTest;
+        protected R _classUnderTest;
         
         [SetUp]
         public void SetUp()
@@ -98,5 +98,43 @@ namespace HelloCSharp.Database.Tests
             AssertAreEqual(example, found);
         }
 
+        [Test]
+        public void FindByFilterTrue()
+        {
+            var result = _classUnderTest.FindByFilter(t => true);
+
+            Assert.NotNull(result);
+            Assert.IsTrue(result.Count >= 1); // every table has example rows
+
+            var example = GetExampleObject();
+            var found = result.Find(c => c.Id .Equals(example.Id));
+            Assert.NotNull(found);
+            Assert.AreEqual(example.Id, found.Id);
+            AssertAreEqual(example, found);
+        }
+        
+        [Test]
+        public void FindByFilterFalse()
+        {
+            var result = _classUnderTest.FindByFilter(t => false);
+
+            Assert.NotNull(result);
+            Assert.AreEqual(0, result.Count);
+        }
+        
+        [Test]
+        public void FindByFilterById()
+        {
+            var example = GetExampleObject();
+            var result = _classUnderTest.FindByFilter(t => t.Id == example.Id);
+
+            Assert.NotNull(result);
+            Assert.AreEqual(1, result.Count);
+
+            var found = result[0];
+            Assert.NotNull(found);
+            Assert.AreEqual(example.Id, found.Id);
+            AssertAreEqual(example, found);
+        }
     }
 }

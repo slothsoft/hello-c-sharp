@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace HelloCSharp.Database.Tests
 {
     [TestFixture]
-    public class DatabaseCity
+    public class DatabaseCityTest
     {
 
         /* This is the one city we test for by ID, so don't change it (or change the tests, too) */

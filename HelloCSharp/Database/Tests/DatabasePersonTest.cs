@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace HelloCSharp.Database.Tests
 {
     [TestFixture]
-    public class DatabasePerson
+    public class DatabasePersonTest
     {
 
         /* This is the one person we test for by ID, so don't change it (or change the tests, too) */
@@ -56,6 +56,30 @@ namespace HelloCSharp.Database.Tests
             Assert.AreEqual(PowderId, person.Id);
             Assert.AreEqual("Powder", person.Name);
             Assert.AreEqual(17, person.Age);
+        }
+        
+        [Test]
+        public void FindByCityId()
+        {
+            var result = _classUnderTest.FindPersonsByCityId(2);
+
+            Assert.NotNull(result);
+            Assert.IsTrue(result.Count >= 1); 
+
+            var found = result.Find(c => c.Id .Equals(PowderId));
+            Assert.NotNull(found);
+            Assert.AreEqual(PowderId, found.Id);
+            Assert.AreEqual("Powder", found.Name);
+            Assert.AreEqual(17, found.Age);
+        }
+        
+        [Test]
+        public void FindByCityIdUnknown()
+        {
+            var result = _classUnderTest.FindPersonsByCityId(-1);
+
+            Assert.NotNull(result);
+            Assert.AreEqual(0, result.Count);
         }
 
     }
