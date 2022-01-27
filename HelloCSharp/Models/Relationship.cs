@@ -3,7 +3,7 @@ namespace HelloCSharp.Models
     public class Relationship : Identifiable
     {
         
-        public Relationship(int? id, RelationshipType type, int fromId, string fromName,  int toId, string toName) : base(id)
+        public Relationship(int id, RelationshipType type, int fromId, string fromName,  int toId, string toName) : base(id)
         {
             Type = type;
             FromId = fromId;

@@ -3,7 +3,7 @@ namespace HelloCSharp.Models
     public class City : Identifiable
     {
         
-        public City(int? id, string name) : base(id)
+        public City(int id, string name) : base(id)
         {
             Name = name;
         }

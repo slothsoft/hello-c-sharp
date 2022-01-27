@@ -11,31 +11,15 @@ namespace HelloCSharp.Controllers
             return View();
         }
 
-        public ActionResult Person(string id)
+        public ActionResult Person(int? id)
         {
-            if (id == null) {
-                ViewBag.Persons = Database.Database.GetInstance().PersonRepository.FindAll();
-                ViewBag.Title = "Personen";
-            } else{
-                ViewBag.Id = id;
-                ViewBag.Person = Database.Database.GetInstance().PersonRepository.GetById(Int32.Parse(id));
-                ViewBag.Title = ViewBag.Person.Name;
-            }
-          
+            ViewBag.Id = id;
             return View();
         }
         
-        public ActionResult City(string id)
+        public ActionResult City(int? id)
         {
-            if (id == null) {
-                ViewBag.Cities = Database.Database.GetInstance().CityRepository.FindAll();
-                ViewBag.Title = "Städte";
-            } else{
-                ViewBag.Id = id;
-                ViewBag.City = Database.Database.GetInstance().CityRepository.GetById(Int32.Parse(id));
-                ViewBag.Title = ViewBag.City.Name;
-            }
-          
+            ViewBag.Id = id;
             return View();
         }
         
