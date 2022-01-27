@@ -6,10 +6,8 @@
     ViewBag.I18N_City = "Wohnort";
     ViewBag.I18N_Relationships = "Beziehungen";
 }
-
-<h2>@ViewBag.Title</h2>
-
 @if (@ViewBag.Id == null) {
+    <h2>Personen</h2>
     <table>
         <tr>
             <th>@ViewBag.I18N_Name</th>
@@ -17,7 +15,7 @@
             <th>@ViewBag.I18N_City</th>
             <th>@ViewBag.I18N_Relationships</th>
         </tr>
-        @foreach(var person in @ViewBag.Persons) {
+        @foreach(var person in Database.GetInstance().PersonRepository.FindAll()) {
             <tr>
                 <td><a href="/Home/Person/@person.Id">@person.Name</a></td>
                 <td>@person.Age</td>
@@ -28,25 +26,27 @@
     </table>
 }
 else
-{
+{    
+    var person = Database.GetInstance().PersonRepository.GetById(ViewBag.Id);
+    <h2>@person.Name</h2>
     <table>
         <tr>
             <th>@ViewBag.I18N_Name</th>
-            <td>@ViewBag.Person.Name</td>
+            <td>@person.Name</td>
         </tr>
         <tr>
             <th>@ViewBag.I18N_Age</th>
-            <td>@ViewBag.Person.Age</td>
+            <td>@person.Age</td>
         </tr>
         <tr>
             <th>@ViewBag.I18N_City</th>
-            <td><a href="/Home/City/@ViewBag.Person.City.Id">@ViewBag.Person.City.Name</a></td>
+            <td><a href="/Home/City/@person.City.Id">@person.City.Name</a></td>
         </tr>
         <tr>
             <th>@ViewBag.I18N_Relationships</th>
             <td>
                 <ul class="simple-ul">
-                    @foreach (var relationship in @Database.GetInstance().RelationshipRepository.FindByPersonId(ViewBag.Person.Id))
+                    @foreach (var relationship in @Database.GetInstance().RelationshipRepository.FindByPersonId(person.Id))
                     {
                         <li><a href="/Home/Person/@relationship.FromId">@relationship.FromName</a> @RelationshipTypeMethods.Message(relationship.Type) <a href="/Home/Person/@relationship.ToId">@relationship.ToName</a></li>
                     }

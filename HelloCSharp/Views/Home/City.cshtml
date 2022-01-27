@@ -4,15 +4,15 @@
     ViewBag.I18N_Population = "Bevolkerung";
 }
 
-<h2>@ViewBag.Title</h2>
 
 @if (@ViewBag.Id == null) {
+    <h2>St&auml;dte</h2>
     <table>
         <tr>
             <th>@ViewBag.I18N_Name</th>
             <th>@ViewBag.I18N_Population</th>
         </tr>
-        @foreach(var city in @ViewBag.Cities) {
+        @foreach(var city in @Database.GetInstance().CityRepository.FindAll()) {
             <tr>
                 <td><a href="/Home/City/@city.Id">@city.Name</a></td>
                 <td>@Database.GetInstance().PersonRepository.FindByCityId(city.Id).Count</td>
@@ -22,15 +22,18 @@
 }
 else
 {
+    var city = Database.GetInstance().CityRepository.GetById(ViewBag.Id);
+    <h2>@city.Name</h2>
+
     <table>
         <tr>
             <th>@ViewBag.I18N_Name</th>
-            <td>@ViewBag.City.Name</td>
+            <td>@city.Name</td>
         </tr>
         <tr>
             <th>@ViewBag.I18N_Population</th>
         <td><ul class="simple-ul">
-                @foreach (var person in @Database.GetInstance().PersonRepository.FindByCityId(ViewBag.City.Id))
+                @foreach (var person in @Database.GetInstance().PersonRepository.FindByCityId(city.Id))
                 {
                     <li><a href="/Home/Person/@person.Id">@person.Name</a></li>
                 }

@@ -3,7 +3,7 @@ namespace HelloCSharp.Models
     public class Person : Identifiable
     {
         
-        public Person(int? id, string name, int age, City city) : base(id)
+        public Person(int id, string name, int age, City city) : base(id)
         {
             Name = name;
             Age = age;
