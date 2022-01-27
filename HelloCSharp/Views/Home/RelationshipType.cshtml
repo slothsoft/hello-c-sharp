@@ -1,42 +1,46 @@
 @using HelloCSharp.Database
+@using HelloCSharp.Models
 @{
     ViewBag.I18N_Name = "Name";
-    ViewBag.I18N_Number = "Anzahl";
+    ViewBag.I18N_Examples = "Beispiele";
 }
 
-<h2>@ViewBag.Title</h2>
-
 @if (@ViewBag.Id == null) {
+    <h2>Beziehungen</h2>
     <table>
         <tr>
             <th>@ViewBag.I18N_Name</th>
-            <th>@ViewBag.I18N_Number</th>
+            <th>@ViewBag.I18N_Examples</th>
         </tr>
-        @foreach(var city in @ViewBag.Cities) {
+        @foreach(var relationshipType in @RelationshipTypeMethods.Values()) {
             <tr>
-                <td><a href="/Home/City/@city.Id">@city.Name</a></td>
-                <td>@Database.GetInstance().RelationshipRepository.FindByPersonId(city.Id).Count</td>
+                <td><a href="/Home/RelationshipType/@relationshipType.ToString()">@relationshipType.DisplayName()</a></td>
+                <td>@Database.GetInstance().RelationshipRepository.FindByType(relationshipType).Count</td>
             </tr>
         }
     </table>
 }
 else
 {
+    var relationshipType = @RelationshipTypeMethods.ValueOf(@ViewBag.Id);
+    <h2>@RelationshipTypeMethods.DisplayName(relationshipType)</h2>
     <table>
         <tr>
             <th>@ViewBag.I18N_Name</th>
-            <td>@ViewBag.City.Name</td>
+            <td>@RelationshipTypeMethods.DisplayName(relationshipType)</td>
         </tr>
         <tr>
-            <th>@ViewBag.I18N_Number</th>
-        <td><ul class="simple-ul">
-                @foreach (var person in @Database.GetInstance().RelationshipRepository.FindByPersonId(ViewBag.City.Id))
-                {
-                    <li><a href="/Home/Person/@person.Id">@person.Name</a></li>
-                }
-        </ul></td>
+            <th>@ViewBag.I18N_Examples</th>
+            <td>
+                <ul class="simple-ul">
+                    @foreach (var relationship in @Database.GetInstance().RelationshipRepository.FindByType(relationshipType))
+                    {
+                        <li><a href="/Home/Person/@relationship.FromId">@relationship.FromName</a>@RelationshipTypeMethods.Message(relationship.Type) <a href="/Home/Person/@relationship.ToId">@relationship.ToName</a></li>
+                    }
+                </ul>
+            </td>
         </tr>
     </table>
     
-    <a href="/Home/City/">Zu&uuml;ck</a>
+    <a href="/Home/RelationshipType/">Zu&uuml;ck</a>
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Linq;
 using HelloCSharp.Models;
 using NUnit.Framework;
 
@@ -145,9 +146,14 @@ namespace HelloCSharp.Database.Tests
             Assert.NotNull(found);
             Assert.AreEqual(1, found.Count);
 
-            AssertAreEqual(new Relationship(relationship.Id, oppositeType, relationship.ToId, relationship.ToName, relationship.FromId, relationship.FromName), found[0]);
+            AssertAreEqual(CreateOppositeRelationship(relationship, oppositeType), found[0]);
         }
-        
+
+        private static Relationship CreateOppositeRelationship(Relationship relationship, RelationshipType oppositeType)
+        {
+            return new Relationship(relationship.Id, oppositeType, relationship.ToId, relationship.ToName, relationship.FromId, relationship.FromName);
+        }
+
         /**
          * Some relationships are not symmentrical. If A is hates B,
          * then B does not have to hate A. These tests make sure of it.
@@ -202,6 +208,40 @@ namespace HelloCSharp.Database.Tests
             Assert.AreEqual(1, found.Count);
 
             AssertAreEqual(relationship, found[0]);
+        }
+        
+        /**
+         * Fetch relationships by type. #CreateAllRelationships() should have a relationship of each type
+         */
+        
+        [Test, TestCaseSource("CreateAllRelationships")]
+        public void FindByType(Relationship relationship)
+        {
+            var result = _classUnderTest.FindByType(relationship.Type);
+
+            Assert.NotNull(result);
+            Assert.IsTrue(result.Count >= 1);
+
+            var found = result.FindAll(HasId(relationship.Id));
+            Assert.NotNull(found);
+            Assert.IsTrue(found.Count >= 1);
+
+            AssertAreEqual(relationship, found[0]);
+        }
+        
+        private static IEnumerable<TestCaseData> CreateAllRelationships()
+        {
+            return CreateSymmetricalRelationships()
+                .Concat(CreatePseudoSymmetricalRelationships().SelectMany(SeparateRelationships))
+                .Concat(CreateNonSymmetricalRelationships());
+        }
+
+        private static IEnumerable<TestCaseData> SeparateRelationships(TestCaseData data)
+        {
+            // CreatePseudoSymmetricalRelationships() has only one relationship, we need to build the other one
+            var relationship = (Relationship) data.Arguments[0];
+            yield return new TestCaseData(relationship);
+            yield return new TestCaseData(CreateOppositeRelationship(relationship, (RelationshipType) data.Arguments[1]));
         }
     }
 }
