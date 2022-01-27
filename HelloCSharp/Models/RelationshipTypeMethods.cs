@@ -53,5 +53,24 @@ namespace HelloCSharp.Models
                     throw new ArgumentException("Unknown relationship type: " + relationshipType);
             }
         }
+        
+        public static string DisplayName(this RelationshipType relationshipType)
+        {
+            switch (relationshipType)
+            {
+                case RelationshipType.Partners:
+                    return "Partner";
+                case RelationshipType.Siblings:
+                    return "Geschwister";
+                case RelationshipType.ParentOf:
+                    return "Eltern";
+                case RelationshipType.ChildOf:
+                    return "Kind";
+                case RelationshipType.Hates:
+                    return "Feindschaft";
+                default: 
+                    throw new ArgumentException("Unknown relationship type: " + relationshipType);
+            }
+        }
     }
 }

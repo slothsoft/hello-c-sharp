@@ -1,4 +1,5 @@
 @using HelloCSharp.Database
+@using HelloCSharp.Models
 @{
     ViewBag.Persons = Database.GetInstance().PersonRepository.FindAll();
     ViewBag.Cities = Database.GetInstance().CityRepository.FindAll();
@@ -17,5 +18,13 @@
 <ul>
     @foreach(var city in @ViewBag.Cities) {
         <li><a href="/Home/City/@city.Id">@city.Name</a></li>
+    }
+</ul>
+
+<h2><a href="/Home/RelationshipType">Beziehungen</a></h2>
+
+<ul>
+    @foreach(var relationshipType in @RelationshipTypeMethods.Values()) {
+        <li><a href="/Home/RelationshipType/@relationshipType.ToString()">@relationshipType.DisplayName()</a></li>
     }
 </ul>

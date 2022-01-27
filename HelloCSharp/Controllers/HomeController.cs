@@ -25,16 +25,7 @@ namespace HelloCSharp.Controllers
         
         public ActionResult RelationshipType(string id)
         {
-            if (id == null)
-            {
-                ViewBag.RelationshipTypes = RelationshipTypeMethods.Values();
-                ViewBag.Title = "Beziehungstypen";
-            } else{
-                ViewBag.Id = id;
-                ViewBag.City = Database.Database.GetInstance().CityRepository.GetById(Int32.Parse(id));
-                ViewBag.Title = ViewBag.City.Name;
-            }
-          
+            ViewBag.Id = id;
             return View();
         }
     }

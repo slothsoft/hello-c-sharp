@@ -66,6 +66,15 @@ namespace HelloCSharp.Models.Tests
                 Assert.NotNull(relationshipType.Message());
             }
         }
+        
+        [Test]
+        public void DisplayNameForAll()
+        {
+            foreach (var relationshipType in RelationshipTypeMethods.Values())
+            {
+                Assert.NotNull(relationshipType.DisplayName());
+            }
+        }
 
     }
 }

@@ -50,5 +50,10 @@ namespace HelloCSharp.Database
         {
             return FindAllIncludingOpposites().FindAll(r => r.FromId.Equals(personId) || (r.ToId.Equals(personId) && !r.Type.Opposite().HasValue));
         }
+
+        public List<Relationship> FindByType(RelationshipType relationshipType)
+        {
+            return FindAllIncludingOpposites().FindAll(r => r.Type == relationshipType);
+        }
     }
 }
