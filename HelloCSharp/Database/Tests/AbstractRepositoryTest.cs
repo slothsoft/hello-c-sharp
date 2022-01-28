@@ -11,25 +11,24 @@ namespace HelloCSharp.Database.Tests
     {
 
         
-        private SQLiteConnection _connection;
+        private Database _database;
         protected R _classUnderTest;
         
         [SetUp]
         public void SetUp()
         {
-            _connection = new SQLiteConnection("Data Source=:memory:");
-            _connection.Open();
-            Database.InitDatabase(_connection);
+            this._database = new Database();
+            this._database.Database.EnsureCreated();
                 
-            _classUnderTest = CreateRepository(_connection);
+            _classUnderTest = CreateRepository(_database);
         }
         
-        protected abstract R CreateRepository(SQLiteConnection connection);
+        protected abstract R CreateRepository(Database database);
         
         [TearDown]
         public void TearDown()
         {
-            _connection?.Close();
+            this._database?.Close();
         }
 
         [Test]

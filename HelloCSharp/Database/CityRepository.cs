@@ -1,24 +1,20 @@
-using System;
-using System.Data.SQLite;
+using HelloCSharp.Database.Entities;
 using HelloCSharp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HelloCSharp.Database
 {
-    public class CityRepository : AbstractRepository<City>
+    public class CityRepository : AbstractRepository<CityEntity, City>
     {
-    
-        private const string Select = "SELECT * FROM city ";
-        
-        public CityRepository(SQLiteConnection connection) : base(connection, Select)
+
+        public CityRepository(DbSet<CityEntity> db) : base(db)
         {
         }
 
-        protected override City ConvertToT(SQLiteDataReader reader)
+        protected override  City ConvertToT(CityEntity entity)
         {
-            return new City(
-                Convert.ToInt32(reader[ "id"]),
-                Convert.ToString(reader["name"])
-            );    
+            return entity.ConvertToCity();
         }
+
     }
 }

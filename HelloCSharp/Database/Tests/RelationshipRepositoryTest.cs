@@ -10,9 +10,9 @@ namespace HelloCSharp.Database.Tests
     [TestFixture]
     public class RelationshipRepositoryTest : AbstractRepositoryTest<RelationshipRepository, Relationship>
     {
-        protected override RelationshipRepository CreateRepository(SQLiteConnection connection)
+        protected override RelationshipRepository CreateRepository(Database database)
         {
-            return new RelationshipRepository(connection);
+            return new RelationshipRepository(database.Relationship);
         }
 
         protected override Relationship GetExampleObject()
