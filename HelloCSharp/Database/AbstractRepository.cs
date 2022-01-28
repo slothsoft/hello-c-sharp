@@ -1,77 +1,64 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Linq;
+using HelloCSharp.Database.Entities;
 using HelloCSharp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HelloCSharp.Database
 {
-    public abstract class AbstractRepository<T>  : IRepository<T>
-        where T : Identifiable
+    public abstract class AbstractRepository<TEntity, TValue>  : IRepository<TValue>
+        where TEntity : IdentifiableEntity
+        where TValue : Identifiable
     {
+        internal DbSet<TEntity> db;
 
-        private readonly SQLiteConnection _connection;
-        private readonly string _select;
-
-        internal AbstractRepository(SQLiteConnection connection, string select)
+        public AbstractRepository(DbSet<TEntity> db)
         {
-            this._connection = connection;
-            this._select = select;
+            this.db = db;
         }
 
-        public List<T> FindByFilter(Predicate<T> filter)
+        protected abstract TValue ConvertToT(TEntity entity);
+
+        public List<TValue> FindByFilter(Predicate<TValue> filter)
         {
             return FindAll().FindAll(filter);
         }
-        
-        public virtual List<T> FindAll()
+
+        public List<TValue> FindAll()
         {
-            using (var command = _connection.CreateCommand())
+            return FindAllEntities().Select(ConvertToT).ToList();
+        }
+
+        protected virtual IEnumerable<TEntity> FindAllEntities()
+        {
+            return this.db;
+        }
+
+        public TValue GetById(int id)
+        {
+            try
             {
-                command.CommandText = CreateBasicSelect();
-                return ConvertToList(command.ExecuteReader());
+                return ConvertToT(FindAllEntities().Single(c => c.Id.Equals(id)));
             }
-        }
-
-        protected virtual string CreateBasicSelect()
-        {
-            return this._select;
-        }
-
-        private List<T> ConvertToList(SQLiteDataReader reader)
-        {
-            List<T> result = new List<T>();
-            while (reader.Read())
+            catch (System.InvalidOperationException e)
             {
-                result.Add(ConvertToT(reader));
-            }
-            return result;
-        }
-
-        protected abstract T ConvertToT(SQLiteDataReader reader);
-        
-        public T GetById(int id)
-        {
-            var result = FindById(id);
-            if (result == null)
-            {
+                // Sequence contains no elements
                 throw new ArgumentException("Could not find entity with ID " + id);
             }
-            return result;
         }
 
-        public T FindById(Int32 id)
+        public TValue FindById(int id)
         {
-            using (var command = _connection.CreateCommand())
+            try
             {
-                command.CommandText = CreateSelectById(id);
-                var reader = command.ExecuteReader();
-                return reader.Read() ? ConvertToT(reader) : null;
+                return GetById(id);
             }
-        }
-
-        protected virtual string CreateSelectById(Int32 id)
-        {
-            return CreateBasicSelect() + " WHERE id = " + id;
+            catch (ArgumentException e)
+            {
+                return null;
+            }
         }
     }
 }

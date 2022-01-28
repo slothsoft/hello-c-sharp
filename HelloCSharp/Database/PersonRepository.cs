@@ -1,40 +1,26 @@
-using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
+using System.Linq;
+using HelloCSharp.Database.Entities;
 using HelloCSharp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HelloCSharp.Database
 {
-    public class PersonRepository : AbstractRepository<Person>
+    public class PersonRepository : AbstractRepository<PersonEntity, Person>
     {
     
-        private const string Select = "SELECT person.*, city.name as city_name from person LEFT JOIN city ON city_id = city.id ";
-        
-        public PersonRepository(SQLiteConnection connection) : base(connection, Select)
+        public PersonRepository(DbSet<PersonEntity> db) : base(db)
         {
         }
 
-        protected override Person ConvertToT(SQLiteDataReader reader)
+        protected override Person ConvertToT(PersonEntity entity)
         {
-            return new Person(
-                Convert.ToInt32(reader["id"]),
-                Convert.ToString(reader["name"]),
-                Convert.ToInt32(reader["age"]),
-                ConvertToCity(reader)
-            );           
+            return entity.ConvertToPerson();
         }
         
-        private static City ConvertToCity(SQLiteDataReader reader)
+        protected override IEnumerable<PersonEntity> FindAllEntities()
         {
-            return new City(
-                Convert.ToInt32(reader["city_id"]),
-                Convert.ToString(reader["city_name"])
-            );           
-        }
-        
-        protected override string CreateSelectById(Int32 id)
-        {
-            return CreateBasicSelect() + " WHERE person.id = " + id;
+            return this.db.Include(p => p.City);
         }
        
         public List<Person> FindByCityId(int cityId)

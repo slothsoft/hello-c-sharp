@@ -7,9 +7,9 @@ namespace HelloCSharp.Database.Tests
     [TestFixture]
     public class PersonRepositoryTest : AbstractRepositoryTest<PersonRepository, Person>
     {
-        protected override PersonRepository CreateRepository(SQLiteConnection connection)
+        protected override PersonRepository CreateRepository(Database database)
         {
-            return new PersonRepository(connection);
+            return new PersonRepository(database.Persons);
         }
 
         protected override Person GetExampleObject()

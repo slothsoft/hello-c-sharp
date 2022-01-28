@@ -1,34 +1,26 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using HelloCSharp.Database.Entities;
 using HelloCSharp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HelloCSharp.Database
 {
-    public class RelationshipRepository : AbstractRepository<Relationship>
+    public class RelationshipRepository : AbstractRepository<RelationshipEntity, Relationship>
     {
-    
-        private const string Select = "SELECT relationship.*, from_person.name AS from_name, to_person.name AS to_name FROM relationship LEFT JOIN person AS from_person ON from_person.id = from_id LEFT JOIN person AS to_person ON to_person.id = to_id  ";
-        
-        public RelationshipRepository(SQLiteConnection connection) : base(connection, Select)
+        public RelationshipRepository(DbSet<RelationshipEntity> db) : base(db)
         {
         }
 
-        protected override Relationship ConvertToT(SQLiteDataReader reader)
+        protected override Relationship ConvertToT(RelationshipEntity entity)
         {
-            return new Relationship(
-                Convert.ToInt32(reader[ "id"]),
-                (RelationshipType) Enum.Parse(typeof (RelationshipType),Convert.ToString(reader["type"])),
-                Convert.ToInt32(reader["from_id"]),
-                Convert.ToString(reader["from_name"]),
-                Convert.ToInt32(reader["to_id"]),
-                Convert.ToString(reader["to_name"])
-            );    
+            return entity.ConvertToRelationship();
         }
         
-        protected override string CreateSelectById(Int32 id)
+        protected override IEnumerable<RelationshipEntity> FindAllEntities()
         {
-            return CreateBasicSelect() + " WHERE relationship.id = " + id;
+            return this.db.Include(p => p.From).Include(p => p.To);
         }
 
         internal List<Relationship> FindAllIncludingOpposites()
