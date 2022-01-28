@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
 using System.Linq;
 using HelloCSharp.Models;
 using NUnit.Framework;
@@ -30,15 +29,15 @@ namespace HelloCSharp.Database.Tests
         }
         
         /**
-         * Relationships - in contrary to other database entities - can be symmentrical. If A is sibling to B,
+         * Relationships - in contrary to other database entities - can be symmetrical. If A is sibling to B,
          * then B is sibling to A. These tests make sure of it.
          */
         
         
-        [Test, TestCaseSource("CreateSymmetricalRelationships")]
+        [Test, TestCaseSource(nameof(CreateSymmetricalRelationships))]
         public void FindAllIncludingOppositesSymmetricalRelationships(Relationship relationship)
         {
-            var result = _classUnderTest.FindAllIncludingOpposites();
+            var result = ClassUnderTest.FindAllIncludingOpposites();
 
             Assert.NotNull(result);
             Assert.IsTrue(result.Count >= 1); // every table has example rows
@@ -51,7 +50,7 @@ namespace HelloCSharp.Database.Tests
             AssertAreEqual(new Relationship(-relationship.Id, relationship.Type, relationship.ToId, relationship.ToName, relationship.FromId, relationship.FromName), found[1]);
         }
 
-        private Predicate<Relationship> HasId(int? id)
+        private static Predicate<Relationship> HasId(int? id)
         {
             return c => c.Id.Equals(id);
         }
@@ -62,10 +61,10 @@ namespace HelloCSharp.Database.Tests
             yield return new TestCaseData(new Relationship(2, RelationshipType.Partners, 1, "Vi", 3, "Caitlyn"));
         }
 
-        [Test, TestCaseSource("CreateSymmetricalRelationships")]
+        [Test, TestCaseSource(nameof(CreateSymmetricalRelationships))]
         public void FindByPersonIdFromSymmetricalRelationships(Relationship relationship)
         {
-            var result = _classUnderTest.FindByPersonId(relationship.FromId);
+            var result = ClassUnderTest.FindByPersonId(relationship.FromId);
 
             Assert.NotNull(result);
             Assert.IsTrue(result.Count >= 1);
@@ -77,10 +76,10 @@ namespace HelloCSharp.Database.Tests
             AssertAreEqual(relationship, found[0]);
         }
         
-        [Test, TestCaseSource("CreateSymmetricalRelationships")]
+        [Test, TestCaseSource(nameof(CreateSymmetricalRelationships))]
         public void FindByPersonIdToSymmetricalRelationships(Relationship relationship)
         {
-            var result = _classUnderTest.FindByPersonId(relationship.ToId);
+            var result = ClassUnderTest.FindByPersonId(relationship.ToId);
 
             Assert.NotNull(result);
             Assert.IsTrue(result.Count >= 1);
@@ -93,15 +92,15 @@ namespace HelloCSharp.Database.Tests
         }
 
         /**
-         * Some relationships are kinda symmentrical. If A is parent to B,
+         * Some relationships are kinda symmetrical. If A is parent to B,
          * then B is child to A. These tests make sure of it.
          */
         
     
-        [Test, TestCaseSource("CreatePseudoSymmetricalRelationships")]
+        [Test, TestCaseSource(nameof(CreatePseudoSymmetricalRelationships))]
         public void FindAllIncludingOppositesPseudoSymmetricalRelationships(Relationship relationship, RelationshipType oppositeType)
         {
-            var result = _classUnderTest.FindAllIncludingOpposites();
+            var result = ClassUnderTest.FindAllIncludingOpposites();
 
             Assert.NotNull(result);
             Assert.IsTrue(result.Count >= 1); // every table has example rows
@@ -119,10 +118,10 @@ namespace HelloCSharp.Database.Tests
             yield return new TestCaseData(new Relationship(4, RelationshipType.ParentOf, 4, "Silco", 2, "Powder"), RelationshipType.ChildOf);
         }
         
-        [Test, TestCaseSource("CreatePseudoSymmetricalRelationships")]
+        [Test, TestCaseSource(nameof(CreatePseudoSymmetricalRelationships))]
         public void FindByPersonIdFromPseudoSymmetricalRelationships(Relationship relationship, RelationshipType oppositeType)
         {
-            var result = _classUnderTest.FindByPersonId(relationship.FromId);
+            var result = ClassUnderTest.FindByPersonId(relationship.FromId);
 
             Assert.NotNull(result);
             Assert.IsTrue(result.Count >= 1);
@@ -134,10 +133,10 @@ namespace HelloCSharp.Database.Tests
             AssertAreEqual(relationship, found[0]);
         }
         
-        [Test, TestCaseSource("CreatePseudoSymmetricalRelationships")]
+        [Test, TestCaseSource(nameof(CreatePseudoSymmetricalRelationships))]
         public void FindByPersonIdToPseudoSymmetricalRelationships(Relationship relationship, RelationshipType oppositeType)
         {
-            var result = _classUnderTest.FindByPersonId(relationship.ToId);
+            var result = ClassUnderTest.FindByPersonId(relationship.ToId);
 
             Assert.NotNull(result);
             Assert.IsTrue(result.Count >= 1);
@@ -155,15 +154,15 @@ namespace HelloCSharp.Database.Tests
         }
 
         /**
-         * Some relationships are not symmentrical. If A is hates B,
+         * Some relationships are not symmetrical. If A is hates B,
          * then B does not have to hate A. These tests make sure of it.
          */
         
     
-        [Test, TestCaseSource("CreateNonSymmetricalRelationships")]
+        [Test, TestCaseSource(nameof(CreateNonSymmetricalRelationships))]
         public void FindAllIncludingOppositesNonSymmetricalRelationships(Relationship relationship)
         {
-            var result = _classUnderTest.FindAllIncludingOpposites();
+            var result = ClassUnderTest.FindAllIncludingOpposites();
 
             Assert.NotNull(result);
             Assert.IsTrue(result.Count >= 1); // every table has example rows
@@ -180,10 +179,10 @@ namespace HelloCSharp.Database.Tests
             yield return new TestCaseData(new Relationship(3, RelationshipType.Hates, 2, "Powder", 3, "Caitlyn"));
         }
         
-        [Test, TestCaseSource("CreateNonSymmetricalRelationships")]
+        [Test, TestCaseSource(nameof(CreateNonSymmetricalRelationships))]
         public void FindByPersonIdFromNonSymmetricalRelationships(Relationship relationship)
         {
-            var result = _classUnderTest.FindByPersonId(relationship.FromId);
+            var result = ClassUnderTest.FindByPersonId(relationship.FromId);
 
             Assert.NotNull(result);
             Assert.IsTrue(result.Count >= 1);
@@ -195,10 +194,10 @@ namespace HelloCSharp.Database.Tests
             AssertAreEqual(relationship, found[0]);
         }
         
-        [Test, TestCaseSource("CreateNonSymmetricalRelationships")]
+        [Test, TestCaseSource(nameof(CreateNonSymmetricalRelationships))]
         public void FindByPersonIdToNonSymmetricalRelationships(Relationship relationship)
         {
-            var result = _classUnderTest.FindByPersonId(relationship.ToId);
+            var result = ClassUnderTest.FindByPersonId(relationship.ToId);
 
             Assert.NotNull(result);
             Assert.IsTrue(result.Count >= 1);
@@ -214,10 +213,10 @@ namespace HelloCSharp.Database.Tests
          * Fetch relationships by type. #CreateAllRelationships() should have a relationship of each type
          */
         
-        [Test, TestCaseSource("CreateAllRelationships")]
+        [Test, TestCaseSource(nameof(CreateAllRelationships))]
         public void FindByType(Relationship relationship)
         {
-            var result = _classUnderTest.FindByType(relationship.Type);
+            var result = ClassUnderTest.FindByType(relationship.Type);
 
             Assert.NotNull(result);
             Assert.IsTrue(result.Count >= 1);

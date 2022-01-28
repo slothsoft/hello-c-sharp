@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using HelloCSharp.Models;
 
 namespace HelloCSharp.Database.Entities

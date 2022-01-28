@@ -5,14 +5,14 @@
     ViewBag.I18N_Examples = "Beispiele";
 }
 
-@if (@ViewBag.Id == null) {
+@if (ViewBag.Id == null) {
     <h2>Beziehungen</h2>
     <table>
         <tr>
             <th>@ViewBag.I18N_Name</th>
             <th>@ViewBag.I18N_Examples</th>
         </tr>
-        @foreach(var relationshipType in @RelationshipTypeMethods.Values()) {
+        @foreach(var relationshipType in RelationshipTypeMethods.Values()) {
             <tr>
                 <td><a href="/Home/RelationshipType/@relationshipType.ToString()">@relationshipType.DisplayName()</a></td>
                 <td>@Database.GetInstance().RelationshipRepository.FindByType(relationshipType).Count</td>
@@ -22,7 +22,7 @@
 }
 else
 {
-    var relationshipType = @RelationshipTypeMethods.ValueOf(@ViewBag.Id);
+    var relationshipType = RelationshipTypeMethods.ValueOf(ViewBag.Id);
     <h2>@RelationshipTypeMethods.DisplayName(relationshipType)</h2>
     <table>
         <tr>
@@ -33,7 +33,7 @@ else
             <th>@ViewBag.I18N_Examples</th>
             <td>
                 <ul class="simple-ul">
-                    @foreach (var relationship in @Database.GetInstance().RelationshipRepository.FindByType(relationshipType))
+                    @foreach (var relationship in Database.GetInstance().RelationshipRepository.FindByType(relationshipType))
                     {
                         <li><a href="/Home/Person/@relationship.FromId">@relationship.FromName</a>@RelationshipTypeMethods.Message(relationship.Type) <a href="/Home/Person/@relationship.ToId">@relationship.ToName</a></li>
                     }

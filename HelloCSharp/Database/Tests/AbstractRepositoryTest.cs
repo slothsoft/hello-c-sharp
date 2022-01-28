@@ -1,34 +1,33 @@
 using System;
-using System.Data.SQLite;
 using HelloCSharp.Models;
 using NUnit.Framework;
 
 namespace HelloCSharp.Database.Tests
 {
-    public abstract class AbstractRepositoryTest<R, T>
-        where R : IRepository<T>
-        where T : Identifiable
+    public abstract class AbstractRepositoryTest<TRepository, TIdentifiable>
+        where TRepository : IRepository<TIdentifiable>
+        where TIdentifiable : Identifiable
     {
 
         
         private Database _database;
-        protected R _classUnderTest;
+        protected TRepository ClassUnderTest;
         
         [SetUp]
         public void SetUp()
         {
-            this._database = new Database();
-            this._database.Database.EnsureCreated();
+            _database = new Database();
+            _database.Database.EnsureCreated();
                 
-            _classUnderTest = CreateRepository(_database);
+            ClassUnderTest = CreateRepository(_database);
         }
         
-        protected abstract R CreateRepository(Database database);
+        protected abstract TRepository CreateRepository(Database database);
         
         [TearDown]
         public void TearDown()
         {
-            this._database?.Close();
+            _database?.Close();
         }
 
         [Test]
@@ -36,23 +35,23 @@ namespace HelloCSharp.Database.Tests
         {
             var example = GetExampleObject();
             Assert.NotNull(example.Id, "ID of example object shouldn't be null!");
-            var result = _classUnderTest.GetById((int) example.Id);
+            var result = ClassUnderTest.GetById(example.Id);
 
             Assert.NotNull(result);
             Assert.AreEqual(example.Id, result.Id);
             AssertAreEqual(example, result);
         }
 
-        protected abstract T GetExampleObject();
+        protected abstract TIdentifiable GetExampleObject();
         
-        protected abstract void AssertAreEqual(T expected, T actual);
+        protected abstract void AssertAreEqual(TIdentifiable expected, TIdentifiable actual);
         
         [Test]
         public void GetByIdUnknown()
         {
             try
             {
-                _classUnderTest.GetById(-1);
+                ClassUnderTest.GetById(-1);
                 Assert.Fail("Needs more exceptions!");
             }
             catch (ArgumentException e)
@@ -66,7 +65,7 @@ namespace HelloCSharp.Database.Tests
         {
             var example = GetExampleObject();
             Assert.NotNull(example.Id, "ID of example object shouldn't be null!");
-            var result = _classUnderTest.FindById((int) example.Id);
+            var result = ClassUnderTest.FindById(example.Id);
 
             Assert.NotNull(result);
             Assert.AreEqual(example.Id, result.Id);
@@ -76,13 +75,13 @@ namespace HelloCSharp.Database.Tests
         [Test]
         public void FindByIdUnknown()
         {
-            Assert.Null(_classUnderTest.FindById(-1));
+            Assert.Null(ClassUnderTest.FindById(-1));
         }
 
         [Test]
         public void FindAll()
         {
-            var result = _classUnderTest.FindAll();
+            var result = ClassUnderTest.FindAll();
 
             Assert.NotNull(result);
             Assert.IsTrue(result.Count >= 1); // every table has example rows
@@ -97,7 +96,7 @@ namespace HelloCSharp.Database.Tests
         [Test]
         public void FindByFilterTrue()
         {
-            var result = _classUnderTest.FindByFilter(t => true);
+            var result = ClassUnderTest.FindByFilter(t => true);
 
             Assert.NotNull(result);
             Assert.IsTrue(result.Count >= 1); // every table has example rows
@@ -112,7 +111,7 @@ namespace HelloCSharp.Database.Tests
         [Test]
         public void FindByFilterFalse()
         {
-            var result = _classUnderTest.FindByFilter(t => false);
+            var result = ClassUnderTest.FindByFilter(t => false);
 
             Assert.NotNull(result);
             Assert.AreEqual(0, result.Count);
@@ -122,7 +121,7 @@ namespace HelloCSharp.Database.Tests
         public void FindByFilterById()
         {
             var example = GetExampleObject();
-            var result = _classUnderTest.FindByFilter(t => t.Id == example.Id);
+            var result = ClassUnderTest.FindByFilter(t => t.Id == example.Id);
 
             Assert.NotNull(result);
             Assert.AreEqual(1, result.Count);

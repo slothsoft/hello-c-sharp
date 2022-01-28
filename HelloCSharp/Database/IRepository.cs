@@ -11,8 +11,8 @@ namespace HelloCSharp.Database
         
         List<T> FindAll();
         
-        T GetById(Int32 id);
+        T GetById(int id);
 
-        T FindById(Int32 id);
+        T FindById(int id);
     }
 }

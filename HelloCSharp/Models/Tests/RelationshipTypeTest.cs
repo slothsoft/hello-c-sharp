@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 
@@ -8,7 +7,7 @@ namespace HelloCSharp.Models.Tests
     public class RelationshipTypeTest
     {
         
-        [Test, TestCaseSource("CreateEnumAndString")]
+        [Test, TestCaseSource(nameof(CreateEnumAndString))]
         public void ValueOf(RelationshipType type, string typeAsString)
         {
             Assert.AreEqual(type, RelationshipTypeMethods.ValueOf(typeAsString));
@@ -23,7 +22,7 @@ namespace HelloCSharp.Models.Tests
                 yield return new TestCaseData(RelationshipType.Hates, "Hates");
         }
 
-        [Test, TestCaseSource("CreateEnumAndString")]
+        [Test, TestCaseSource(nameof(CreateEnumAndString))]
         public void Stringify(RelationshipType type, string typeAsString)
         {
             Assert.AreEqual(typeAsString, type.ToString());
@@ -34,11 +33,11 @@ namespace HelloCSharp.Models.Tests
         {
             foreach (var relationshipType in RelationshipTypeMethods.Values())
             {
-                Assert.AreEqual(RelationshipTypeMethods.Opposite(relationshipType), ((RelationshipType)relationshipType).Opposite());
+                Assert.DoesNotThrow(() => relationshipType.Opposite());
             }
         }
         
-        [Test, TestCaseSource("CreateOpposites")]
+        [Test, TestCaseSource(nameof(CreateOpposites))]
         public void Opposite(RelationshipType relationshipType, RelationshipType? opposite)
         {
             Assert.AreEqual(opposite, relationshipType.Opposite());
