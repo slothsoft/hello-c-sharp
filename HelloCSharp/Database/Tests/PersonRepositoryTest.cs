@@ -1,4 +1,3 @@
-using System.Data.SQLite;
 using HelloCSharp.Models;
 using NUnit.Framework;
 
@@ -28,7 +27,7 @@ namespace HelloCSharp.Database.Tests
         public void FindByCityId()
         {
             var example = GetExampleObject();
-            var result = _classUnderTest.FindByCityId((int) example.City.Id);
+            var result = ClassUnderTest.FindByCityId(example.City.Id);
 
             Assert.NotNull(result);
             Assert.IsTrue(result.Count >= 1); // has at least the example object
@@ -42,7 +41,7 @@ namespace HelloCSharp.Database.Tests
         [Test]
         public void FindByCityIdUnknown()
         {
-            var result = _classUnderTest.FindByCityId(-1);
+            var result = ClassUnderTest.FindByCityId(-1);
 
             Assert.NotNull(result);
             Assert.AreEqual(0, result.Count);

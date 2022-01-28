@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using HelloCSharp.Database.Entities;
 using HelloCSharp.Models;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +19,7 @@ namespace HelloCSharp.Database
         
         protected override IEnumerable<PersonEntity> FindAllEntities()
         {
-            return this.db.Include(p => p.City);
+            return Db.Include(p => p.City);
         }
        
         public List<Person> FindByCityId(int cityId)

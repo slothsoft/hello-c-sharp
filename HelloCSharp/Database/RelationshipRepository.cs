@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
 using HelloCSharp.Database.Entities;
 using HelloCSharp.Models;
 using Microsoft.EntityFrameworkCore;
@@ -20,12 +18,12 @@ namespace HelloCSharp.Database
         
         protected override IEnumerable<RelationshipEntity> FindAllEntities()
         {
-            return this.db.Include(p => p.From).Include(p => p.To);
+            return Db.Include(p => p.From).Include(p => p.To);
         }
 
         internal List<Relationship> FindAllIncludingOpposites()
         {
-            var baseResult= base.FindAll();
+            var baseResult= FindAll();
             var result = new List<Relationship>(baseResult);
             foreach (var relationship in baseResult)
             {

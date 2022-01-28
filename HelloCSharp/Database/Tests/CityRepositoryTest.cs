@@ -1,4 +1,3 @@
-using System.Data.SQLite;
 using HelloCSharp.Models;
 using NUnit.Framework;
 

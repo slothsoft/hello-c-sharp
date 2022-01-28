@@ -1,6 +1,3 @@
-using System.Data.SQLite;
-using System.IO;
-using System.Reflection;
 using HelloCSharp.Database.Entities;
 using HelloCSharp.Models;
 using Microsoft.EntityFrameworkCore;
@@ -21,9 +18,9 @@ namespace HelloCSharp.Database
             return _instance;
         }
 
-        public DbSet<RelationshipEntity> Relationship { get; set; }
-        public DbSet<CityEntity> Cities { get; set; }
-        public DbSet<PersonEntity> Persons { get; set; }
+        internal DbSet<RelationshipEntity> Relationship { get; private set; }
+        internal DbSet<CityEntity> Cities { get; private set; }
+        internal DbSet<PersonEntity> Persons { get; private set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -89,16 +86,16 @@ namespace HelloCSharp.Database
 
             base.OnModelCreating(modelBuilder);
 
-            this.CityRepository = new CityRepository(Cities);
-            this.PersonRepository = new PersonRepository(Persons);
-            this.RelationshipRepository = new RelationshipRepository(Relationship);
+            CityRepository = new CityRepository(Cities);
+            PersonRepository = new PersonRepository(Persons);
+            RelationshipRepository = new RelationshipRepository(Relationship);
         }
         
-        public CityRepository CityRepository { get; set; }
+        public CityRepository CityRepository { get; private set; }
         
-        public PersonRepository PersonRepository { get; set; }
+        public PersonRepository PersonRepository { get; private set; }
         
-        public RelationshipRepository RelationshipRepository { get; set; }
+        public RelationshipRepository RelationshipRepository { get; private set; }
 
         public void Close()
         {

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
-using HelloCSharp.Models;
+﻿using System.Web.Mvc;
 
 namespace HelloCSharp.Controllers
 {

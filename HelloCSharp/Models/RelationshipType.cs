@@ -10,7 +10,7 @@ namespace HelloCSharp.Models
         
         ChildOf,
         
-        Hates,
+        Hates
         
     }
 }

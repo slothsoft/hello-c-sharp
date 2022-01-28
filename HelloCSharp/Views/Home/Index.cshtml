@@ -8,7 +8,7 @@
 <h2><a href="/Home/Person">Personen</a></h2>
 
 <ul>
-    @foreach(var person in @ViewBag.Persons) {
+    @foreach(var person in ViewBag.Persons) {
         <li><a href="/Home/Person/@person.Id">@person.Name</a></li>
     }
 </ul>
@@ -16,7 +16,7 @@
 <h2><a href="/Home/City">St&auml;dte</a></h2>
 
 <ul>
-    @foreach(var city in @ViewBag.Cities) {
+    @foreach(var city in ViewBag.Cities) {
         <li><a href="/Home/City/@city.Id">@city.Name</a></li>
     }
 </ul>
@@ -24,7 +24,7 @@
 <h2><a href="/Home/RelationshipType">Beziehungen</a></h2>
 
 <ul>
-    @foreach(var relationshipType in @RelationshipTypeMethods.Values()) {
+    @foreach(var relationshipType in RelationshipTypeMethods.Values()) {
         <li><a href="/Home/RelationshipType/@relationshipType.ToString()">@relationshipType.DisplayName()</a></li>
     }
 </ul>

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
 using System.Linq;
 using HelloCSharp.Database.Entities;
 using HelloCSharp.Models;
@@ -12,11 +11,11 @@ namespace HelloCSharp.Database
         where TEntity : IdentifiableEntity
         where TValue : Identifiable
     {
-        internal DbSet<TEntity> db;
+        internal readonly DbSet<TEntity> Db;
 
-        public AbstractRepository(DbSet<TEntity> db)
+        protected AbstractRepository(DbSet<TEntity> db)
         {
-            this.db = db;
+            Db = db;
         }
 
         protected abstract TValue ConvertToT(TEntity entity);
@@ -33,7 +32,7 @@ namespace HelloCSharp.Database
 
         protected virtual IEnumerable<TEntity> FindAllEntities()
         {
-            return this.db;
+            return Db;
         }
 
         public TValue GetById(int id)
@@ -42,10 +41,10 @@ namespace HelloCSharp.Database
             {
                 return ConvertToT(FindAllEntities().Single(c => c.Id.Equals(id)));
             }
-            catch (System.InvalidOperationException e)
+            catch (InvalidOperationException e)
             {
                 // Sequence contains no elements
-                throw new ArgumentException("Could not find entity with ID " + id);
+                throw new ArgumentException("Could not find entity with ID " + id, e);
             }
         }
 
@@ -55,7 +54,7 @@ namespace HelloCSharp.Database
             {
                 return GetById(id);
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
                 return null;
             }

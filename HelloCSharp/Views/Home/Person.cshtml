@@ -6,7 +6,7 @@
     ViewBag.I18N_City = "Wohnort";
     ViewBag.I18N_Relationships = "Beziehungen";
 }
-@if (@ViewBag.Id == null) {
+@if (ViewBag.Id == null) {
     <h2>Personen</h2>
     <table>
         <tr>
@@ -46,7 +46,7 @@ else
             <th>@ViewBag.I18N_Relationships</th>
             <td>
                 <ul class="simple-ul">
-                    @foreach (var relationship in @Database.GetInstance().RelationshipRepository.FindByPersonId(person.Id))
+                    @foreach (var relationship in Database.GetInstance().RelationshipRepository.FindByPersonId(person.Id))
                     {
                         <li><a href="/Home/Person/@relationship.FromId">@relationship.FromName</a> @RelationshipTypeMethods.Message(relationship.Type) <a href="/Home/Person/@relationship.ToId">@relationship.ToName</a></li>
                     }

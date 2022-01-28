@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace HelloCSharp.Models
 {
@@ -10,7 +11,7 @@ namespace HelloCSharp.Models
             return (RelationshipType) Enum.Parse(typeof(RelationshipType), Convert.ToString(value));
         }
 
-        public static RelationshipType[] Values()
+        public static IEnumerable<RelationshipType> Values()
         {
             return (RelationshipType[]) Enum.GetValues(typeof(RelationshipType));
         }
