@@ -3,7 +3,7 @@ namespace HelloCSharp.Models
     public class Identifiable
     {
         
-        protected Identifiable(int id)
+        public Identifiable(int id)
         {
             Id = id;
         }

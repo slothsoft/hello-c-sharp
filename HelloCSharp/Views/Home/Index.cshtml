@@ -5,26 +5,26 @@
     ViewBag.Cities = Database.GetInstance().CityRepository.FindAll();
 }
 
-<h2><a href="/Home/Person">Personen</a></h2>
+<h2>@Html.ActionLink("Personen", "Person", "Home")</h2>
 
 <ul>
     @foreach(var person in ViewBag.Persons) {
-        <li><a href="/Home/Person/@person.Id">@person.Name</a></li>
+        <li>@Html.ActionLink((string) person.Name, "Person", "Home", new Identifiable(person.Id), null)</li>
     }
 </ul>
 
-<h2><a href="/Home/City">St&auml;dte</a></h2>
+<h2>@Html.ActionLink("Städte", "City", "Home")</h2>
 
 <ul>
     @foreach(var city in ViewBag.Cities) {
-        <li><a href="/Home/City/@city.Id">@city.Name</a></li>
+        <li>@Html.ActionLink((string) city.Name, "City", "Home", new Identifiable(city.Id), null)</li>
     }
 </ul>
 
-<h2><a href="/Home/RelationshipType">Beziehungen</a></h2>
+<h2>@Html.ActionLink("Beziehungen", "RelationshipType", "Home")</h2>
 
 <ul>
     @foreach(var relationshipType in RelationshipTypeMethods.Values()) {
-        <li><a href="/Home/RelationshipType/@relationshipType.ToString()">@relationshipType.DisplayName()</a></li>
+        <li>@Html.ActionLink(relationshipType.DisplayName(), "RelationshipType", "Home", new { id = relationshipType.ToString() }, null)</li>
     }
 </ul>

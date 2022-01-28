@@ -17,9 +17,9 @@
         </tr>
         @foreach(var person in Database.GetInstance().PersonRepository.FindAll()) {
             <tr>
-                <td><a href="/Home/Person/@person.Id">@person.Name</a></td>
+                <td>@Html.ActionLink(person.Name, "Person", "Home", new Identifiable(person.Id), null)</td>
                 <td>@person.Age</td>
-                <td><a href="/Home/City/@person.City.Id">@person.City.Name</a></td>
+                <td>@Html.ActionLink(person.City.Name, "City", "Home", new Identifiable(person.City.Id), null)</td>
                 <td>@Database.GetInstance().RelationshipRepository.FindByPersonId(person.Id).Count</td>
             </tr>
         }
@@ -40,7 +40,7 @@ else
         </tr>
         <tr>
             <th>@ViewBag.I18N_City</th>
-            <td><a href="/Home/City/@person.City.Id">@person.City.Name</a></td>
+            <td>@Html.ActionLink((string) person.City.Name, "City", "Home", new Identifiable(person.City.Id), null)</td>
         </tr>
         <tr>
             <th>@ViewBag.I18N_Relationships</th>
@@ -48,12 +48,12 @@ else
                 <ul class="simple-ul">
                     @foreach (var relationship in Database.GetInstance().RelationshipRepository.FindByPersonId(person.Id))
                     {
-                        <li><a href="/Home/Person/@relationship.FromId">@relationship.FromName</a> @RelationshipTypeMethods.Message(relationship.Type) <a href="/Home/Person/@relationship.ToId">@relationship.ToName</a></li>
+                        <li>@Html.ActionLink((string) relationship.FromName, "Person", "Home", new Identifiable(relationship.FromId), null) @Html.ActionLink((string) RelationshipTypeMethods.Message(relationship.Type), "RelationshipType", "Home", new { id = relationship.Type.ToString() }, null) @Html.ActionLink((string) relationship.ToName, "Person", "Home", new Identifiable(relationship.ToId), null)</li>
                     }
                 </ul>
             </td>
         </tr>
     </table>
     
-    <a href="/Home/Person/">Zu&uuml;ck</a>
+    @Html.ActionLink("Zu&uuml;ck", "Person", "Home", new { id = "" }, null)
 }
