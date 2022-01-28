@@ -14,7 +14,7 @@
         </tr>
         @foreach(var relationshipType in RelationshipTypeMethods.Values()) {
             <tr>
-                <td><a href="/Home/RelationshipType/@relationshipType.ToString()">@relationshipType.DisplayName()</a></td>
+                <td>@Html.ActionLink(relationshipType.DisplayName(), "RelationshipType", "Home", new { id = relationshipType.ToString() }, null)</td>
                 <td>@Database.GetInstance().RelationshipRepository.FindByType(relationshipType).Count</td>
             </tr>
         }
@@ -35,12 +35,12 @@ else
                 <ul class="simple-ul">
                     @foreach (var relationship in Database.GetInstance().RelationshipRepository.FindByType(relationshipType))
                     {
-                        <li><a href="/Home/Person/@relationship.FromId">@relationship.FromName</a>@RelationshipTypeMethods.Message(relationship.Type) <a href="/Home/Person/@relationship.ToId">@relationship.ToName</a></li>
+                        <li>@Html.ActionLink((string) relationship.FromName, "Person", "Home", new Identifiable(relationship.FromId), null) @RelationshipTypeMethods.Message(relationship.Type) @Html.ActionLink((string) relationship.ToName, "Person", "Home", new Identifiable(relationship.ToId), null)</li>
                     }
                 </ul>
             </td>
         </tr>
     </table>
     
-    <a href="/Home/RelationshipType/">Zu&uuml;ck</a>
+    @Html.ActionLink("Zu&uuml;ck", "RelationshipType", "Home", new { id = "" }, null)
 }
