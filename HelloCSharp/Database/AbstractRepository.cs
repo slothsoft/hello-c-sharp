@@ -5,59 +5,58 @@ using HelloCSharp.Database.Entities;
 using HelloCSharp.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace HelloCSharp.Database
+namespace HelloCSharp.Database;
+
+public abstract class AbstractRepository<TEntity, TValue>  : IRepository<TValue>
+    where TEntity : IdentifiableEntity
+    where TValue : Identifiable
 {
-    public abstract class AbstractRepository<TEntity, TValue>  : IRepository<TValue>
-        where TEntity : IdentifiableEntity
-        where TValue : Identifiable
+    internal readonly DbSet<TEntity> Db;
+
+    protected AbstractRepository(DbSet<TEntity> db)
     {
-        internal readonly DbSet<TEntity> Db;
+        Db = db;
+    }
 
-        protected AbstractRepository(DbSet<TEntity> db)
+    protected abstract TValue ConvertToT(TEntity entity);
+
+    public List<TValue> FindByFilter(Predicate<TValue> filter)
+    {
+        return FindAll().FindAll(filter);
+    }
+
+    public List<TValue> FindAll()
+    {
+        return FindAllEntities().Select(ConvertToT).ToList();
+    }
+
+    protected virtual IEnumerable<TEntity> FindAllEntities()
+    {
+        return Db;
+    }
+
+    public TValue GetById(int id)
+    {
+        try
         {
-            Db = db;
+            return ConvertToT(FindAllEntities().Single(c => c.Id.Equals(id)));
         }
-
-        protected abstract TValue ConvertToT(TEntity entity);
-
-        public List<TValue> FindByFilter(Predicate<TValue> filter)
+        catch (InvalidOperationException e)
         {
-            return FindAll().FindAll(filter);
+            // Sequence contains no elements
+            throw new ArgumentException("Could not find entity with ID " + id, e);
         }
+    }
 
-        public List<TValue> FindAll()
+    public TValue? FindById(int id)
+    {
+        try
         {
-            return FindAllEntities().Select(ConvertToT).ToList();
+            return GetById(id);
         }
-
-        protected virtual IEnumerable<TEntity> FindAllEntities()
+        catch (ArgumentException)
         {
-            return Db;
-        }
-
-        public TValue GetById(int id)
-        {
-            try
-            {
-                return ConvertToT(FindAllEntities().Single(c => c.Id.Equals(id)));
-            }
-            catch (InvalidOperationException e)
-            {
-                // Sequence contains no elements
-                throw new ArgumentException("Could not find entity with ID " + id, e);
-            }
-        }
-
-        public TValue FindById(int id)
-        {
-            try
-            {
-                return GetById(id);
-            }
-            catch (ArgumentException)
-            {
-                return null;
-            }
+            return null;
         }
     }
 }

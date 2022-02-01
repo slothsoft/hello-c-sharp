@@ -2,17 +2,16 @@ using System;
 using System.Collections.Generic;
 using HelloCSharp.Models;
 
-namespace HelloCSharp.Database
-{
-    public interface IRepository<T>
-        where T : Identifiable
-    {
-        List<T> FindByFilter(Predicate<T> filter);
-        
-        List<T> FindAll();
-        
-        T GetById(int id);
+namespace HelloCSharp.Database;
 
-        T FindById(int id);
-    }
+public interface IRepository<TValue>
+    where TValue : Identifiable
+{
+    List<TValue> FindByFilter(Predicate<TValue> filter);
+        
+    List<TValue> FindAll();
+        
+    TValue GetById(int id);
+
+    TValue? FindById(int id);
 }

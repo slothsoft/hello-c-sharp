@@ -1,13 +1,12 @@
-namespace HelloCSharp.Models
-{
-    public class Identifiable
-    {
-        
-        public Identifiable(int id)
-        {
-            Id = id;
-        }
+namespace HelloCSharp.Models;
 
-        public int Id { get; }
+public class Identifiable
+{
+        
+    public Identifiable(int id)
+    {
+        Id = id;
     }
+
+    public int Id { get; }
 }

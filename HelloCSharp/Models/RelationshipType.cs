@@ -1,16 +1,15 @@
-namespace HelloCSharp.Models
+namespace HelloCSharp.Models;
+
+public enum RelationshipType
 {
-    public enum RelationshipType
-    {
-        Partners,
+    Partners,
         
-        Siblings,
+    Siblings,
         
-        ParentOf,
+    ParentOf,
         
-        ChildOf,
+    ChildOf,
         
-        Hates
+    Hates
         
-    }
 }

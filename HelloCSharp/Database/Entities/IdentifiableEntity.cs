@@ -1,7 +1,6 @@
-namespace HelloCSharp.Database.Entities
+namespace HelloCSharp.Database.Entities;
+
+public class IdentifiableEntity
 {
-    public class IdentifiableEntity
-    {
-        public int Id { get; set; }
-    }
+    public int Id { get; set; }
 }
