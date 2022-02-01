@@ -1,30 +1,36 @@
-﻿using System.Web.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
-namespace HelloCSharp.Controllers
+namespace HelloCSharp.Controllers;
+public class HomeController : Controller
 {
-    public class HomeController : Controller
-    {
-        public ActionResult Index()
-        {
-            return View();
-        }
+    private readonly ILogger<HomeController> _logger;
 
-        public ActionResult Person(int? id)
-        {
-            ViewBag.Id = id;
-            return View();
-        }
+    public HomeController(ILogger<HomeController> logger)
+    {
+        _logger = logger;
+    }
+
+    public IActionResult Index()
+    {
+        return View();
+    }
+
+    public IActionResult Person(int? id)
+    {
+        ViewBag.Id = id;
+        return View();
+    }
         
-        public ActionResult City(int? id)
-        {
-            ViewBag.Id = id;
-            return View();
-        }
+    public IActionResult City(int? id)
+    {
+        ViewBag.Id = id;
+        return View();
+    }
         
-        public ActionResult RelationshipType(string id)
-        {
-            ViewBag.Id = id;
-            return View();
-        }
+    public IActionResult RelationshipType(string id)
+    {
+        ViewBag.Id = id;
+        return View();
     }
 }
