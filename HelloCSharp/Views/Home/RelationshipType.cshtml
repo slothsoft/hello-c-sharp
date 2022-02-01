@@ -1,5 +1,3 @@
-@using HelloCSharp.Database
-@using HelloCSharp.Models
 @{
     ViewBag.I18N_Name = "Name";
     ViewBag.I18N_Examples = "Beispiele";
@@ -14,7 +12,7 @@
         </tr>
         @foreach(var relationshipType in RelationshipTypeMethods.Values()) {
             <tr>
-                <td>@Html.ActionLink(relationshipType.DisplayName(), "RelationshipType", "Home", new { id = relationshipType.ToString() }, null)</td>
+                <td><a href="@Url.Action("RelationshipType", "Home", new { id = relationshipType.ToString() })">@relationshipType.DisplayName()</a></td>
                 <td>@Database.GetInstance().RelationshipRepository.FindByType(relationshipType).Count</td>
             </tr>
         }
@@ -35,12 +33,16 @@ else
                 <ul class="simple-ul">
                     @foreach (var relationship in Database.GetInstance().RelationshipRepository.FindByType(relationshipType))
                     {
-                        <li>@Html.ActionLink((string) relationship.FromName, "Person", "Home", new Identifiable(relationship.FromId), null) @RelationshipTypeMethods.Message(relationship.Type) @Html.ActionLink((string) relationship.ToName, "Person", "Home", new Identifiable(relationship.ToId), null)</li>
+                        <li>
+                            <a href="@Url.Action("Person", "Home", new Identifiable(relationship.FromId))">@relationship.FromName</a>
+                            @RelationshipTypeMethods.Message(relationship.Type)
+                            <a href="@Url.Action("Person", "Home", new Identifiable(relationship.ToId))">@relationship.ToName</a>
+                        </li>
                     }
                 </ul>
             </td>
         </tr>
     </table>
     
-    @Html.ActionLink("Zu&uuml;ck", "RelationshipType", "Home", new { id = "" }, null)
+    <a href="@Url.Action("RelationshipType", "Home", new { id = "" })">Zur&uuml;ck</a>
 }

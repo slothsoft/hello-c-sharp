@@ -1,5 +1,3 @@
-@using HelloCSharp.Database
-@using HelloCSharp.Models
 @{
     ViewBag.I18N_Name = "Name";
     ViewBag.I18N_Age = "Alter";
@@ -17,9 +15,9 @@
         </tr>
         @foreach(var person in Database.GetInstance().PersonRepository.FindAll()) {
             <tr>
-                <td>@Html.ActionLink(person.Name, "Person", "Home", new Identifiable(person.Id), null)</td>
+                <td><a href="@Url.Action("Person", "Home", new Identifiable(person.Id))">@person.Name</a></td>
                 <td>@person.Age</td>
-                <td>@Html.ActionLink(person.City.Name, "City", "Home", new Identifiable(person.City.Id), null)</td>
+                <td><a href="@Url.Action("City", "Home", new Identifiable(person.City.Id))">@person.City.Name</a></td>
                 <td>@Database.GetInstance().RelationshipRepository.FindByPersonId(person.Id).Count</td>
             </tr>
         }
@@ -48,12 +46,27 @@ else
                 <ul class="simple-ul">
                     @foreach (var relationship in Database.GetInstance().RelationshipRepository.FindByPersonId(person.Id))
                     {
-                        <li>@Html.ActionLink((string) relationship.FromName, "Person", "Home", new Identifiable(relationship.FromId), null) @Html.ActionLink((string) RelationshipTypeMethods.Message(relationship.Type), "RelationshipType", "Home", new { id = relationship.Type.ToString() }, null) @Html.ActionLink((string) relationship.ToName, "Person", "Home", new Identifiable(relationship.ToId), null)</li>
+                        <li>
+                            @if (@relationship.FromName.Equals(@person.Name))
+                            {
+                                @relationship.FromName
+                            } else {
+                                <a href="@Url.Action("Person", "Home", new Identifiable(relationship.FromId))">@relationship.FromName</a>
+                            }
+                            <a href="@Url.Action("RelationshipType", "Home", new {id = relationship.Type.ToString()})">@RelationshipTypeMethods.Message(relationship.Type)</a>
+                            
+                            @if (@relationship.ToName.Equals(@person.Name))
+                            {
+                                @relationship.ToName
+                            } else {
+                                <a href="@Url.Action("Person", "Home", new Identifiable(relationship.ToId))">@relationship.ToName</a>
+                            }
+                        </li>
                     }
                 </ul>
             </td>
         </tr>
     </table>
     
-    @Html.ActionLink("Zu&uuml;ck", "Person", "Home", new { id = "" }, null)
+    <a href="@Url.Action("Person", "Home", new { id = "" })">Zur&uuml;ck</a>
 }

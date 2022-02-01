@@ -1,8 +1,6 @@
-@using HelloCSharp.Database
-@using HelloCSharp.Models
 @{
     ViewBag.I18N_Name = "Name";
-    ViewBag.I18N_Population = "Bevolkerung";
+    ViewBag.I18N_Population = "Bevölkerung";
 }
 
 
@@ -15,7 +13,7 @@
         </tr>
         @foreach(var city in Database.GetInstance().CityRepository.FindAll()) {
             <tr>
-                <td>@Html.ActionLink(city.Name, "City", "Home", new Identifiable(city.Id), null)</td>
+                <td><a href="@Url.Action("City", "Home", new Identifiable(city.Id))">@city.Name</a></td>
                 <td>@Database.GetInstance().PersonRepository.FindByCityId(city.Id).Count</td>
             </tr>
         }
@@ -33,14 +31,14 @@ else
         </tr>
         <tr>
             <th>@ViewBag.I18N_Population</th>
-        <td><ul class="simple-ul">
+            <td><ul class="simple-ul">
                 @foreach (var person in Database.GetInstance().PersonRepository.FindByCityId(city.Id))
                 {
-                    <li>@Html.ActionLink((string) person.Name, "Person", "Home", new Identifiable(person.Id), null)</li>
+                    <li><a href="@Url.Action("Person", "Home", new Identifiable(person.Id))">@person.Name</a></li>
                 }
-        </ul></td>
+            </ul></td>
         </tr>
     </table>
     
-    @Html.ActionLink("Zu&uuml;ck", "City", "Home", new { id = "" }, null)
+    <a href="@Url.Action("City", "Home", new { id = "" })">Zur&uuml;ck</a>
 }

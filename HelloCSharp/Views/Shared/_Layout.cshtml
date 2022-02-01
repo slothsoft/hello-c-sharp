@@ -18,13 +18,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            @Html.ActionLink("Piltover's Finest", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
+            @{
+                var noId = new { id = "" };
+            }
+            <a class = "navbar-brand" href="@Url.Action("Index", "Home", noId)">Piltover's Finest</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Personen", "Person", "Home", new { id = "" }, null)</li>
-                <li>@Html.ActionLink("Städte", "City", "Home", new { id = "" }, null)</li>
-                <li>@Html.ActionLink("Beziehungen", "RelationshipType", "Home", new { id = "" }, null)</li>
+                <li><a href="@Url.Action("Person", "Home", noId)">Personen</a></li>
+                <li><a href="@Url.Action("City", "Home", noId)">St&auml;dte</a></li>
+                <li><a href="@Url.Action("RelationshipType", "Home", noId)">Beziehungen</a></li>
             </ul>
         </div>
     </div>
@@ -37,8 +40,8 @@
     </footer>
 </div>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", false)
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", false)
 </body>
 </html>

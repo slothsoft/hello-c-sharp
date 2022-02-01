@@ -1,30 +1,24 @@
-@using HelloCSharp.Database
-@using HelloCSharp.Models
-@{
-    ViewBag.Persons = Database.GetInstance().PersonRepository.FindAll();
-    ViewBag.Cities = Database.GetInstance().CityRepository.FindAll();
-}
 
-<h2>@Html.ActionLink("Personen", "Person", "Home")</h2>
+<h2><a href="@Url.Action("Person", "Home")">Personen</a></h2>
 
 <ul>
-    @foreach(var person in ViewBag.Persons) {
-        <li>@Html.ActionLink((string) person.Name, "Person", "Home", new Identifiable(person.Id), null)</li>
+    @foreach(var person in Database.GetInstance().PersonRepository.FindAll()) {
+        <li><a href="@Url.Action("Person", "Home", new Identifiable(person.Id))">@person.Name</a></li>
     }
 </ul>
 
-<h2>@Html.ActionLink("Städte", "City", "Home")</h2>
+<h2><a href="@Url.Action("City", "Home")">St&auml;dte</a></h2>
 
 <ul>
-    @foreach(var city in ViewBag.Cities) {
-        <li>@Html.ActionLink((string) city.Name, "City", "Home", new Identifiable(city.Id), null)</li>
+    @foreach(var city in Database.GetInstance().CityRepository.FindAll()) {
+        <li><a href="@Url.Action("City", "Home", new Identifiable(city.Id))">@city.Name</a></li>
     }
 </ul>
 
-<h2>@Html.ActionLink("Beziehungen", "RelationshipType", "Home")</h2>
+<h2><a href="@Url.Action("RelationshipType", "Home")">Beziehungen</a></h2>
 
 <ul>
     @foreach(var relationshipType in RelationshipTypeMethods.Values()) {
-        <li>@Html.ActionLink(relationshipType.DisplayName(), "RelationshipType", "Home", new { id = relationshipType.ToString() }, null)</li>
+        <li><a href="@Url.Action("RelationshipType", "Home", new { id = relationshipType.ToString() })">@relationshipType.DisplayName()</a></li>
     }
 </ul>
