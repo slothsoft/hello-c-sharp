@@ -1,8 +1,9 @@
+@inject IDatabase _database
+
 @{
     ViewBag.I18N_Name = "Name";
     ViewBag.I18N_Population = "Bevölkerung";
 }
-
 
 @if (ViewBag.Id == null) {
     <h2>St&auml;dte</h2>
@@ -11,17 +12,17 @@
             <th>@ViewBag.I18N_Name</th>
             <th>@ViewBag.I18N_Population</th>
         </tr>
-        @foreach(var city in Database.GetInstance().CityRepository.FindAll()) {
+        @foreach(var city in _database.CityRepository.FindAll()) {
             <tr>
                 <td><a href="@Url.Action("City", "Home", new Identifiable(city.Id))">@city.Name</a></td>
-                <td>@Database.GetInstance().PersonRepository.FindByCityId(city.Id).Count</td>
+                <td>@_database.PersonRepository.FindByCityId(city.Id).Count</td>
             </tr>
         }
     </table>
 }
 else
 {
-    var city = Database.GetInstance().CityRepository.GetById(ViewBag.Id);
+    var city = _database.CityRepository.GetById(ViewBag.Id);
     <h2>@city.Name</h2>
 
     <table>
@@ -32,7 +33,7 @@ else
         <tr>
             <th>@ViewBag.I18N_Population</th>
             <td><ul class="simple-ul">
-                @foreach (var person in Database.GetInstance().PersonRepository.FindByCityId(city.Id))
+                @foreach (var person in _database.PersonRepository.FindByCityId(city.Id))
                 {
                     <li><a href="@Url.Action("Person", "Home", new Identifiable(person.Id))">@person.Name</a></li>
                 }

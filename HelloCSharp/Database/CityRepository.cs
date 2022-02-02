@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HelloCSharp.Database;
 
-public class CityRepository : AbstractRepository<CityEntity, City>
+public class CityRepository : AbstractRepository<CityEntity, City>, ICityRepository
 {
 
     public CityRepository(DbSet<CityEntity> db) : base(db)

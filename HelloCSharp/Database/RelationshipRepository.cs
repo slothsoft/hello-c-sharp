@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HelloCSharp.Database;
 
-public class RelationshipRepository : AbstractRepository<RelationshipEntity, Relationship>
+public class RelationshipRepository : AbstractRepository<RelationshipEntity, Relationship>, IRelationshipRepository
 {
     public RelationshipRepository(DbSet<RelationshipEntity> db) : base(db)
     {

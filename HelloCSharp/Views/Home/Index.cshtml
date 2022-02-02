@@ -1,8 +1,10 @@
 
+@inject IDatabase _database
+
 <h2><a href="@Url.Action("Person", "Home")">Personen</a></h2>
 
 <ul>
-    @foreach(var person in Database.GetInstance().PersonRepository.FindAll()) {
+    @foreach(var person in _database.PersonRepository.FindAll()) {
         <li><a href="@Url.Action("Person", "Home", new Identifiable(person.Id))">@person.Name</a></li>
     }
 </ul>
@@ -10,7 +12,7 @@
 <h2><a href="@Url.Action("City", "Home")">St&auml;dte</a></h2>
 
 <ul>
-    @foreach(var city in Database.GetInstance().CityRepository.FindAll()) {
+    @foreach(var city in _database.CityRepository.FindAll()) {
         <li><a href="@Url.Action("City", "Home", new Identifiable(city.Id))">@city.Name</a></li>
     }
 </ul>

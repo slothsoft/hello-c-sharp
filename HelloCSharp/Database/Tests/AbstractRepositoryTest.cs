@@ -1,5 +1,6 @@
 using System;
 using HelloCSharp.Models;
+using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 
 namespace HelloCSharp.Database.Tests;
@@ -16,7 +17,7 @@ public abstract class AbstractRepositoryTest<TRepository, TIdentifiable>
     [SetUp]
     public void SetUp()
     {
-        _database = new Database();
+        _database = new Database(new DbContextOptionsBuilder().UseInMemoryDatabase("Filename=TestDatabase.db").Options);
         _database.Database.EnsureCreated();
                 
         ClassUnderTest = CreateRepository(_database);
