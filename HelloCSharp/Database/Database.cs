@@ -72,45 +72,21 @@ public class Database : DbContext, IDatabase
 
     public ICityRepository CityRepository
     {
-        get
-        {
-            if (_cityRepository == null)
-            {
-                _cityRepository = new CityRepository(Cities);
-            }
-
-            return _cityRepository;
-        }
+        get { return _cityRepository ??= new CityRepository(Cities); }
     }
 
     private PersonRepository? _personRepository;
 
     public IPersonRepository PersonRepository
     {
-        get
-        {
-            if (_personRepository == null)
-            {
-                _personRepository = new PersonRepository(Persons);
-            }
-
-            return _personRepository;
-        }
+        get { return _personRepository ??= new PersonRepository(Persons); }
     }
 
     private RelationshipRepository? _relationshipRepository;
 
     public IRelationshipRepository RelationshipRepository
     {
-        get
-        {
-            if (_relationshipRepository == null)
-            {
-                _relationshipRepository = new RelationshipRepository(Relationship);
-            }
-
-            return _relationshipRepository;
-        }
+        get { return _relationshipRepository ??= new RelationshipRepository(Relationship); }
     }
 
     public void Close()

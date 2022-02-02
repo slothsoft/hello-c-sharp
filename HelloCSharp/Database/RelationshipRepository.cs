@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using HelloCSharp.Database.Entities;
 using HelloCSharp.Models;
 using Microsoft.EntityFrameworkCore;
@@ -25,14 +26,7 @@ public class RelationshipRepository : AbstractRepository<RelationshipEntity, Rel
     {
         var baseResult= FindAll();
         var result = new List<Relationship>(baseResult);
-        foreach (var relationship in baseResult)
-        {
-            var opposite = relationship.Type.Opposite();
-            if (opposite != null)
-            {
-                result.Add(new Relationship(relationship.Id,(RelationshipType) opposite, relationship.ToId, relationship.ToName, relationship.FromId, relationship.FromName));
-            }
-        }
+        result.AddRange(from relationship in baseResult let opposite = relationship.Type.Opposite() where opposite != null select new Relationship(relationship.Id, (RelationshipType) opposite, relationship.ToId, relationship.ToName, relationship.FromId, relationship.FromName));
         return result;
     }
 
