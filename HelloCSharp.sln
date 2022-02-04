@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloCSharp.Rest", "HelloCS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HellCSharp.Persistence", "HellCSharp.Persistence\HellCSharp.Persistence.csproj", "{FE7EAF45-D6B5-48DA-9695-DE97B0F7FCCB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloCSharpRest.Tests", "HelloCSharpRest.Tests\HelloCSharpRest.Tests.csproj", "{ABC88CB8-B8DD-492E-AA98-C9E20F6BFD9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{FE7EAF45-D6B5-48DA-9695-DE97B0F7FCCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE7EAF45-D6B5-48DA-9695-DE97B0F7FCCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE7EAF45-D6B5-48DA-9695-DE97B0F7FCCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABC88CB8-B8DD-492E-AA98-C9E20F6BFD9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABC88CB8-B8DD-492E-AA98-C9E20F6BFD9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABC88CB8-B8DD-492E-AA98-C9E20F6BFD9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABC88CB8-B8DD-492E-AA98-C9E20F6BFD9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

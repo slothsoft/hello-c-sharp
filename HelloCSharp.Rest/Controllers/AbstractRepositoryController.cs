@@ -17,7 +17,7 @@ namespace HelloCSharp.Rest.Controllers
         protected delegate IRepository<TValue> Repository();
         
         [HttpGet]
-        public IEnumerable<TValue> GetList()
+        public List<TValue> GetList()
         {
             return _repository().FindAll();
         }
