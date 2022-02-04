@@ -1,7 +1,7 @@
 using HelloCSharp.Api.Models;
 using NUnit.Framework;
 
-namespace HelloCSharp.Database.Tests;
+namespace HellCSharp.Persistence.Database.Tests;
 
 [TestFixture]
 public class CityRepositoryTest : AbstractRepositoryTest<CityRepository, City>

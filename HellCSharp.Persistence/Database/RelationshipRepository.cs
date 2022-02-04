@@ -1,11 +1,9 @@
-using System.Collections.Generic;
-using System.Linq;
+using HellCSharp.Persistence.Database.Entities;
 using HelloCSharp.Api.Database;
-using HelloCSharp.Api.Database.Entities;
 using HelloCSharp.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace HelloCSharp.Database;
+namespace HellCSharp.Persistence.Database;
 
 public class RelationshipRepository : AbstractRepository<RelationshipEntity, Relationship>, IRelationshipRepository, IRepository<Relationship>
 {

@@ -11,3 +11,4 @@ This is my first C# web application.
 - [ ] run tests in Travis
 - [ ] create a three-layer tier
 - [ ] create productive database
+- [ ] are unit test projects the way to go now?

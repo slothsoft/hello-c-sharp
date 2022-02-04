@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using HelloCSharp.Api.Models;
 using NUnit.Framework;
 
-namespace HelloCSharp.Database.Tests;
+namespace HellCSharp.Persistence.Database.Tests;
 
 [TestFixture]
 public class RelationshipRepositoryTest : AbstractRepositoryTest<RelationshipRepository, Relationship>

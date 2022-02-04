@@ -1,17 +1,15 @@
-using System;
 using HelloCSharp.Api.Database;
 using HelloCSharp.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 
-namespace HelloCSharp.Database.Tests;
+namespace HellCSharp.Persistence.Database.Tests;
 
 public abstract class AbstractRepositoryTest<TRepository, TIdentifiable>
     where TRepository : IRepository<TIdentifiable>
     where TIdentifiable : Identifiable
 {
 
-        
     private Database _database;
     protected TRepository ClassUnderTest;
         

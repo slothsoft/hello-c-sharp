@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31612.314
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloCSharp", "HelloCSharp\HelloCSharp.csproj", "{D9C13C5C-E0A2-4097-959D-D192AD462570}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloCSharp", "HelloCSharp\HelloCSharp.csproj", "{D9C13C5C-E0A2-4097-959D-D192AD462570}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloCSharp.Api", "HelloCSharp.Api\HelloCSharp.Api.csproj", "{CBF3E077-CE87-495A-AB63-5B15E84BAC9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloCSharp.Api", "HelloCSharp.Api\HelloCSharp.Api.csproj", "{CBF3E077-CE87-495A-AB63-5B15E84BAC9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloCSharp.Rest", "HelloCSharp.Rest\HelloCSharp.Rest.csproj", "{22038400-53EF-4B45-8B48-DC479F1640A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HellCSharp.Persistence", "HellCSharp.Persistence\HellCSharp.Persistence.csproj", "{FE7EAF45-D6B5-48DA-9695-DE97B0F7FCCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{CBF3E077-CE87-495A-AB63-5B15E84BAC9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBF3E077-CE87-495A-AB63-5B15E84BAC9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBF3E077-CE87-495A-AB63-5B15E84BAC9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22038400-53EF-4B45-8B48-DC479F1640A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22038400-53EF-4B45-8B48-DC479F1640A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22038400-53EF-4B45-8B48-DC479F1640A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22038400-53EF-4B45-8B48-DC479F1640A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE7EAF45-D6B5-48DA-9695-DE97B0F7FCCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE7EAF45-D6B5-48DA-9695-DE97B0F7FCCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE7EAF45-D6B5-48DA-9695-DE97B0F7FCCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE7EAF45-D6B5-48DA-9695-DE97B0F7FCCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

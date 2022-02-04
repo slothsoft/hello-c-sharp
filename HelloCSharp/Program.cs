@@ -1,6 +1,6 @@
 using System;
+using HellCSharp.Persistence.Database;
 using HelloCSharp.Api.Database;
-using HelloCSharp.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

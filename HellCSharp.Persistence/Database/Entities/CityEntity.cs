@@ -1,6 +1,6 @@
 using HelloCSharp.Api.Models;
 
-namespace HelloCSharp.Api.Database.Entities;
+namespace HellCSharp.Persistence.Database.Entities;
 
 public class CityEntity : IdentifiableEntity
 {
