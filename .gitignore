@@ -1,6 +1,7 @@
 # IDE settings
 .idea/
 .vs/
+**/*.user
 
 # should be recreated via "package restore"
 packages/
