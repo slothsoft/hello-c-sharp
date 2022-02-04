@@ -1,4 +1,4 @@
-namespace HelloCSharp.Models;
+namespace HelloCSharp.Api.Models;
 
 public enum RelationshipType
 {

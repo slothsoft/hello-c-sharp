@@ -1,4 +1,4 @@
-namespace HelloCSharp.Database;
+namespace HelloCSharp.Api.Database;
 
 /**
  * The root interface to get all the repositories this application entails.

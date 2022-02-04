@@ -1,6 +1,6 @@
-using HelloCSharp.Models;
+using HelloCSharp.Api.Models;
 
-namespace HelloCSharp.Database.Entities;
+namespace HelloCSharp.Api.Database.Entities;
 
 public class PersonEntity : IdentifiableEntity
 {

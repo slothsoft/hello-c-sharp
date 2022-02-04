@@ -1,5 +1,6 @@
 using System;
-using HelloCSharp.Models;
+using HelloCSharp.Api.Database;
+using HelloCSharp.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 

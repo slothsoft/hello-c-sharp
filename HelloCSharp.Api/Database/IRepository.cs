@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
-using HelloCSharp.Models;
+using HelloCSharp.Api.Models;
 
-namespace HelloCSharp.Database;
+namespace HelloCSharp.Api.Database;
 
 public interface IRepository<TValue>
     where TValue : Identifiable

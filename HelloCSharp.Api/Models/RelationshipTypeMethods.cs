@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
+namespace HelloCSharp.Api.Models;
 
-namespace HelloCSharp.Models;
 
 public static class RelationshipTypeMethods
 {

@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace HelloCSharp.Models.Tests;
+namespace HelloCSharp.Api.Models.Tests;
 
 [TestFixture]
 public class RelationshipTypeTest

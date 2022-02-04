@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using HelloCSharp.Models;
+using HelloCSharp.Api.Models;
 using NUnit.Framework;
 
 namespace HelloCSharp.Database.Tests;

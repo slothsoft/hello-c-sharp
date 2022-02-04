@@ -1,4 +1,4 @@
-using HelloCSharp.Models;
+using HelloCSharp.Api.Models;
 using NUnit.Framework;
 
 namespace HelloCSharp.Database.Tests;

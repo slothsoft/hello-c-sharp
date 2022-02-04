@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using HelloCSharp.Database.Entities;
-using HelloCSharp.Models;
+using HelloCSharp.Api.Database;
+using HelloCSharp.Api.Database.Entities;
+using HelloCSharp.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace HelloCSharp.Database;
