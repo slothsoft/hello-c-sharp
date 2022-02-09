@@ -1,17 +1,7 @@
-using HellCSharp.Persistence;
+using HellCSharp.Persistence;using HelloCSharp.Rest;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddControllers();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-// Configure database connection
-var defaultConnection = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDatabaseService(defaultConnection);
+new Startup(builder.Configuration).ConfigureServices(builder.Services);
 
 var app = builder.Build();
 
