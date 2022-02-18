@@ -17,9 +17,10 @@ This application features:
 
 ## TODO
 
+- rename `Database` into something more unique
 - [ ] use lookups instead of these database-based values ?
 - [ ] run tests in Travis
 - [x] create a three-layer tier
 - [ ] create productive database
-- [ ] are unit test projects the way to go now?
-- [ ] right now definition of database connection and migration is copied in both main application and rest application
+- [x] are unit test projects the way to go now?
+- [x] right now definition of database connection and migration is copied in both main application and rest application

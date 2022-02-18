@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HelloCSharp.Rest.Controllers
 {
     [ApiController]
-    [Route("api/person")]
+    [Route("api/persons")]
     public class PersonController : AbstractRepositoryController<Person>
     {
         public PersonController(IDatabase database) : base(() => database.PersonRepository)

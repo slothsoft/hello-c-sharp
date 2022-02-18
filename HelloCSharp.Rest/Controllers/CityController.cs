@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HelloCSharp.Rest.Controllers
 {
     [ApiController]
-    [Route("api/city")]
+    [Route("api/cities")]
     public class CityController : AbstractRepositoryController<City>
     {
         public CityController(IDatabase database) : base(() => database.CityRepository)
