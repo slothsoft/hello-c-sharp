@@ -18,7 +18,7 @@ install:
   - nuget restore HelloCSharp.sln
 
 script:
-  - msbuild /p:Configuration=Debug solution-name.sln
+  - msbuild /p:Configuration=Debug HelloCSharp.sln
 
 after_script:
   - nunit-console HelloCSharp.Api.Tests/bin/Debug/HelloCSharp.Api.Tests.dll
