@@ -8,7 +8,8 @@ before_install:
   - sudo snap install dotnet-sdk --channel=6.0/beta --classic
     
   # Install latest NuGet
-  - sudo apt install nuget
+  - sudo apt-get update
+  - sudo apt-get install nuget
 install:
   - nuget restore HelloCSharp.sln
 
