@@ -18,7 +18,7 @@ install:
   - nuget restore HelloCSharp.sln
 
 script:
-  - dotnet build /p:Configuration=Debug HelloCSharp.sln
+  - sudo dotnet build /p:Configuration=Debug HelloCSharp.sln
 
 after_script:
   - nunit-console HelloCSharp.Api.Tests/bin/Debug/net6.0/HelloCSharp.Api.Tests.dll
