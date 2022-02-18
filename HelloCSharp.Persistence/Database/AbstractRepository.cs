@@ -1,6 +1,6 @@
-using HelloCSharp.Persistence.Database.Entities;
 using HelloCSharp.Api.Database;
 using HelloCSharp.Api.Models;
+using HelloCSharp.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace HelloCSharp.Persistence.Database;

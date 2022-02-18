@@ -11,9 +11,9 @@ namespace HelloCSharp.Persistence.Tests.Database;
 [TestFixture]
 public class RelationshipRepositoryTest : AbstractRepositoryTest<RelationshipRepository, Relationship>
 {
-    protected override RelationshipRepository CreateRepository(Persistence.Database.Database database)
+    protected override RelationshipRepository CreateRepository(DatabaseContext databaseContext)
     {
-        return new RelationshipRepository(database.Relationship);
+        return new RelationshipRepository(databaseContext.Relationship);
     }
 
     protected override Relationship GetExampleObject()

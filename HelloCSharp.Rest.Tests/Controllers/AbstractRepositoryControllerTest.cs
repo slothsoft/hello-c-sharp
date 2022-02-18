@@ -12,24 +12,24 @@ public abstract class AbstractRepositoryControllerTest<TController, TIdentifiabl
     where TIdentifiable : Identifiable
 {
 
-    private Database _database;
+    private DatabaseContext _databaseContext;
     protected TController ClassUnderTest;
         
     [SetUp]
     public void SetUp()
     {
-        _database = new Database(new DbContextOptionsBuilder().UseInMemoryDatabase("Filename=TestDatabase.db").Options);
-        _database.Database.EnsureCreated();
+        _databaseContext = new DatabaseContext(new DbContextOptionsBuilder().UseInMemoryDatabase("Filename=TestDatabase.db").Options);
+        _databaseContext.Database.EnsureCreated();
                 
-        ClassUnderTest = CreateRepositoryController(_database);
+        ClassUnderTest = CreateRepositoryController(_databaseContext);
     }
         
-    protected abstract TController CreateRepositoryController(Database database);
+    protected abstract TController CreateRepositoryController(DatabaseContext databaseContext);
         
     [TearDown]
     public void TearDown()
     {
-        _database?.Close();
+        _databaseContext?.Close();
     }
 
     [Test]

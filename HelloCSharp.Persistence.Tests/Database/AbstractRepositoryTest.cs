@@ -10,25 +10,25 @@ public abstract class AbstractRepositoryTest<TRepository, TIdentifiable>
     where TRepository : IRepository<TIdentifiable>
     where TIdentifiable : Identifiable
 {
-    private HelloCSharp.Persistence.Database.Database _database;
+    private HelloCSharp.Persistence.Database.DatabaseContext _databaseContext;
     protected TRepository ClassUnderTest;
 
     [SetUp]
     public void SetUp()
     {
-        _database = new HelloCSharp.Persistence.Database.Database(new DbContextOptionsBuilder()
+        _databaseContext = new HelloCSharp.Persistence.Database.DatabaseContext(new DbContextOptionsBuilder()
             .UseInMemoryDatabase("Filename=TestDatabase.db").Options);
-        _database.Database.EnsureCreated();
+        _databaseContext.Database.EnsureCreated();
 
-        ClassUnderTest = CreateRepository(_database);
+        ClassUnderTest = CreateRepository(_databaseContext);
     }
 
-    protected abstract TRepository CreateRepository(Persistence.Database.Database database);
+    protected abstract TRepository CreateRepository(Persistence.Database.DatabaseContext databaseContext);
 
     [TearDown]
     public void TearDown()
     {
-        _database?.Close();
+        _databaseContext?.Close();
     }
 
     [Test]

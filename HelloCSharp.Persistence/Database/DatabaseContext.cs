@@ -1,18 +1,18 @@
-using HelloCSharp.Persistence.Database.Entities;
 using HelloCSharp.Api.Database;
 using HelloCSharp.Api.Models;
+using HelloCSharp.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace HelloCSharp.Persistence.Database;
 
-public class Database : DbContext, IDatabase
+public class DatabaseContext : DbContext, IDatabaseContext
 {
 
     public DbSet<RelationshipEntity> Relationship { get; private set; }
     public DbSet<CityEntity> Cities { get; private set; }
     public DbSet<PersonEntity> Persons { get; private set; }
 
-    public Database(DbContextOptions options) : base(options)
+    public DatabaseContext(DbContextOptions options) : base(options)
     {
     }
 

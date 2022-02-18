@@ -4,7 +4,7 @@ namespace HelloCSharp.Api.Database;
  * The root interface to get all the repositories this application entails.
  */
 
-public interface IDatabase
+public interface IDatabaseContext
 {
    
      ICityRepository CityRepository { get; }

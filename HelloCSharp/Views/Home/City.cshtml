@@ -1,4 +1,4 @@
-@inject IDatabase _database
+@inject IDatabaseContext _databaseContext
 
 @{
     ViewBag.I18N_Name = "Name";
@@ -12,17 +12,17 @@
             <th>@ViewBag.I18N_Name</th>
             <th>@ViewBag.I18N_Population</th>
         </tr>
-        @foreach(var city in _database.CityRepository.FindAll()) {
+        @foreach(var city in _databaseContext.CityRepository.FindAll()) {
             <tr>
                 <td><a href="@Url.Action("City", "Home", new Identifiable(city.Id))">@city.Name</a></td>
-                <td>@_database.PersonRepository.FindByCityId(city.Id).Count</td>
+                <td>@_databaseContext.PersonRepository.FindByCityId(city.Id).Count</td>
             </tr>
         }
     </table>
 }
 else
 {
-    var city = _database.CityRepository.GetById(ViewBag.Id);
+    var city = _databaseContext.CityRepository.GetById(ViewBag.Id);
     <h2>@city.Name</h2>
 
     <table>
@@ -33,7 +33,7 @@ else
         <tr>
             <th>@ViewBag.I18N_Population</th>
             <td><ul class="simple-ul">
-                @foreach (var person in _database.PersonRepository.FindByCityId(city.Id))
+                @foreach (var person in _databaseContext.PersonRepository.FindByCityId(city.Id))
                 {
                     <li><a href="@Url.Action("Person", "Home", new Identifiable(person.Id))">@person.Name</a></li>
                 }

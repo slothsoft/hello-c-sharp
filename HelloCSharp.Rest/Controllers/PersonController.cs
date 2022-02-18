@@ -8,7 +8,7 @@ namespace HelloCSharp.Rest.Controllers
     [Route("api/persons")]
     public class PersonController : AbstractRepositoryController<Person>
     {
-        public PersonController(IDatabase database) : base(() => database.PersonRepository)
+        public PersonController(IDatabaseContext databaseContext) : base(() => databaseContext.PersonRepository)
         {
         }
     }

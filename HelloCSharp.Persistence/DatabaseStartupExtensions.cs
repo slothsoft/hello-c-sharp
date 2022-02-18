@@ -21,7 +21,7 @@ public static class DatabaseStartupExtensions
         // Configure database connection for both development and production
         if (connectionString is null or "")
         {
-            services.AddDbContext<Database.Database>(options =>
+            services.AddDbContext<Database.DatabaseContext>(options =>
                 options.UseInMemoryDatabase("Filename=TestDatabase.db"));
         }
         else
@@ -31,7 +31,7 @@ public static class DatabaseStartupExtensions
                                 connectionString + ")");
         }
 
-        services.AddScoped<IDatabase, Database.Database>();
+        services.AddScoped<IDatabaseContext, Database.DatabaseContext>();
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public static class DatabaseStartupExtensions
     public static void EnsureDatabaseCreated(this IServiceProvider services)
     {
         using (var scope = services.CreateScope())
-        using (var context = scope.ServiceProvider.GetService<Database.Database>())
+        using (var context = scope.ServiceProvider.GetService<Database.DatabaseContext>())
         {
             if (context == null)
             {

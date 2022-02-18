@@ -1,5 +1,7 @@
 # Hello C#
 
+[![Build Status](https://app.travis-ci.com/slothsoft/hello-c-sharp.svg?token=pRvfs6NqugbPyMWZEJBY&branch=main)](https://app.travis-ci.com/slothsoft/hello-c-sharp)
+
 This is my first C# web application. It's a broad test to see different features of C# in action.
 
 This application features:
@@ -8,6 +10,7 @@ This application features:
 - ASP Web frontend (HelloCSharp)
 - EntityFramework persistence layer (HelloCSharp.Persistence) featuring a SQLite in-memory database
 - REST API (HelloCSharp.Rest)
+- Tests for all of those
 
 ## Helpful Links
 
@@ -17,9 +20,9 @@ This application features:
 
 ## TODO
 
-- rename `Database` into something more unique
+- [x] rename `Database` into something more unique
 - [ ] use lookups instead of these database-based values ?
-- [ ] run tests in Travis
+- [x] run tests in Travis
 - [x] create a three-layer tier
 - [ ] create productive database
 - [x] are unit test projects the way to go now?

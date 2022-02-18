@@ -9,9 +9,9 @@ namespace HelloCSharp.Rest.Tests.Controllers;
 [TestFixture]
 public class CityControllerTest : AbstractRepositoryControllerTest<CityController, City>
 {
-    protected override CityController CreateRepositoryController(Database database)
+    protected override CityController CreateRepositoryController(DatabaseContext databaseContext)
     {
-        return new CityController(database);
+        return new CityController(databaseContext);
     }
 
     protected override City GetExampleObject()

@@ -1,4 +1,4 @@
-namespace HelloCSharp.Persistence.Database.Entities;
+namespace HelloCSharp.Persistence.Entities;
 
 public class IdentifiableEntity
 {

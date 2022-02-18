@@ -1,6 +1,6 @@
 using HelloCSharp.Api.Models;
 
-namespace HelloCSharp.Persistence.Database.Entities;
+namespace HelloCSharp.Persistence.Entities;
 
 public class RelationshipEntity : IdentifiableEntity
 {

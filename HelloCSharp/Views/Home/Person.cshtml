@@ -1,4 +1,4 @@
-@inject IDatabase _database
+@inject IDatabaseContext _databaseContext
 
 @{
     ViewBag.I18N_Name = "Name";
@@ -15,19 +15,19 @@
             <th>@ViewBag.I18N_City</th>
             <th>@ViewBag.I18N_Relationships</th>
         </tr>
-        @foreach(var person in _database.PersonRepository.FindAll()) {
+        @foreach(var person in _databaseContext.PersonRepository.FindAll()) {
             <tr>
                 <td><a href="@Url.Action("Person", "Home", new Identifiable(person.Id))">@person.Name</a></td>
                 <td>@person.Age</td>
                 <td><a href="@Url.Action("City", "Home", new Identifiable(person.City.Id))">@person.City.Name</a></td>
-                <td>@_database.RelationshipRepository.FindByPersonId(person.Id).Count</td>
+                <td>@_databaseContext.RelationshipRepository.FindByPersonId(person.Id).Count</td>
             </tr>
         }
     </table>
 }
 else
 {    
-    var person = _database.PersonRepository.GetById(ViewBag.Id);
+    var person = _databaseContext.PersonRepository.GetById(ViewBag.Id);
     <h2>@person.Name</h2>
     <table>
         <tr>
@@ -46,7 +46,7 @@ else
             <th>@ViewBag.I18N_Relationships</th>
             <td>
                 <ul class="simple-ul">
-                    @foreach (var relationship in _database.RelationshipRepository.FindByPersonId(person.Id))
+                    @foreach (var relationship in _databaseContext.RelationshipRepository.FindByPersonId(person.Id))
                     {
                         <li>
                             @if (relationship.FromName.Equals(person.Name))
