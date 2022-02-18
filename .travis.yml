@@ -10,7 +10,18 @@ before_install:
   # Install latest NuGet
   - sudo apt-get update
   - sudo apt-get install nuget
+
 install:
+  # Install NUnit
+  - sudo apt-get install nunit-console
+  # Restore project
   - nuget restore HelloCSharp.sln
+
+script:
+  - xbuild /p:Configuration=Debug solution-name.sln
+
+after_script:
+  - nunit-console HelloCSharp.Api.Tests/bin/Debug/HelloCSharp.Api.Tests.dll
+
 
 
