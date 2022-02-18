@@ -1,2 +1,12 @@
 language: csharp
 solution: HelloCSharp.sln
+mono: none
+
+before_install:
+  # Install .Net 6.0 manually
+  - sudo snap alias dotnet-sdk.dotnet dotnet
+  - sudo snap install dotnet-sdk --channel=6.0/beta --classic
+install:
+  - nuget restore HelloCSharp.sln
+
+
