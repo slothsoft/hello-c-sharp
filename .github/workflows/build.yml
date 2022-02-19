@@ -25,6 +25,11 @@ jobs:
         run: dotnet build --configuration Release --no-restore
       - name: 🎉 Test
         run: dotnet test --no-restore --verbosity normal --logger:"nunit"
+      - name: ☢ Reformat Test Files (NUnit != JUnit)
+        run: |
+          sed -i 's/test-case/testcase/' ${{ github.workspace }}/*/TestResults/*.xml
+          sed -i 's/test-suite/testsuite/' ${{ github.workspace }}/*/TestResults/*.xml
+          sed -i 's/test-run/testsuite/' ${{ github.workspace }}/*/TestResults/*.xml
       - name: ⏫ Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
         if: always()
