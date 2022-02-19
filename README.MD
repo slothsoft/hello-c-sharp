@@ -1,6 +1,6 @@
 # Hello C#
 
-[![Build Status](https://app.travis-ci.com/slothsoft/hello-c-sharp.svg?token=pRvfs6NqugbPyMWZEJBY&branch=main)](https://app.travis-ci.com/slothsoft/hello-c-sharp)
+[![Build Status](https://github.com/slothsoft/hello-c-sharp/actions/workflows/build.yml/badge.svg)](https://github.com/slothsoft/hello-c-sharp/actions)
 
 This is my first C# web application. It's a broad test to see different features of C# in action.
 
