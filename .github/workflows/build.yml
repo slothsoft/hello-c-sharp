@@ -1,0 +1,41 @@
+name: .NET Build
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+ 
+    strategy:
+      matrix:
+        dotnet-version: ['6.0.x' ]
+            
+    steps:
+      - name: ⏬ Checkout Repository ${{ github.repository }} (${{ github.ref }})
+        uses: actions/checkout@v2
+      - name: 🏗 Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+      - name: 📦 Install Dependencies
+        run: dotnet restore
+      - name: 👷‍♂️ Build
+        run: dotnet build --configuration Release --no-restore
+      - name: 🎉 Test
+        run: dotnet test --no-restore --verbosity normal --logger:"nunit"
+      - name: ☢ Reformat Test Files (NUnit != JUnit)
+        run: |
+          sed -i 's/test-case/testcase/' ${{ github.workspace }}/*/TestResults/*.xml
+          sed -i 's/test-suite/testsuite/' ${{ github.workspace }}/*/TestResults/*.xml
+          sed -i 's/test-run/testsuite/' ${{ github.workspace }}/*/TestResults/*.xml
+      - name: ⏫ Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          files: ${{ github.workspace }}/*/TestResults/*.xml
+      - name: Output Test Result XML
+        run: |
+          cat ${{ github.workspace }}/HelloCSharp.Api.Tests/TestResults/TestResults.xml
+        
