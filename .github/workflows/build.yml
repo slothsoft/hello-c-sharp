@@ -22,10 +22,13 @@ jobs:
       - name: 👷‍♂️ Build
         run: dotnet build --configuration Release --no-restore
       - name: 🎉 Test
-        run: dotnet test --no-restore --verbosity normal
+        run: dotnet test --no-restore --verbosity normal --logger:"trx"
       - name: ⏫ Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
         if: always()
         with:
           files: test-results/**/*.xml
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}/HelloCSharp.Api.Tests/bin
         
