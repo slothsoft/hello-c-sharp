@@ -28,7 +28,7 @@ jobs:
         if: always()
         with:
           files: ${{ github.workspace }}/*/TestResults/*.xml
-      - name: List files in the repository
+      - name: Output Test Result XML
         run: |
-          ls ${{ github.workspace }}/HelloCSharp.Api.Tests/TestResults
+          cat ${{ github.workspace }}/HelloCSharp.Api.Tests/TestResults/TestResults.xml
         
