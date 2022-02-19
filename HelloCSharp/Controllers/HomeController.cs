@@ -10,19 +10,22 @@ public class HomeController : Controller
 
     public IActionResult Person(int? id)
     {
-        ViewBag.Id = id;
+        if (id != null)
+            ViewBag.Id = id;
         return View();
     }
         
     public IActionResult City(int? id)
     {
-        ViewBag.Id = id;
+        if (id != null)
+            ViewBag.Id = id;
         return View();
     }
         
-    public IActionResult RelationshipType(string id)
+    public IActionResult RelationshipType(string? id)
     {
-        ViewBag.Id = id;
+        if (id != null)
+            ViewBag.Id = id;
         return View();
     }
 }

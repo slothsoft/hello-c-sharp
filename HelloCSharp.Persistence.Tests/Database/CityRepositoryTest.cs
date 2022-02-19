@@ -8,7 +8,7 @@ namespace HelloCSharp.Persistence.Tests.Database;
 [TestFixture]
 public class CityRepositoryTest : AbstractRepositoryTest<CityRepository, City>
 {
-    protected override CityRepository CreateRepository(Persistence.Database.DatabaseContext databaseContext)
+    protected override CityRepository CreateRepository(DatabaseContext databaseContext)
     {
         return new CityRepository(databaseContext.Cities);
     }

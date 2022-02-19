@@ -12,8 +12,8 @@ public abstract class AbstractRepositoryControllerTest<TController, TIdentifiabl
     where TIdentifiable : Identifiable
 {
 
-    private DatabaseContext _databaseContext;
-    protected TController ClassUnderTest;
+    private DatabaseContext _databaseContext = null!;
+    private TController _classUnderTest = null!;
         
     [SetUp]
     public void SetUp()
@@ -21,23 +21,17 @@ public abstract class AbstractRepositoryControllerTest<TController, TIdentifiabl
         _databaseContext = new DatabaseContext(new DbContextOptionsBuilder().UseInMemoryDatabase("Filename=TestDatabase.db").Options);
         _databaseContext.Database.EnsureCreated();
                 
-        ClassUnderTest = CreateRepositoryController(_databaseContext);
+        _classUnderTest = CreateRepositoryController(_databaseContext);
     }
         
     protected abstract TController CreateRepositoryController(DatabaseContext databaseContext);
-        
-    [TearDown]
-    public void TearDown()
-    {
-        _databaseContext?.Close();
-    }
-
+       
     [Test]
     public void GetSingle()
     {
         var example = GetExampleObject();
         Assert.NotNull(example.Id, "ID of example object shouldn't be null!");
-        var okResult = ClassUnderTest.GetSingle(example.Id);
+        var okResult = _classUnderTest.GetSingle(example.Id);
         Assert.IsTrue(okResult is OkObjectResult, "Result should be OkObjectResult but was " +okResult);
 
         var result = (TIdentifiable) ((OkObjectResult) okResult).Value!;
@@ -53,7 +47,7 @@ public abstract class AbstractRepositoryControllerTest<TController, TIdentifiabl
     [Test]
     public void GetSingleUnknown()
     {
-        var result = ClassUnderTest.GetSingle(-1);
+        var result = _classUnderTest.GetSingle(-1);
         Assert.IsTrue(result is NotFoundResult, "Result should be NotFoundResult but was " +result);
     }
         
@@ -61,7 +55,7 @@ public abstract class AbstractRepositoryControllerTest<TController, TIdentifiabl
     [Test]
     public void GetList()
     {
-        var result = ClassUnderTest.GetList();
+        var result = _classUnderTest.GetList();
 
         Assert.NotNull(result);
         Assert.IsTrue(result.Count >= 1); // every table has example rows
@@ -69,7 +63,7 @@ public abstract class AbstractRepositoryControllerTest<TController, TIdentifiabl
         var example = GetExampleObject();
         var found = result.Find(c => c.Id .Equals(example.Id));
         Assert.NotNull(found);
-        Assert.AreEqual(example.Id, found.Id);
+        Assert.AreEqual(example.Id, found!.Id);
         AssertAreEqual(example, found);
     }
 

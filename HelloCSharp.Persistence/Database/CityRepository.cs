@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HelloCSharp.Persistence.Database;
 
-public class CityRepository : AbstractRepository<CityEntity, City>, ICityRepository, IRepository<City>
+public class CityRepository : AbstractRepository<CityEntity, City>, ICityRepository
 {
 
     public CityRepository(DbSet<CityEntity> db) : base(db)

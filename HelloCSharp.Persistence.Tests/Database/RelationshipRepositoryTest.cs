@@ -239,8 +239,8 @@ public class RelationshipRepositoryTest : AbstractRepositoryTest<RelationshipRep
     private static IEnumerable<TestCaseData> SeparateRelationships(TestCaseData data)
     {
         // CreatePseudoSymmetricalRelationships() has only one relationship, we need to build the other one
-        var relationship = (Relationship) data.Arguments[0];
+        var relationship = (Relationship) data.Arguments[0]!;
         yield return new TestCaseData(relationship);
-        yield return new TestCaseData(CreateOppositeRelationship(relationship, (RelationshipType) data.Arguments[1]));
+        yield return new TestCaseData(CreateOppositeRelationship(relationship, (RelationshipType) data.Arguments[1]!));
     }
 }

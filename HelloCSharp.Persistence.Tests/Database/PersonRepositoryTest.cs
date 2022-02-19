@@ -34,7 +34,7 @@ public class PersonRepositoryTest : AbstractRepositoryTest<PersonRepository, Per
 
         var found = result.Find(c => c.Id .Equals(example.Id));
         Assert.NotNull(found);
-        Assert.AreEqual(example.Id, found.Id);
+        Assert.AreEqual(example.Id, found!.Id);
         AssertAreEqual(example, found);
     }
         

@@ -9,7 +9,7 @@ public class CityEntity : IdentifiableEntity
         return new City(Id, Name);    
     }
 
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     public override string ToString() => $"CityEntity {Id}";
 }

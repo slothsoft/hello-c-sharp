@@ -40,15 +40,13 @@ public static class DatabaseStartupExtensions
     /// <param name="services">The <see cref="IServiceProvider" /> to get services from.</param>
     public static void EnsureDatabaseCreated(this IServiceProvider services)
     {
-        using (var scope = services.CreateScope())
-        using (var context = scope.ServiceProvider.GetService<Database.DatabaseContext>())
+        using var scope = services.CreateScope();
+        using var context = scope.ServiceProvider.GetService<Database.DatabaseContext>();
+        if (context == null)
         {
-            if (context == null)
-            {
-                throw new Exception("The database context could not be registered correctly!");
-            }
-
-            context.Database.EnsureCreated();
+            throw new Exception("The database context could not be registered correctly!");
         }
+
+        context.Database.EnsureCreated();
     }
 }

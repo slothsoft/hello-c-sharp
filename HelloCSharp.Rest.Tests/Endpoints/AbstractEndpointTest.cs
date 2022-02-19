@@ -1,7 +1,8 @@
-using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Threading.Tasks;
 using HelloCSharp.Api.Models;
 using NUnit.Framework;
 
@@ -10,10 +11,9 @@ namespace HelloCSharp.Rest.Tests.Endpoints;
 public abstract class AbstractEndpointTest<TIdentifiable>
     where TIdentifiable : Identifiable
 {
+    private static RestTestApplicationFactory _factory = null!;
 
-    private static RestTestApplicationFactory _factory;
-
-    private HttpClient _client;
+    private HttpClient _client = null!;
     private readonly string _endpoint;
 
     protected AbstractEndpointTest(string endpoint)
@@ -30,7 +30,7 @@ public abstract class AbstractEndpointTest<TIdentifiable>
     [OneTimeTearDown]
     public static void TearDownOnce()
     {
-        _factory?.Dispose();
+        _factory.Dispose();
     }
 
     [SetUp]
@@ -42,21 +42,19 @@ public abstract class AbstractEndpointTest<TIdentifiable>
     [TearDown]
     public void TearDown()
     {
-        _client?.Dispose();
+        _client.Dispose();
     }
     
     [Test]
-    public void GetSingle()
+    public async Task GetSingle()
     {
         var example = GetExampleObject();
         Assert.NotNull(example.Id, "ID of example object shouldn't be null!");
         
-        var response = _client.GetFromJsonAsync<TIdentifiable>(_endpoint + example.Id);
-        response.Wait();
+        var result = await _client.GetFromJsonAsync<TIdentifiable>(_endpoint + example.Id);
         
-        var result = response.Result!;
         Assert.NotNull(result);
-        Assert.AreEqual(example.Id, result.Id);
+        Assert.AreEqual(example.Id, result!.Id);
         AssertAreEqual(example, result);
     }
 
@@ -65,35 +63,26 @@ public abstract class AbstractEndpointTest<TIdentifiable>
     protected abstract void AssertAreEqual(TIdentifiable expected, TIdentifiable actual);
         
     [Test]
-    public void GetSingleUnknown()
+    public async Task GetSingleUnknown()
     {
-        try
-        {
-           var response = _client.GetFromJsonAsync<TIdentifiable>(_endpoint + "unknown");
-           response.Wait();
-           Assert.Fail("There should have been an error here!");
-        }
-        catch (AggregateException e)
-        {
-            Assert.IsTrue(e.Message.Contains("404 (Not Found)"),"Wrong error found: " + e.Message);
-        }
+        var response = await _client.GetAsync(_endpoint + "unknown");
+        Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        Assert.AreEqual("Not Found", response.ReasonPhrase);
     }
         
         
     [Test]
-    public void GetList()
+    public async Task GetList()
     {
-        var response = _client.GetFromJsonAsync<List<TIdentifiable>>(_endpoint);
-        response.Wait();
-        var result = response.Result!;
+        var result = await _client.GetFromJsonAsync<List<TIdentifiable>>(_endpoint);
 
         Assert.NotNull(result);
-        Assert.IsTrue(result.Count >= 1); // every table has example rows
+        Assert.IsTrue(result!.Count >= 1); // every table has example rows
 
         var example = GetExampleObject();
         var found = result.Find(c => c.Id .Equals(example.Id));
         Assert.NotNull(found);
-        Assert.AreEqual(example.Id, found.Id);
+        Assert.AreEqual(example.Id, found!.Id);
         AssertAreEqual(example, found);
     }
 

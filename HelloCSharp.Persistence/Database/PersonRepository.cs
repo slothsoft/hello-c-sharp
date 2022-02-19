@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HelloCSharp.Persistence.Database;
 
-public class PersonRepository : AbstractRepository<PersonEntity, Person>, IPersonRepository, IRepository<Person>
+public class PersonRepository : AbstractRepository<PersonEntity, Person>, IPersonRepository
 {
     
     public PersonRepository(DbSet<PersonEntity> db) : base(db)

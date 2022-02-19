@@ -8,9 +8,9 @@ namespace HelloCSharp.Persistence.Database;
 public class DatabaseContext : DbContext, IDatabaseContext
 {
 
-    public DbSet<RelationshipEntity> Relationship { get; private set; }
-    public DbSet<CityEntity> Cities { get; private set; }
-    public DbSet<PersonEntity> Persons { get; private set; }
+    public DbSet<RelationshipEntity> Relationship { get; init; }
+    public DbSet<CityEntity> Cities { get; init; }
+    public DbSet<PersonEntity> Persons { get; init; }
 
     public DatabaseContext(DbContextOptions options) : base(options)
     {
@@ -88,10 +88,5 @@ public class DatabaseContext : DbContext, IDatabaseContext
     public IRelationshipRepository RelationshipRepository
     {
         get { return _relationshipRepository ??= new RelationshipRepository(Relationship); }
-    }
-
-    public void Close()
-    {
-        // nothing to do any longer
     }
 }

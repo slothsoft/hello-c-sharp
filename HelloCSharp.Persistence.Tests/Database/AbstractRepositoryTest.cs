@@ -10,8 +10,8 @@ public abstract class AbstractRepositoryTest<TRepository, TIdentifiable>
     where TRepository : IRepository<TIdentifiable>
     where TIdentifiable : Identifiable
 {
-    private HelloCSharp.Persistence.Database.DatabaseContext _databaseContext;
-    protected TRepository ClassUnderTest;
+    private HelloCSharp.Persistence.Database.DatabaseContext _databaseContext = null!;
+    protected TRepository ClassUnderTest = default!;
 
     [SetUp]
     public void SetUp()
@@ -24,12 +24,6 @@ public abstract class AbstractRepositoryTest<TRepository, TIdentifiable>
     }
 
     protected abstract TRepository CreateRepository(Persistence.Database.DatabaseContext databaseContext);
-
-    [TearDown]
-    public void TearDown()
-    {
-        _databaseContext?.Close();
-    }
 
     [Test]
     public void GetById()
@@ -69,7 +63,7 @@ public abstract class AbstractRepositoryTest<TRepository, TIdentifiable>
         var result = ClassUnderTest.FindById(example.Id);
 
         Assert.NotNull(result);
-        Assert.AreEqual(example.Id, result.Id);
+        Assert.AreEqual(example.Id, result!.Id);
         AssertAreEqual(example, result);
     }
 
@@ -90,14 +84,14 @@ public abstract class AbstractRepositoryTest<TRepository, TIdentifiable>
         var example = GetExampleObject();
         var found = result.Find(c => c.Id.Equals(example.Id));
         Assert.NotNull(found);
-        Assert.AreEqual(example.Id, found.Id);
+        Assert.AreEqual(example.Id, found!.Id);
         AssertAreEqual(example, found);
     }
 
     [Test]
     public void FindByFilterTrue()
     {
-        var result = ClassUnderTest.FindByFilter(t => true);
+        var result = ClassUnderTest.FindByFilter(_ => true);
 
         Assert.NotNull(result);
         Assert.IsTrue(result.Count >= 1); // every table has example rows
@@ -105,14 +99,14 @@ public abstract class AbstractRepositoryTest<TRepository, TIdentifiable>
         var example = GetExampleObject();
         var found = result.Find(c => c.Id.Equals(example.Id));
         Assert.NotNull(found);
-        Assert.AreEqual(example.Id, found.Id);
+        Assert.AreEqual(example.Id, found!.Id);
         AssertAreEqual(example, found);
     }
 
     [Test]
     public void FindByFilterFalse()
     {
-        var result = ClassUnderTest.FindByFilter(t => false);
+        var result = ClassUnderTest.FindByFilter(_ => false);
 
         Assert.NotNull(result);
         Assert.AreEqual(0, result.Count);
