@@ -1,0 +1,29 @@
+name: Test of Hello C#
+on: [push]
+jobs:
+  test:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      fail-fast: false
+      matrix:
+        operating-system: [ubuntu-latest, windows-latest, macOS-latest]
+        dotnet-version: ['6.0.x']
+        
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Clear toolcache
+        shell: pwsh
+        run: __tests__/clear-toolcache.ps1 ${{ runner.os }}
+      - name: Setup dotnet ${{ matrix.dotnet-version }}
+        uses: ./
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+          include-prerelease: true
+      - name: Check installed version
+        shell: pwsh
+        run: |
+          $version = & dotnet --version
+          Write-Host "Installed version: $version"
+          if (-not $version.StartsWith("${{ matrix.dotnet-version }}")) { throw "Unexpected version" }
+        
