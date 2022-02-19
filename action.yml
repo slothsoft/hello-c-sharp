@@ -18,4 +18,4 @@ inputs:
     required: False
 runs:
   using: 'node12'
-  main: 'dist/index.js'
+  main: '.github/dist/index.js'

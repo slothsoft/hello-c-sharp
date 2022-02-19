@@ -1,26 +1,26 @@
-name: Test of Hello C#
+name: dotnet package
+
 on: [push]
+
 jobs:
-  test:
-    runs-on: ${{ matrix.operating-system }}
+  build:
+
+    runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
       matrix:
-        operating-system: [ubuntu-latest, windows-latest, macOS-latest]
-        dotnet-version: ['6.0.x']
-        
+        dotnet-version: ['6.0.x' ]
+            
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Setup dotnet ${{ matrix.dotnet-version }}
-        uses: ./
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v1.7.2
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
           include-prerelease: true
-      - name: Check installed version
-        shell: pwsh
-        run: |
-          $version = & dotnet --version
-          Write-Host "Installed version: $version"
-          if (-not $version.StartsWith("${{ matrix.dotnet-version }}")) { throw "Unexpected version" }
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal
         
