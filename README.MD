@@ -38,12 +38,12 @@ This application features:
 
 ### Travis
 
-Since Travis was replaced by GitHub Actions, this was the old file to build .NET 6.0 solutions: [.travis.yml](blob/6564ef8e139409da7fd6f51004822a719961d924/.travis.yml). 
+Since Travis was replaced by GitHub Actions, this was the old file to build .NET 6.0 solutions: [.travis.yml](../../blob/6564ef8e139409da7fd6f51004822a719961d924/.travis.yml). 
 
 
 ### GitHub Actions
 
-GitHub Actions was added with [commit 3f5ffcc](commit/3f5ffccc324022379f7a954bdf169c97c1d4fe28). 
+GitHub Actions was added with [commit 3f5ffcc](../../commit/3f5ffccc324022379f7a954bdf169c97c1d4fe28). 
 
 The important file for .NET 6.0 projects are:
 
