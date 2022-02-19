@@ -7,15 +7,19 @@ namespace HelloCSharp.Persistence.Database;
 
 public class RelationshipRepository : AbstractRepository<RelationshipEntity, Relationship>, IRelationshipRepository
 {
-    public RelationshipRepository(DbSet<RelationshipEntity> db) : base(db)
+    public RelationshipRepository(DatabaseContext context, DbSet<RelationshipEntity> db) : base(context, db)
     {
     }
 
-    protected override Relationship ConvertToT(RelationshipEntity entity)
+    protected override Relationship ConvertToT(RelationshipEntity entity) => entity.ToRelationship();
+
+    protected override RelationshipEntity ConvertToEntity(Relationship value, RelationshipEntity? entity = null)
     {
-        return entity.ConvertToRelationship();
+        var result = entity ?? new RelationshipEntity();
+        result.FromRelationship(value);
+        return result;
     }
-        
+
     protected override IEnumerable<RelationshipEntity> FindAllEntities()
     {
         return Db.Include(p => p.From).Include(p => p.To);

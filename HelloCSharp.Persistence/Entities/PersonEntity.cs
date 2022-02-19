@@ -1,22 +1,32 @@
+using System.ComponentModel.DataAnnotations;
 using HelloCSharp.Api.Models;
 
 namespace HelloCSharp.Persistence.Entities;
 
 public class PersonEntity : IdentifiableEntity
 {
-        
-    internal Person ConvertToPerson()
+    internal Person ToPerson()
     {
-        return new Person(Id, Name, Age, City?.ConvertToCity());    
+        return new Person(Id!.Value, Name!, Age!.Value, City!.ToCity());    
+    }
+    
+    internal void FromPerson(Person person)
+    {
+        Name = person.Name;
+        Age = person.Age;
+        CityId = person.City.Id;    
     }
         
-    public string Name { get; set;}
+    [Required]
+    public string? Name { get; set;}
         
-    public int Age { get;set; }
+    [Required]
+    public int? Age { get; set; }
         
-    public int CityId { get;set; }
+    [Required]
+    public int? CityId { get; set; }
         
-    public CityEntity City { get;set; }
+    public CityEntity? City { get; set; }
 
     public override string ToString() => $"PersonEntity {Id}";
 }

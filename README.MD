@@ -24,7 +24,8 @@ This application features:
 - [ ] create productive database
 - [x] are unit test projects the way to go now?
 - [x] right now definition of database connection and migration is copied in both main application and rest application
-
+- [ ] `AbstractRepositoryController`: it's not good the ID is in the URL and the TValue
+- [ ] tests for endpoint and controller test for create and update are missing
 
 
 ## Helpful Stuff

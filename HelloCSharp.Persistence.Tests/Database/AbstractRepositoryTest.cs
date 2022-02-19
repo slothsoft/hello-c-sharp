@@ -10,21 +10,34 @@ public abstract class AbstractRepositoryTest<TRepository, TIdentifiable>
     where TRepository : IRepository<TIdentifiable>
     where TIdentifiable : Identifiable
 {
-    private HelloCSharp.Persistence.Database.DatabaseContext _databaseContext = null!;
+    protected HelloCSharp.Persistence.Database.DatabaseContext DatabaseContext = null!;
     protected TRepository ClassUnderTest = default!;
 
     [SetUp]
     public void SetUp()
     {
-        _databaseContext = new HelloCSharp.Persistence.Database.DatabaseContext(new DbContextOptionsBuilder()
+        DatabaseContext = new HelloCSharp.Persistence.Database.DatabaseContext(new DbContextOptionsBuilder()
             .UseInMemoryDatabase("Filename=TestDatabase.db").Options);
-        _databaseContext.Database.EnsureCreated();
+        DatabaseContext.Database.EnsureCreated();
 
-        ClassUnderTest = CreateRepository(_databaseContext);
+        ClassUnderTest = CreateRepository(DatabaseContext);
     }
 
     protected abstract TRepository CreateRepository(Persistence.Database.DatabaseContext databaseContext);
 
+    [Test]
+    public void Create()
+    {
+        var example = CreateRandomObject();
+        var result = ClassUnderTest.Create(example);
+
+        Assert.NotNull(result);
+        Assert.NotNull(result.Id);
+        AssertAreEqual(example, result);
+    }
+
+    protected abstract TIdentifiable CreateRandomObject(int? id = null);
+    
     [Test]
     public void GetById()
     {
@@ -126,4 +139,18 @@ public abstract class AbstractRepositoryTest<TRepository, TIdentifiable>
         Assert.AreEqual(example.Id, found.Id);
         AssertAreEqual(example, found);
     }
+    
+    [Test]
+    public void Update()
+    {
+        var create = ClassUnderTest.Create(CreateRandomObject());
+
+        var toBeUpdated = CreateRandomObject(create.Id);
+        var update = ClassUnderTest.Update(toBeUpdated);
+
+        Assert.NotNull(update);
+        Assert.AreEqual(create.Id, update.Id);
+        AssertAreEqual(toBeUpdated, update);
+    }
+
 }

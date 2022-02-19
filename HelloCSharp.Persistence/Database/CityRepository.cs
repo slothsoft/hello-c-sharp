@@ -8,13 +8,16 @@ namespace HelloCSharp.Persistence.Database;
 public class CityRepository : AbstractRepository<CityEntity, City>, ICityRepository
 {
 
-    public CityRepository(DbSet<CityEntity> db) : base(db)
+    public CityRepository(DatabaseContext context, DbSet<CityEntity> db) : base(context, db)
     {
     }
 
-    protected override  City ConvertToT(CityEntity entity)
-    {
-        return entity.ConvertToCity();
-    }
+    protected override City ConvertToT(CityEntity entity) => entity.ToCity();
 
+    protected override CityEntity ConvertToEntity(City value, CityEntity? entity = null)
+    {
+        var result = entity ?? new CityEntity();
+        result.FromCity(value);
+        return result;
+    }
 }

@@ -16,6 +16,12 @@ public abstract class AbstractRepositoryController<TValue> : ControllerBase
         
     protected delegate IRepository<TValue> Repository();
         
+    [HttpPost]
+    public TValue Create(TValue input)
+    {
+        return _repository().Create(input);
+    }
+    
     [HttpGet]
     public List<TValue> GetList()
     {
@@ -35,5 +41,12 @@ public abstract class AbstractRepositoryController<TValue> : ControllerBase
         }
     }
         
-    // TODO: update and remove are ASYNC
+    [HttpPut]
+    [Route("{id}")]
+    public TValue Update(int id, TValue input)
+    {
+        // FIXME: it's not good the ID is in the URL and the TValue
+        return _repository().Update(input);
+    }
+
 }

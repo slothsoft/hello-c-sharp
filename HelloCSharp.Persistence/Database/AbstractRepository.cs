@@ -9,14 +9,23 @@ public abstract class AbstractRepository<TEntity, TValue>  : IRepository<TValue>
     where TEntity : IdentifiableEntity
     where TValue : Identifiable
 {
+    private readonly DatabaseContext _context;
     internal readonly DbSet<TEntity> Db;
 
-    protected AbstractRepository(DbSet<TEntity> db)
+    protected AbstractRepository(DatabaseContext context, DbSet<TEntity> db)
     {
+        _context = context;
         Db = db;
     }
 
-    protected abstract TValue ConvertToT(TEntity entity);
+    public TValue Create(TValue value)
+    {
+        var result = Db.Add(ConvertToEntity(value));
+        _context.SaveChanges();
+        return GetById(result.Entity.Id!.Value);
+    }
+
+    protected abstract TEntity ConvertToEntity(TValue value, TEntity? result = null);
 
     public List<TValue> FindByFilter(Predicate<TValue> filter)
     {
@@ -27,6 +36,8 @@ public abstract class AbstractRepository<TEntity, TValue>  : IRepository<TValue>
     {
         return FindAllEntities().Select(ConvertToT).ToList();
     }
+    
+    protected abstract TValue ConvertToT(TEntity entity);
 
     protected virtual IEnumerable<TEntity> FindAllEntities()
     {
@@ -37,13 +48,18 @@ public abstract class AbstractRepository<TEntity, TValue>  : IRepository<TValue>
     {
         try
         {
-            return ConvertToT(FindAllEntities().Single(c => c.Id.Equals(id)));
+            return ConvertToT(GetEntityById(id));
         }
         catch (InvalidOperationException e)
         {
             // Sequence contains no elements
             throw new ArgumentException("Could not find entity with ID " + id, e);
         }
+    }
+
+    private TEntity GetEntityById(int id)
+    {
+        return FindAllEntities().Single(c => c.Id.Equals(id));
     }
 
     public TValue? FindById(int id)
@@ -56,5 +72,12 @@ public abstract class AbstractRepository<TEntity, TValue>  : IRepository<TValue>
         {
             return null;
         }
+    }
+    
+    public TValue Update(TValue value)
+    {
+        Db.Update(ConvertToEntity(value, GetEntityById(value.Id)));
+        _context.SaveChanges();
+        return GetById(value.Id);
     }
 }

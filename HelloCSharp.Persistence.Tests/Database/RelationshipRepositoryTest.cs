@@ -4,6 +4,7 @@ using System.Linq;
 using HelloCSharp.Persistence.Database;
 using HelloCSharp.Api.Models;
 using HelloCSharp.Api.Tests;
+using HelloCSharp.Persistence.Entities;
 using NUnit.Framework;
 
 namespace HelloCSharp.Persistence.Tests.Database;
@@ -13,12 +14,23 @@ public class RelationshipRepositoryTest : AbstractRepositoryTest<RelationshipRep
 {
     protected override RelationshipRepository CreateRepository(DatabaseContext databaseContext)
     {
-        return new RelationshipRepository(databaseContext.Relationship);
+        return new RelationshipRepository(databaseContext, databaseContext.Relationship);
     }
 
     protected override Relationship GetExampleObject()
     {
         return RelationshipExtensions.CreateExampleObject();
+    }
+
+    protected override Relationship CreateRandomObject(int? id = null)
+    {
+        var city = DatabaseContext.Add(new CityEntity { Name = "Dresden" });
+        var stef = DatabaseContext.Add(new PersonEntity { Name = "Stef", Age = 35, CityId = city.Entity.Id});
+        var julchen = DatabaseContext.Add(new PersonEntity { Name = "Julchen", Age = 21, CityId = city.Entity.Id });
+        DatabaseContext.SaveChanges();
+        return new Relationship(id ?? -1, RelationshipType.Siblings, 
+            stef.Entity.Id!.Value, stef.Entity.Name!, 
+            julchen.Entity.Id!.Value, julchen.Entity.Name!);
     }
 
     protected override void AssertAreEqual(Relationship expected, Relationship actual)

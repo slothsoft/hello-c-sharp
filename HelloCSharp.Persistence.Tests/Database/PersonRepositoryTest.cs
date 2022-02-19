@@ -1,6 +1,8 @@
+using System;
 using HelloCSharp.Persistence.Database;
 using HelloCSharp.Api.Models;
 using HelloCSharp.Api.Tests;
+using HelloCSharp.Persistence.Entities;
 using NUnit.Framework;
 
 namespace HelloCSharp.Persistence.Tests.Database;
@@ -10,12 +12,20 @@ public class PersonRepositoryTest : AbstractRepositoryTest<PersonRepository, Per
 {
     protected override PersonRepository CreateRepository(DatabaseContext databaseContext)
     {
-        return new PersonRepository(databaseContext.Persons);
+        return new PersonRepository(databaseContext, databaseContext.Persons);
     }
 
     protected override Person GetExampleObject()
     {
         return PersonExtensions.CreateExampleObject();
+    }
+    
+    protected override Person CreateRandomObject(int? id = null)
+    {
+        var city = DatabaseContext.Add(new CityEntity { Name = "Dresden" });
+        DatabaseContext.SaveChanges();
+        return new Person(id ?? -1, Guid.NewGuid().ToString(), city.Entity.Id!.Value, 
+            new City(city.Entity.Id!.Value, city.Entity.Name!));
     }
 
     protected override void AssertAreEqual(Person expected, Person actual)
