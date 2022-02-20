@@ -1,6 +1,6 @@
 using HelloCSharp.Persistence;
+using HelloCSharp.Rest;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
 
 namespace HelloCSharp;
 
@@ -11,10 +11,12 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
         builder.AddFrontendServices();
         builder.AddDatabaseServices();
+        builder.AddRestServices();
 
         var app = builder.Build();
         app.AddFrontendRoutes();
         app.EnsureDatabaseCreated();
+        app.AddRestRoutes();
 
         app.Run();
     }
