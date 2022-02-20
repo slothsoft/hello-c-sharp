@@ -2,9 +2,9 @@ using HelloCSharp.Persistence;
 using HelloCSharp.Rest;
 using Microsoft.AspNetCore.Builder;
 
-namespace HelloCSharp;
+namespace HelloCSharp.Frontend;
 
-public class Program
+public static class Program
 {
     public static void Main(string[] args)
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace HelloCSharp.Controllers;
+namespace HelloCSharp.Frontend.Controllers;
 public class AppController : Controller
 {
     public IActionResult Index()

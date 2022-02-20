@@ -1,6 +1,6 @@
 ﻿{
   "profiles": {
-    "HelloCSharp": {
+    "HelloCSharp.Frontend": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

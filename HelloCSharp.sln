@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloCSharp.Persistence", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloCSharp.Persistence.Tests", "HelloCSharp.Persistence.Tests\HelloCSharp.Persistence.Tests.csproj", "{B73CB3FA-8F22-4CB8-B38B-B3794CA982FA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloCSharp", "HelloCSharp\HelloCSharp.csproj", "{D9C13C5C-E0A2-4097-959D-D192AD462570}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloCSharp.Frontend", "HelloCSharp.Frontend\HelloCSharp.Frontend.csproj", "{D9C13C5C-E0A2-4097-959D-D192AD462570}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
