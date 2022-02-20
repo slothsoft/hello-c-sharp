@@ -17,9 +17,9 @@
         </tr>
         @foreach(var person in DatabaseContext.PersonRepository.FindAll()) {
             <tr>
-                <td><a href="@Url.Action("Person", "Home", new Identifiable(person.Id))">@person.Name</a></td>
+                <td><a href="@Url.Action("Person", "App", new Identifiable(person.Id))">@person.Name</a></td>
                 <td>@person.Age</td>
-                <td><a href="@Url.Action("City", "Home", new Identifiable(person.City.Id))">@person.City.Name</a></td>
+                <td><a href="@Url.Action("City", "App", new Identifiable(person.City.Id))">@person.City.Name</a></td>
                 <td>@DatabaseContext.RelationshipRepository.FindByPersonId(person.Id).Count</td>
             </tr>
         }
@@ -40,7 +40,7 @@ else
         </tr>
         <tr>
             <th>@ViewBag.I18N_City</th>
-            <td>@Html.ActionLink((string) person.City.Name, "City", "Home", new Identifiable(person.City.Id), null)</td>
+            <td>@Html.ActionLink((string) person.City.Name, "City", "App", new Identifiable(person.City.Id), null)</td>
         </tr>
         <tr>
             <th>@ViewBag.I18N_Relationships</th>
@@ -53,15 +53,15 @@ else
                             {
                                 @relationship.FromName
                             } else {
-                                <a href="@Url.Action("Person", "Home", new Identifiable(relationship.FromId))">@relationship.FromName</a>
+                                <a href="@Url.Action("Person", "App", new Identifiable(relationship.FromId))">@relationship.FromName</a>
                             }
-                            <a href="@Url.Action("RelationshipType", "Home", new {id = relationship.Type.ToString()})">@RelationshipTypeMethods.Message(relationship.Type)</a>
+                            <a href="@Url.Action("RelationshipType", "App", new {id = relationship.Type.ToString()})">@RelationshipTypeMethods.Message(relationship.Type)</a>
                             
                             @if (relationship.ToName.Equals(person.Name))
                             {
                                 @relationship.ToName
                             } else {
-                                <a href="@Url.Action("Person", "Home", new Identifiable(relationship.ToId))">@relationship.ToName</a>
+                                <a href="@Url.Action("Person", "App", new Identifiable(relationship.ToId))">@relationship.ToName</a>
                             }
                         </li>
                     }
@@ -70,5 +70,5 @@ else
         </tr>
     </table>
     
-    <a href="@Url.Action("Person", "Home", new { id = "" })">Zur&uuml;ck</a>
+    <a href="@Url.Action("Person", "App", new { id = "" })">Zur&uuml;ck</a>
 }

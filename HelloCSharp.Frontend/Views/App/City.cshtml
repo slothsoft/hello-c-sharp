@@ -14,7 +14,7 @@
         </tr>
         @foreach(var city in DatabaseContext.CityRepository.FindAll()) {
             <tr>
-                <td><a href="@Url.Action("City", "Home", new Identifiable(city.Id))">@city.Name</a></td>
+                <td><a href="@Url.Action("City", "App", new Identifiable(city.Id))">@city.Name</a></td>
                 <td>@DatabaseContext.PersonRepository.FindByCityId(city.Id).Count</td>
             </tr>
         }
@@ -35,11 +35,11 @@ else
             <td><ul class="simple-ul">
                 @foreach (var person in DatabaseContext.PersonRepository.FindByCityId(city.Id))
                 {
-                    <li><a href="@Url.Action("Person", "Home", new Identifiable(person.Id))">@person.Name</a></li>
+                    <li><a href="@Url.Action("Person", "App", new Identifiable(person.Id))">@person.Name</a></li>
                 }
             </ul></td>
         </tr>
     </table>
     
-    <a href="@Url.Action("City", "Home", new { id = "" })">Zur&uuml;ck</a>
+    <a href="@Url.Action("City", "App", new { id = "" })">Zur&uuml;ck</a>
 }

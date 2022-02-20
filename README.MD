@@ -7,7 +7,7 @@ This is my first C# web application. It's a broad test to see different features
 This application features:
 
 - .Net 6.0 
-- ASP Web frontend (HelloCSharp)
+- ASP Web frontend (HelloCSharp.Frontend)
 - EntityFramework persistence layer (HelloCSharp.Persistence) featuring a SQLite in-memory database
 - REST API (HelloCSharp.Rest)
 - Tests for all of those
@@ -28,19 +28,22 @@ This application features:
 - [x] tests for endpoint and controller test for create and update are missing
 - [ ] endpoint for "relationship" is missing
 - [x] test for endpoint "relationshiptype" is missing
-- [ ] is it possible to start REST and webapp in one application?
+- [x] is it possible to start REST and webapp in one application?
 - [ ] would it be better to inject repositories directly?
 - [ ] I18N
 - [ ] deploy to Azure?
-- [x] relationshiptypes should be string-based, not index-based in REST
+- [x] endpoint "relationshiptypes" should be string-based, not index-based in REST
+
 
 
 ## Helpful Stuff
 
 ### Links
 
-- Web application URL after starting: http://localhost:5000/ (see [launchSettings.json](HelloCSharp/Properties/launchSettings.json))
-- REST endpoint URL after starting: http://localhost:5206/swagger (see [launchSettings.json](HelloCSharp.Rest/Properties/launchSettings.json))
+- Application Links (see [launchSettings.json](HelloCSharp/Properties/launchSettings.json))
+  - Web application: http://localhost:5000/
+  - Swagger: http://localhost:5000/swagger
+  - REST endpoint: http://localhost:5000/api
 - [SQL Lite Online Database](https://sqliteonline.com/)
 
 
