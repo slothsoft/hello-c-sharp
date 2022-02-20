@@ -7,7 +7,7 @@ This is my first C# web application. It's a broad test to see different features
 This application features:
 
 - .Net 6.0 
-- ASP Web frontend (HelloCSharp)
+- ASP Web frontend (HelloCSharp.Frontend)
 - EntityFramework persistence layer (HelloCSharp.Persistence) featuring a SQLite in-memory database
 - REST API (HelloCSharp.Rest)
 - Tests for all of those

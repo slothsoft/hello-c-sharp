@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloCSharp.Persistence.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloCSharp.Frontend", "HelloCSharp.Frontend\HelloCSharp.Frontend.csproj", "{D9C13C5C-E0A2-4097-959D-D192AD462570}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloCSharp", "HelloCSharp\HelloCSharp.csproj", "{165C4769-497E-4B8C-AED3-245EF0EDE22B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{D818B8DF-3256-45CF-867C-D959F252FEDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D818B8DF-3256-45CF-867C-D959F252FEDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D818B8DF-3256-45CF-867C-D959F252FEDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{165C4769-497E-4B8C-AED3-245EF0EDE22B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{165C4769-497E-4B8C-AED3-245EF0EDE22B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{165C4769-497E-4B8C-AED3-245EF0EDE22B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{165C4769-497E-4B8C-AED3-245EF0EDE22B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

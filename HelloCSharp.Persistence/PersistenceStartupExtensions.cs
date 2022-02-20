@@ -12,12 +12,13 @@ public static class PersistenceStartupExtensions
     /// Add a database connection to for the implementation defined in this project.
     /// </summary>
     /// <param name="builder">The <see cref="WebApplicationBuilder" /> to add services to.</param>
-    public static void AddDatabaseServices(this WebApplicationBuilder builder)
+    /// <param name="connectionString">The database to connect too.</param>
+    public static void AddDatabaseServices(this WebApplicationBuilder builder, string? connectionString = null)
     {
-        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+        var usedConnectionString = connectionString ?? builder.Configuration.GetConnectionString("DefaultConnection");
         
         // Configure database connection for both development and production
-        if (connectionString is null or "")
+        if (usedConnectionString is null or "")
         {
             builder.Services.AddDbContext<Database.DatabaseContext>(options =>
                 options.UseInMemoryDatabase("Filename=TestDatabase.db"));
@@ -26,7 +27,7 @@ public static class PersistenceStartupExtensions
         {
             // TODO 1) figure out how to start app in production, 2) figure out how to define actual database 3) use both here
             throw new Exception("Actual database connection is not implemented yet! (defaultConnection=" +
-                                connectionString + ")");
+                                usedConnectionString + ")");
         }
 
         builder.Services.AddScoped<IDatabaseContext, Database.DatabaseContext>();
