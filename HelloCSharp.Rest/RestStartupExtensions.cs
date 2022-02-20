@@ -1,6 +1,4 @@
-using HelloCSharp.Api.Database;
 using HelloCSharp.Persistence;
-using Microsoft.EntityFrameworkCore;
 
 namespace HelloCSharp.Rest;
 
