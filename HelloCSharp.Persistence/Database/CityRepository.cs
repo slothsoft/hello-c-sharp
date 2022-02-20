@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HelloCSharp.Persistence.Database;
 
-public class CityRepository : AbstractRepository<CityEntity, City>, ICityRepository
+public class CityRepository : AbstractRepository<CityEntity, City, SaveCity>, ICityRepository
 {
 
     public CityRepository(DatabaseContext context, DbSet<CityEntity> db) : base(context, db)
@@ -14,7 +14,7 @@ public class CityRepository : AbstractRepository<CityEntity, City>, ICityReposit
 
     protected override City ConvertToT(CityEntity entity) => entity.ToCity();
 
-    protected override CityEntity ConvertToEntity(City value, CityEntity? entity = null)
+    protected override CityEntity ConvertToEntity(SaveCity value, CityEntity? entity = null)
     {
         var result = entity ?? new CityEntity();
         result.FromCity(value);

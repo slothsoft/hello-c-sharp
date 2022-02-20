@@ -10,7 +10,7 @@ public class CityEntity : IdentifiableEntity
         return new City(Id!.Value, Name!);    
     }
     
-    internal void FromCity(City city)
+    internal void FromCity(SaveCity city)
     {
         Name = city.Name;
     }

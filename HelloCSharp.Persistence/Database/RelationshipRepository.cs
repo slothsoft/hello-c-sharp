@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HelloCSharp.Persistence.Database;
 
-public class RelationshipRepository : AbstractRepository<RelationshipEntity, Relationship>, IRelationshipRepository
+public class RelationshipRepository : AbstractRepository<RelationshipEntity, Relationship, SaveRelationship>, IRelationshipRepository
 {
     public RelationshipRepository(DatabaseContext context, DbSet<RelationshipEntity> db) : base(context, db)
     {
@@ -13,7 +13,7 @@ public class RelationshipRepository : AbstractRepository<RelationshipEntity, Rel
 
     protected override Relationship ConvertToT(RelationshipEntity entity) => entity.ToRelationship();
 
-    protected override RelationshipEntity ConvertToEntity(Relationship value, RelationshipEntity? entity = null)
+    protected override RelationshipEntity ConvertToEntity(SaveRelationship value, RelationshipEntity? entity = null)
     {
         var result = entity ?? new RelationshipEntity();
         result.FromRelationship(value);

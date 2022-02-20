@@ -11,6 +11,11 @@ public static class CityExtensions
         Assert.AreEqual(expected.Name, actual.Name);
     }
     
+    public static void AssertAreEqual(this SaveCity expected, City actual)
+    {
+        Assert.AreEqual(expected.Name, actual.Name);
+    }
+    
     public static City CreateExampleObject()
     {
         return new City(1, "Piltover");

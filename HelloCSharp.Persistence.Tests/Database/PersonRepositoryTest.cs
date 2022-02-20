@@ -3,40 +3,28 @@ using HelloCSharp.Persistence.Database;
 using HelloCSharp.Api.Models;
 using HelloCSharp.Api.Tests;
 using HelloCSharp.Persistence.Entities;
+using HelloCSharp.Persistence.Tests.TestData;
 using NUnit.Framework;
 
 namespace HelloCSharp.Persistence.Tests.Database;
 
 [TestFixture]
-public class PersonRepositoryTest : AbstractRepositoryTest<PersonRepository, Person>
+public class PersonRepositoryTest : AbstractRepositoryTest<PersonRepository, Person, SavePerson>
 {
     protected override PersonRepository CreateRepository(DatabaseContext databaseContext)
     {
         return new PersonRepository(databaseContext, databaseContext.Persons);
     }
 
-    protected override Person GetExampleObject()
+    protected override PersonTestData CreateTestData(DatabaseContext databaseContext)
     {
-        return PersonExtensions.CreateExampleObject();
-    }
-    
-    protected override Person CreateRandomObject(int? id = null)
-    {
-        var city = DatabaseContext.Add(new CityEntity { Name = "Dresden" });
-        DatabaseContext.SaveChanges();
-        return new Person(id ?? -1, Guid.NewGuid().ToString(), city.Entity.Id!.Value, 
-            new City(city.Entity.Id!.Value, city.Entity.Name!));
+        return new PersonTestData(databaseContext);
     }
 
-    protected override void AssertAreEqual(Person expected, Person actual)
-    {
-        expected.AssertAreEqual(actual);
-    }
-        
     [Test]
     public void FindByCityId()
     {
-        var example = GetExampleObject();
+        var example = TestData.GetExampleObject();
         var result = ClassUnderTest.FindByCityId(example.City.Id);
 
         Assert.NotNull(result);
@@ -45,7 +33,7 @@ public class PersonRepositoryTest : AbstractRepositoryTest<PersonRepository, Per
         var found = result.Find(c => c.Id .Equals(example.Id));
         Assert.NotNull(found);
         Assert.AreEqual(example.Id, found!.Id);
-        AssertAreEqual(example, found);
+        TestData.AssertAreEqual(example, found);
     }
         
     [Test]

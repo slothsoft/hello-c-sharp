@@ -10,7 +10,7 @@ public class RelationshipEntity : IdentifiableEntity
         return new Relationship(Id!.Value, Type!.Value, FromId!.Value, From!.Name!, ToId!.Value, To!.Name!);    
     }
     
-    internal void FromRelationship(Relationship relationship)
+    internal void FromRelationship(SaveRelationship relationship)
     {
         Type =  relationship.Type;
         FromId = relationship.FromId; 

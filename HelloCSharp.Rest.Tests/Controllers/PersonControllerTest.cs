@@ -1,26 +1,22 @@
 using HelloCSharp.Persistence.Database;
 using HelloCSharp.Api.Models;
 using HelloCSharp.Api.Tests;
+using HelloCSharp.Persistence.Tests.TestData;
 using HelloCSharp.Rest.Controllers;
 using NUnit.Framework;
 
 namespace HelloCSharp.Rest.Tests.Controllers;
 
 [TestFixture]
-public class PersonControllerTest : AbstractRepositoryControllerTest<PersonController, Person>
+public class PersonControllerTest : AbstractRepositoryControllerTest<PersonController, Person, SavePerson>
 {
     protected override PersonController CreateRepositoryController(DatabaseContext databaseContext)
     {
         return new PersonController(databaseContext);
     }
 
-    protected override Person GetExampleObject()
+    protected override PersonTestData CreateTestData(DatabaseContext databaseContext)
     {
-        return PersonExtensions.CreateExampleObject();
-    }
-
-    protected override void AssertAreEqual(Person expected, Person actual)
-    {
-        expected.AssertAreEqual(actual);
+        return new PersonTestData(databaseContext);
     }
 }

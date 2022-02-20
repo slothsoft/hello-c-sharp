@@ -2,7 +2,7 @@ using HelloCSharp.Api.Models;
 
 namespace HelloCSharp.Api.Database;
 
-public interface IRelationshipRepository : IRepository<Relationship>
+public interface IRelationshipRepository : IRepository<Relationship, SaveRelationship>
 {
     public List<Relationship> FindByPersonId(int personId);
 

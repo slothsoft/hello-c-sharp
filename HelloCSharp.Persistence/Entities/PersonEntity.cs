@@ -10,11 +10,11 @@ public class PersonEntity : IdentifiableEntity
         return new Person(Id!.Value, Name!, Age!.Value, City!.ToCity());    
     }
     
-    internal void FromPerson(Person person)
+    internal void FromPerson(SavePerson person)
     {
         Name = person.Name;
         Age = person.Age;
-        CityId = person.City.Id;    
+        CityId = person.CityId;    
     }
         
     [Required]

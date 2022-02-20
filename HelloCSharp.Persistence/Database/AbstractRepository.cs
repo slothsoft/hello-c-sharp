@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HelloCSharp.Persistence.Database;
 
-public abstract class AbstractRepository<TEntity, TValue>  : IRepository<TValue>
+public abstract class AbstractRepository<TEntity, TValue, TSave>  : IRepository<TValue, TSave>
     where TEntity : IdentifiableEntity
     where TValue : Identifiable
 {
@@ -18,14 +18,14 @@ public abstract class AbstractRepository<TEntity, TValue>  : IRepository<TValue>
         Db = db;
     }
 
-    public TValue Create(TValue value)
+    public TValue Create(TSave value)
     {
         var result = Db.Add(ConvertToEntity(value));
         _context.SaveChanges();
         return GetById(result.Entity.Id!.Value);
     }
 
-    protected abstract TEntity ConvertToEntity(TValue value, TEntity? result = null);
+    protected abstract TEntity ConvertToEntity(TSave value, TEntity? result = null);
 
     public List<TValue> FindByFilter(Predicate<TValue> filter)
     {
@@ -74,10 +74,10 @@ public abstract class AbstractRepository<TEntity, TValue>  : IRepository<TValue>
         }
     }
     
-    public TValue Update(TValue value)
+    public TValue Update(int id, TSave value)
     {
-        Db.Update(ConvertToEntity(value, GetEntityById(value.Id)));
+        Db.Update(ConvertToEntity(value, GetEntityById(id)));
         _context.SaveChanges();
-        return GetById(value.Id);
+        return GetById(id);
     }
 }

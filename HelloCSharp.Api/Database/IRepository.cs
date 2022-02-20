@@ -2,10 +2,10 @@ using HelloCSharp.Api.Models;
 
 namespace HelloCSharp.Api.Database;
 
-public interface IRepository<TValue>
+public interface IRepository<TValue, in TSave>
     where TValue : Identifiable
 {
-    TValue Create(TValue value);
+    TValue Create(TSave value);
     
     List<TValue> FindByFilter(Predicate<TValue> filter);
         
@@ -15,5 +15,5 @@ public interface IRepository<TValue>
 
     TValue? FindById(int id);
     
-    TValue Update(TValue value);
+    TValue Update(int id, TSave value);
 }

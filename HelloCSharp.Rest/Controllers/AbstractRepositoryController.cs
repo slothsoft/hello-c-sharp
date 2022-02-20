@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HelloCSharp.Rest.Controllers;
 
-public abstract class AbstractRepositoryController<TValue> : ControllerBase
+public abstract class AbstractRepositoryController<TValue, TSave> : ControllerBase
     where TValue : Identifiable
 {
     private readonly Repository _repository;
@@ -14,10 +14,10 @@ public abstract class AbstractRepositoryController<TValue> : ControllerBase
         _repository = repository;
     }
         
-    protected delegate IRepository<TValue> Repository();
+    protected delegate IRepository<TValue, TSave> Repository();
         
     [HttpPost]
-    public TValue Create(TValue input)
+    public TValue Post(TSave input)
     {
         return _repository().Create(input);
     }
@@ -43,10 +43,9 @@ public abstract class AbstractRepositoryController<TValue> : ControllerBase
         
     [HttpPut]
     [Route("{id}")]
-    public TValue Update(int id, TValue input)
+    public TValue PutAtId(int id, TSave input)
     {
-        // FIXME: it's not good the ID is in the URL and the TValue
-        return _repository().Update(input);
+        return _repository().Update(id, input);
     }
 
 }
