@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 namespace HelloCSharp.Controllers;
-public class HomeController : Controller
+public class AppController : Controller
 {
     public IActionResult Index()
     {

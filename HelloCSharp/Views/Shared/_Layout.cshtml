@@ -21,13 +21,13 @@
             @{
                 var noId = new { id = "" };
             }
-            <a class = "navbar-brand" href="@Url.Action("Index", "Home", noId)">Piltover's Finest</a>
+            <a class = "navbar-brand" href="@Url.Action("Index", "App", noId)">Piltover's Finest</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="@Url.Action("Person", "Home", noId)">Personen</a></li>
-                <li><a href="@Url.Action("City", "Home", noId)">St&auml;dte</a></li>
-                <li><a href="@Url.Action("RelationshipType", "Home", noId)">Beziehungen</a></li>
+                <li><a href="@Url.Action("Person", "App", noId)">Personen</a></li>
+                <li><a href="@Url.Action("City", "App", noId)">St&auml;dte</a></li>
+                <li><a href="@Url.Action("RelationshipType", "App", noId)">Beziehungen</a></li>
             </ul>
         </div>
     </div>
