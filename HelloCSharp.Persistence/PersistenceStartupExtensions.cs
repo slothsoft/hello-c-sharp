@@ -1,27 +1,25 @@
 using HelloCSharp.Api.Database;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HelloCSharp.Persistence;
 
-public static class DatabaseStartupExtensions
+public static class PersistenceStartupExtensions
 {
     /// <summary>
     /// Add a database connection to for the implementation defined in this project.
     /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection" /> to add services to.</param>
-    /// <param name="connectionString">Null for in-memory database, or connection string for anything more permanent</param>
-    public static void AddDatabaseService(this IServiceCollection services, string connectionString)
+    /// <param name="builder">The <see cref="WebApplicationBuilder" /> to add services to.</param>
+    public static void AddDatabaseServices(this WebApplicationBuilder builder)
     {
-        if (services == null)
-        {
-            throw new ArgumentNullException(nameof(services));
-        }
-
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+        
         // Configure database connection for both development and production
         if (connectionString is null or "")
         {
-            services.AddDbContext<Database.DatabaseContext>(options =>
+            builder.Services.AddDbContext<Database.DatabaseContext>(options =>
                 options.UseInMemoryDatabase("Filename=TestDatabase.db"));
         }
         else
@@ -31,16 +29,16 @@ public static class DatabaseStartupExtensions
                                 connectionString + ")");
         }
 
-        services.AddScoped<IDatabaseContext, Database.DatabaseContext>();
+        builder.Services.AddScoped<IDatabaseContext, Database.DatabaseContext>();
     }
 
     /// <summary>
     /// Add a database connection to for the implementation defined in this project.
     /// </summary>
-    /// <param name="services">The <see cref="IServiceProvider" /> to get services from.</param>
-    public static void EnsureDatabaseCreated(this IServiceProvider services)
+    /// <param name="app">The <see cref="WebApplication" /> to get services from.</param>
+    public static void EnsureDatabaseCreated(this WebApplication app)
     {
-        using var scope = services.CreateScope();
+        using var scope = app.Services.CreateScope();
         using var context = scope.ServiceProvider.GetService<Database.DatabaseContext>();
         if (context == null)
         {
