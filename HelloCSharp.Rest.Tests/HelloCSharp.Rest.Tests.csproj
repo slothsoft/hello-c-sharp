@@ -23,6 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\HelloCSharp.Persistence.Tests\HelloCSharp.Persistence.Tests.csproj" />
       <ProjectReference Include="..\HelloCSharp.Persistence\HelloCSharp.Persistence.csproj" />
       <ProjectReference Include="..\HelloCSharp.Api.Tests\HelloCSharp.Api.Tests.csproj" />
       <ProjectReference Include="..\HelloCSharp.Rest\HelloCSharp.Rest.csproj" />

@@ -5,18 +5,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HelloCSharp.Persistence.Database;
 
-public class PersonRepository : AbstractRepository<PersonEntity, Person>, IPersonRepository
+public class PersonRepository : AbstractRepository<PersonEntity, Person, SavePerson>, IPersonRepository
 {
     
-    public PersonRepository(DbSet<PersonEntity> db) : base(db)
+    public PersonRepository(DatabaseContext context, DbSet<PersonEntity> db) : base(context, db)
     {
     }
 
-    protected override Person ConvertToT(PersonEntity entity)
+    protected override Person ConvertToT(PersonEntity entity) => entity.ToPerson();
+
+    protected override PersonEntity ConvertToEntity(SavePerson value, PersonEntity? entity = null)
     {
-        return entity.ConvertToPerson();
+        var result = entity ?? new PersonEntity();
+        result.FromPerson(value);
+        return result;
     }
-        
+
     protected override IEnumerable<PersonEntity> FindAllEntities()
     {
         return Db.Include(p => p.City);

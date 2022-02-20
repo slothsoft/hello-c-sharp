@@ -24,7 +24,15 @@ This application features:
 - [ ] create productive database
 - [x] are unit test projects the way to go now?
 - [x] right now definition of database connection and migration is copied in both main application and rest application
-
+- [x] `AbstractRepositoryController`: it's not good the ID is in the URL and the TValue
+- [x] tests for endpoint and controller test for create and update are missing
+- [ ] endpoint for "relationship" is missing
+- [x] test for endpoint "relationshiptype" is missing
+- [ ] is it possible to start REST and webapp in one application?
+- [ ] would it be better to inject repositories directly?
+- [ ] I18N
+- [ ] deploy to Azure?
+- [x] relationshiptypes should be string-based, not index-based in REST
 
 
 ## Helpful Stuff

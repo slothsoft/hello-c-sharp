@@ -1,6 +1,9 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace HelloCSharp.Persistence.Entities;
 
 public class IdentifiableEntity
 {
-    public int Id { get; set; }
+    [Key]
+    public int? Id { get; init; }
 }

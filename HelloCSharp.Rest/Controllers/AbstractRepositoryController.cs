@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HelloCSharp.Rest.Controllers;
 
-public abstract class AbstractRepositoryController<TValue> : ControllerBase
+public abstract class AbstractRepositoryController<TValue, TSave> : ControllerBase
     where TValue : Identifiable
 {
     private readonly Repository _repository;
@@ -14,8 +14,14 @@ public abstract class AbstractRepositoryController<TValue> : ControllerBase
         _repository = repository;
     }
         
-    protected delegate IRepository<TValue> Repository();
+    protected delegate IRepository<TValue, TSave> Repository();
         
+    [HttpPost]
+    public TValue Post(TSave input)
+    {
+        return _repository().Create(input);
+    }
+    
     [HttpGet]
     public List<TValue> GetList()
     {
@@ -35,5 +41,11 @@ public abstract class AbstractRepositoryController<TValue> : ControllerBase
         }
     }
         
-    // TODO: update and remove are ASYNC
+    [HttpPut]
+    [Route("{id}")]
+    public TValue PutAtId(int id, TSave input)
+    {
+        return _repository().Update(id, input);
+    }
+
 }

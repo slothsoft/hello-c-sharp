@@ -73,20 +73,20 @@ public class DatabaseContext : DbContext, IDatabaseContext
 
     public ICityRepository CityRepository
     {
-        get { return _cityRepository ??= new CityRepository(Cities); }
+        get { return _cityRepository ??= new CityRepository(this, Cities); }
     }
 
     private PersonRepository? _personRepository;
 
     public IPersonRepository PersonRepository
     {
-        get { return _personRepository ??= new PersonRepository(Persons); }
+        get { return _personRepository ??= new PersonRepository(this, Persons); }
     }
 
     private RelationshipRepository? _relationshipRepository;
 
     public IRelationshipRepository RelationshipRepository
     {
-        get { return _relationshipRepository ??= new RelationshipRepository(Relationship); }
+        get { return _relationshipRepository ??= new RelationshipRepository(this, Relationship); }
     }
 }

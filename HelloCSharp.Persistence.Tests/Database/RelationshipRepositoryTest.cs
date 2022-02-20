@@ -3,27 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using HelloCSharp.Persistence.Database;
 using HelloCSharp.Api.Models;
-using HelloCSharp.Api.Tests;
+using HelloCSharp.Persistence.Tests.TestData;
 using NUnit.Framework;
+using RelationshipRepository = HelloCSharp.Persistence.Database.RelationshipRepository;
 
 namespace HelloCSharp.Persistence.Tests.Database;
 
 [TestFixture]
-public class RelationshipRepositoryTest : AbstractRepositoryTest<RelationshipRepository, Relationship>
+public class RelationshipRepositoryTest : AbstractRepositoryTest<RelationshipRepository, Relationship, SaveRelationship>
 {
     protected override RelationshipRepository CreateRepository(DatabaseContext databaseContext)
     {
-        return new RelationshipRepository(databaseContext.Relationship);
+        return new RelationshipRepository(databaseContext, databaseContext.Relationship);
     }
 
-    protected override Relationship GetExampleObject()
+    protected override RelationshipTestData CreateTestData(DatabaseContext databaseContext)
     {
-        return RelationshipExtensions.CreateExampleObject();
-    }
-
-    protected override void AssertAreEqual(Relationship expected, Relationship actual)
-    {
-        expected.AssertAreEqual(actual);
+        return new RelationshipTestData(databaseContext);
     }
 
     /**
@@ -42,8 +38,8 @@ public class RelationshipRepositoryTest : AbstractRepositoryTest<RelationshipRep
         Assert.NotNull(found);
         Assert.AreEqual(2, found.Count); // since symmetrical, should be two
 
-        AssertAreEqual(relationship, found[0]);
-        AssertAreEqual(
+        TestData.AssertAreEqual(relationship, found[0]);
+        TestData.AssertAreEqual(
             new Relationship(-relationship.Id, relationship.Type, relationship.ToId, relationship.ToName,
                 relationship.FromId, relationship.FromName), found[1]);
     }
@@ -71,7 +67,7 @@ public class RelationshipRepositoryTest : AbstractRepositoryTest<RelationshipRep
         Assert.NotNull(found);
         Assert.AreEqual(1, found.Count);
 
-        AssertAreEqual(relationship, found[0]);
+        TestData.AssertAreEqual(relationship, found[0]);
     }
 
     [Test, TestCaseSource(nameof(CreateSymmetricalRelationships))]
@@ -86,15 +82,15 @@ public class RelationshipRepositoryTest : AbstractRepositoryTest<RelationshipRep
         Assert.NotNull(found);
         Assert.AreEqual(1, found.Count);
 
-        AssertAreEqual(
+        TestData.AssertAreEqual(
             new Relationship(-relationship.Id, relationship.Type, relationship.ToId, relationship.ToName,
                 relationship.FromId, relationship.FromName), found[0]);
     }
 
     /**
-         * Some relationships are kinda symmetrical. If A is parent to B,
-         * then B is child to A. These tests make sure of it.
-         */
+     * Some relationships are kinda symmetrical. If A is parent to B,
+     * then B is child to A. These tests make sure of it.
+     */
     [Test, TestCaseSource(nameof(CreatePseudoSymmetricalRelationships))]
     public void FindAllIncludingOppositesPseudoSymmetricalRelationships(Relationship relationship,
         RelationshipType oppositeType)
@@ -108,8 +104,8 @@ public class RelationshipRepositoryTest : AbstractRepositoryTest<RelationshipRep
         Assert.NotNull(found);
         Assert.AreEqual(2, found.Count); // since symmetrical, should be two
 
-        AssertAreEqual(relationship, found[0]);
-        AssertAreEqual(
+        TestData.AssertAreEqual(relationship, found[0]);
+        TestData.AssertAreEqual(
             new Relationship(relationship.Id, oppositeType, relationship.ToId, relationship.ToName, relationship.FromId,
                 relationship.FromName), found[1]);
     }
@@ -133,7 +129,7 @@ public class RelationshipRepositoryTest : AbstractRepositoryTest<RelationshipRep
         Assert.NotNull(found);
         Assert.AreEqual(1, found.Count);
 
-        AssertAreEqual(relationship, found[0]);
+        TestData.AssertAreEqual(relationship, found[0]);
     }
 
     [Test, TestCaseSource(nameof(CreatePseudoSymmetricalRelationships))]
@@ -148,7 +144,7 @@ public class RelationshipRepositoryTest : AbstractRepositoryTest<RelationshipRep
         Assert.NotNull(found);
         Assert.AreEqual(1, found.Count);
 
-        AssertAreEqual(CreateOppositeRelationship(relationship, oppositeType), found[0]);
+        TestData.AssertAreEqual(CreateOppositeRelationship(relationship, oppositeType), found[0]);
     }
 
     private static Relationship CreateOppositeRelationship(Relationship relationship, RelationshipType oppositeType)
@@ -158,9 +154,9 @@ public class RelationshipRepositoryTest : AbstractRepositoryTest<RelationshipRep
     }
 
     /**
-         * Some relationships are not symmetrical. If A is hates B,
-         * then B does not have to hate A. These tests make sure of it.
-         */
+     * Some relationships are not symmetrical. If A is hates B,
+     * then B does not have to hate A. These tests make sure of it.
+     */
     [Test, TestCaseSource(nameof(CreateNonSymmetricalRelationships))]
     public void FindAllIncludingOppositesNonSymmetricalRelationships(Relationship relationship)
     {
@@ -173,7 +169,7 @@ public class RelationshipRepositoryTest : AbstractRepositoryTest<RelationshipRep
         Assert.NotNull(found);
         Assert.AreEqual(1, found.Count);
 
-        AssertAreEqual(relationship, found[0]);
+        TestData.AssertAreEqual(relationship, found[0]);
     }
 
     private static IEnumerable<TestCaseData> CreateNonSymmetricalRelationships()
@@ -193,7 +189,7 @@ public class RelationshipRepositoryTest : AbstractRepositoryTest<RelationshipRep
         Assert.NotNull(found);
         Assert.AreEqual(1, found.Count);
 
-        AssertAreEqual(relationship, found[0]);
+        TestData.AssertAreEqual(relationship, found[0]);
     }
 
     [Test, TestCaseSource(nameof(CreateNonSymmetricalRelationships))]
@@ -208,12 +204,12 @@ public class RelationshipRepositoryTest : AbstractRepositoryTest<RelationshipRep
         Assert.NotNull(found);
         Assert.AreEqual(1, found.Count);
 
-        AssertAreEqual(relationship, found[0]);
+        TestData.AssertAreEqual(relationship, found[0]);
     }
 
     /**
-         * Fetch relationships by type. #CreateAllRelationships() should have a relationship of each type
-         */
+     * Fetch relationships by type. #CreateAllRelationships() should have a relationship of each type
+     */
     [Test, TestCaseSource(nameof(CreateAllRelationships))]
     public void FindByType(Relationship relationship)
     {
@@ -226,7 +222,7 @@ public class RelationshipRepositoryTest : AbstractRepositoryTest<RelationshipRep
         Assert.NotNull(found);
         Assert.IsTrue(found.Count >= 1);
 
-        AssertAreEqual(relationship, found[0]);
+        TestData.AssertAreEqual(relationship, found[0]);
     }
 
     private static IEnumerable<TestCaseData> CreateAllRelationships()
