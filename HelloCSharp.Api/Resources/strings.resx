@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+
+    <data name="RelationshipType_Partners_Message">
+        <value>is the partner of</value>
+    </data>
+    <data name="RelationshipType_Siblings_Message">
+        <value>is the sibling of</value>
+    </data>
+    <data name="RelationshipType_ParentOf_Message">
+        <value>is the parent of</value>
+    </data>
+    <data name="RelationshipType_ChildOf_Message">
+        <value>is the child of</value>
+    </data>
+    <data name="RelationshipType_Hates_Message">
+        <value>hates</value>
+    </data>
+
+    <data name="RelationshipType_Partners_DisplayName">
+        <value>Partners</value>
+    </data>
+    <data name="RelationshipType_Siblings_DisplayName">
+        <value>Siblings</value>
+    </data>
+    <data name="RelationshipType_ParentOf_DisplayName">
+        <value>Parent</value>
+    </data>
+    <data name="RelationshipType_ChildOf_DisplayName">
+        <value>Child</value>
+    </data>
+    <data name="RelationshipType_Hates_DisplayName">
+        <value>Enemies</value>
+    </data>
+</root>

@@ -13,6 +13,8 @@ public static class FrontendStartupExtensions
         
         // Add the views and build the application
         builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+        
+        builder.Services.AddLocalization();
     }
     
     public static void AddFrontendRoutes(this WebApplication app)
@@ -33,6 +35,13 @@ public static class FrontendStartupExtensions
         app.UseStaticFiles();
         app.UseRouting();
         app.UseAuthorization();
+        
+        // configure Localization
+        var supportedCultures = new[] { "en", "de" };
+        var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
+            .AddSupportedCultures(supportedCultures)
+            .AddSupportedUICultures(supportedCultures);
+        app.UseRequestLocalization(localizationOptions);
 
         app.MapControllerRoute(
             "default",

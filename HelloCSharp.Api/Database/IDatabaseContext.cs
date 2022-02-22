@@ -6,7 +6,6 @@ namespace HelloCSharp.Api.Database;
 
 public interface IDatabaseContext
 {
-   
      ICityRepository CityRepository { get; }
 
      IPersonRepository PersonRepository { get; }

@@ -21,6 +21,6 @@
 
 <ul>
     @foreach(var relationshipType in RelationshipTypeMethods.Values()) {
-        <li><a href="@Url.Action("RelationshipType", "App", new { id = relationshipType.ToString() })">@relationshipType.DisplayName()</a></li>
+        <li><a href="@Url.Action("RelationshipType", "App", new { id = relationshipType.ToString() })">@relationshipType.GetDisplayName()</a></li>
     }
 </ul>

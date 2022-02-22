@@ -34,28 +34,28 @@ public static class RelationshipTypeMethods
         }
     }
         
-    public static string Message(this RelationshipType relationshipType)
+    public static string GetMessage(this RelationshipType relationshipType)
     {
         return relationshipType switch
         {
-            RelationshipType.Partners => " ist der Partner von ",
-            RelationshipType.Siblings => " ist das Geschwister von ",
-            RelationshipType.ParentOf => " ist das Elternteil von ",
-            RelationshipType.ChildOf => " ist das Kind von ",
-            RelationshipType.Hates => " hasst ",
+            RelationshipType.Partners => Resources.strings.RelationshipType_Partners_Message,
+            RelationshipType.Siblings => Resources.strings.RelationshipType_Siblings_Message,
+            RelationshipType.ParentOf => Resources.strings.RelationshipType_Partners_Message,
+            RelationshipType.ChildOf => Resources.strings.RelationshipType_ChildOf_Message,
+            RelationshipType.Hates => Resources.strings.RelationshipType_Hates_Message,
             _ => throw new ArgumentException("Unknown relationship type: " + relationshipType)
         };
     }
         
-    public static string DisplayName(this RelationshipType relationshipType)
+    public static string GetDisplayName(this RelationshipType relationshipType)
     {
         return relationshipType switch
         {
-            RelationshipType.Partners => "Partner",
-            RelationshipType.Siblings => "Geschwister",
-            RelationshipType.ParentOf => "Eltern",
-            RelationshipType.ChildOf => "Kind",
-            RelationshipType.Hates => "Feindschaft",
+            RelationshipType.Partners => Resources.strings.RelationshipType_Partners_DisplayName,
+            RelationshipType.Siblings => Resources.strings.RelationshipType_Siblings_DisplayName,
+            RelationshipType.ParentOf => Resources.strings.RelationshipType_Partners_DisplayName,
+            RelationshipType.ChildOf => Resources.strings.RelationshipType_ChildOf_DisplayName,
+            RelationshipType.Hates => Resources.strings.RelationshipType_Hates_DisplayName,
             _ => throw new ArgumentException("Unknown relationship type: " + relationshipType)
         };
     }

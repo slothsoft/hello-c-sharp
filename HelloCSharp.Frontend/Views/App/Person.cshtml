@@ -55,7 +55,7 @@ else
                             } else {
                                 <a href="@Url.Action("Person", "App", new Identifiable(relationship.FromId))">@relationship.FromName</a>
                             }
-                            <a href="@Url.Action("RelationshipType", "App", new {id = relationship.Type.ToString()})">@RelationshipTypeMethods.Message(relationship.Type)</a>
+                            <a href="@Url.Action("RelationshipType", "App", new {id = relationship.Type.ToString()})">@RelationshipTypeMethods.GetMessage(relationship.Type)</a>
                             
                             @if (relationship.ToName.Equals(person.Name))
                             {
