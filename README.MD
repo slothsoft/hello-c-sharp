@@ -33,6 +33,7 @@ This application features:
 - [ ] I18N
 - [ ] deploy to Azure?
 - [x] endpoint "relationshiptypes" should be string-based, not index-based in REST
+- [ ] Swashbuckle dependency looks incorrect
 
 
 
