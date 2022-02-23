@@ -1,19 +1,13 @@
 @inject IDatabaseContext DatabaseContext
 
-@{
-    ViewBag.I18N_Name = "Name";
-    ViewBag.I18N_Age = "Alter";
-    ViewBag.I18N_City = "Wohnort";
-    ViewBag.I18N_Relationships = "Beziehungen";
-}
 @if (ViewBag.Id == null) {
-    <h2>Personen</h2>
+    <h2>@i18n.Overview_Persons</h2>
     <table>
         <tr>
-            <th>@ViewBag.I18N_Name</th>
-            <th>@ViewBag.I18N_Age</th>
-            <th>@ViewBag.I18N_City</th>
-            <th>@ViewBag.I18N_Relationships</th>
+            <th>@i18n.Person_Name</th>
+            <th>@i18n.Person_Age</th>
+            <th>@i18n.Person_City</th>
+            <th>@i18n.Person_Relationships</th>
         </tr>
         @foreach(var person in DatabaseContext.PersonRepository.FindAll()) {
             <tr>
@@ -31,19 +25,19 @@ else
     <h2>@person.Name</h2>
     <table>
         <tr>
-            <th>@ViewBag.I18N_Name</th>
+            <th>@i18n.Person_Name</th>
             <td>@person.Name</td>
         </tr>
         <tr>
-            <th>@ViewBag.I18N_Age</th>
+            <th>@i18n.Person_Age</th>
             <td>@person.Age</td>
         </tr>
         <tr>
-            <th>@ViewBag.I18N_City</th>
+            <th>@i18n.Person_City</th>
             <td>@Html.ActionLink((string) person.City.Name, "City", "App", new Identifiable(person.City.Id), null)</td>
         </tr>
         <tr>
-            <th>@ViewBag.I18N_Relationships</th>
+            <th>@i18n.Person_Relationships</th>
             <td>
                 <ul class="simple-ul">
                     @foreach (var relationship in DatabaseContext.RelationshipRepository.FindByPersonId(person.Id))
@@ -70,5 +64,5 @@ else
         </tr>
     </table>
     
-    <a href="@Url.Action("Person", "App", new { id = "" })">Zur&uuml;ck</a>
+    <a href="@Url.Action("Person", "App", new { id = "" })">@i18n.General_Back</a>
 }

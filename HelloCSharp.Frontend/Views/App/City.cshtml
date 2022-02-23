@@ -1,16 +1,11 @@
 @inject IDatabaseContext DatabaseContext
 
-@{
-    ViewBag.I18N_Name = "Name";
-    ViewBag.I18N_Population = "Bevölkerung";
-}
-
 @if (ViewBag.Id == null) {
-    <h2>St&auml;dte</h2>
+    <h2>@i18n.Overview_Cities</h2>
     <table>
         <tr>
-            <th>@ViewBag.I18N_Name</th>
-            <th>@ViewBag.I18N_Population</th>
+            <th>@i18n.City_Name</th>
+            <th>@i18n.City_Population</th>
         </tr>
         @foreach(var city in DatabaseContext.CityRepository.FindAll()) {
             <tr>
@@ -27,11 +22,11 @@ else
 
     <table>
         <tr>
-            <th>@ViewBag.I18N_Name</th>
+            <th>@i18n.City_Name</th>
             <td>@city.Name</td>
         </tr>
         <tr>
-            <th>@ViewBag.I18N_Population</th>
+            <th>@i18n.City_Population</th>
             <td><ul class="simple-ul">
                 @foreach (var person in DatabaseContext.PersonRepository.FindByCityId(city.Id))
                 {
@@ -41,5 +36,5 @@ else
         </tr>
     </table>
     
-    <a href="@Url.Action("City", "App", new { id = "" })">Zur&uuml;ck</a>
+    <a href="@Url.Action("City", "App", new { id = "" })">@i18n.General_Back</a>
 }

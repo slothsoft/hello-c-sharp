@@ -1,16 +1,12 @@
+
 @inject IDatabaseContext DatabaseContext
 
-@{
-    ViewBag.I18N_Name = "Name";
-    ViewBag.I18N_Examples = "Beispiele";
-}
-
 @if (ViewBag.Id == null) {
-    <h2>Beziehungen</h2>
+    <h2>@i18n.Overview_RelationshipTypes</h2>
     <table>
         <tr>
-            <th>@ViewBag.I18N_Name</th>
-            <th>@ViewBag.I18N_Examples</th>
+            <th>@i18n.RelationshipType_Name</th>
+            <th>@i18n.RelationshipType_Examples</th>
         </tr>
         @foreach(var relationshipType in RelationshipTypeMethods.Values()) {
             <tr>
@@ -26,11 +22,11 @@ else
     <h2>@RelationshipTypeMethods.GetDisplayName(relationshipType)</h2>
     <table>
         <tr>
-            <th>@ViewBag.I18N_Name</th>
+            <th>@i18n.RelationshipType_Name</th>
             <td>@RelationshipTypeMethods.GetDisplayName(relationshipType)</td>
         </tr>
         <tr>
-            <th>@ViewBag.I18N_Examples</th>
+            <th>@i18n.RelationshipType_Examples</th>
             <td>
                 <ul class="simple-ul">
                     @foreach (var relationship in DatabaseContext.RelationshipRepository.FindByType(relationshipType))
@@ -46,5 +42,5 @@ else
         </tr>
     </table>
     
-    <a href="@Url.Action("RelationshipType", "App", new { id = "" })">Zur&uuml;ck</a>
+    <a href="@Url.Action("RelationshipType", "App", new { id = "" })">@i18n.General_Back</a>
 }

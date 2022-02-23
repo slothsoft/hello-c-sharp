@@ -1,7 +1,7 @@
 
 @inject IDatabaseContext DatabaseContext
 
-<h2><a href="@Url.Action("Person", "App")">Personen</a></h2>
+<h2><a href="@Url.Action("Person", "App")">@i18n.Overview_Persons</a></h2>
 
 <ul>
     @foreach(var person in DatabaseContext.PersonRepository.FindAll()) {
@@ -9,7 +9,7 @@
     }
 </ul>
 
-<h2><a href="@Url.Action("City", "App")">St&auml;dte</a></h2>
+<h2><a href="@Url.Action("City", "App")">@i18n.Overview_Cities</a></h2>
 
 <ul>
     @foreach(var city in DatabaseContext.CityRepository.FindAll()) {
@@ -17,7 +17,7 @@
     }
 </ul>
 
-<h2><a href="@Url.Action("RelationshipType", "App")">Beziehungen</a></h2>
+<h2><a href="@Url.Action("RelationshipType", "App")">@i18n.Overview_RelationshipTypes</a></h2>
 
 <ul>
     @foreach(var relationshipType in RelationshipTypeMethods.Values()) {

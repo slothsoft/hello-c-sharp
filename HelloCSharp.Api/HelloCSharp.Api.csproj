@@ -11,6 +11,9 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>strings.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\strings.de.resx">
+        <DependentUpon>strings.resx</DependentUpon>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
