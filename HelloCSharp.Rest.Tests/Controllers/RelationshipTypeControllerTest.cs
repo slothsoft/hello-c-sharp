@@ -32,9 +32,10 @@ public class RelationshipTypeControllerTest
         var okResult = _classUnderTest.GetSingle(example.ToString());
         Assert.IsTrue(okResult is OkObjectResult, "Result should be OkObjectResult but was " + okResult);
 
-        var result = (RelationshipType) ((OkObjectResult) okResult).Value!;
+        var result = (RelationshipTypeDto) ((OkObjectResult) okResult).Value!;
         Assert.NotNull(result);
-        Assert.AreEqual(example, result);
+        Assert.AreEqual(example.ToString(), result.Id);
+        Assert.AreEqual(example.GetDisplayName(), result.DisplayName);
     }
 
     [Test]
@@ -52,8 +53,9 @@ public class RelationshipTypeControllerTest
         Assert.NotNull(result);
         Assert.AreEqual(Enum.GetValues(typeof(RelationshipType)).Length, result!.Length);
 
-        var found = Array.Find(result, c => c == RelationshipType.Siblings);
+        var found = Array.Find(result, c => c.Id == RelationshipType.Siblings.ToString());
         Assert.NotNull(found);
+        Assert.AreEqual(found.DisplayName, RelationshipType.Siblings.GetDisplayName());
     }
     
 }

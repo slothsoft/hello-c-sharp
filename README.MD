@@ -32,7 +32,7 @@ This application features:
 - [ ] would it be better to inject repositories directly?
 - [x] I18N
 - [ ] deploy to Azure?
-- [ ] endpoint "relationshiptypes" should be string-based, not index-based in REST
+- [x] endpoint "relationshiptypes" should be string-based, not index-based in REST
 - [ ] Swashbuckle dependency looks incorrect
 
 

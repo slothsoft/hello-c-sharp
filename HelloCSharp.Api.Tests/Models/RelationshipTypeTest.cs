@@ -67,7 +67,6 @@ internal class RelationshipTypeTest
     {
         Assert.NotNull(translation);
         Assert.IsNotEmpty(translation);
-        Assert.AreNotEqual(relationshipType.ToString(), translation);
     }
 
     [Test]
