@@ -19,22 +19,27 @@ This application features:
 
 ## TODO
 
+<details>
+  <summary>Already done...</summary>
+
 - [x] rename `Database` into something more unique
 - [x] use lookups instead of these database-based values?
 - [x] run tests in Travis
 - [x] create a three-layer tier
-- [ ] create productive database
 - [x] are unit test projects the way to go now?
 - [x] right now definition of database connection and migration is copied in both main application and rest application
 - [x] `AbstractRepositoryController`: it's not good that the ID is in the URL and the TValue
 - [x] tests for endpoint and controller test for create and update are missing
-- [ ] endpoint for "relationship" is missing
 - [x] test for endpoint "relationshiptype" is missing
 - [x] is it possible to start REST and webapp in one application?
 - [x] would it be better to inject repositories directly?
 - [x] I18N
-- [ ] deploy to Azure?
 - [x] endpoint "relationshiptypes" should be string-based, not index-based in REST
+</details>
+  
+- [ ] create productive database
+- [ ] endpoint for "relationship" is missing
+- [ ] deploy to Azure?
 - [ ] Swashbuckle dependency looks incorrect
 - [ ] frontend tests
 
