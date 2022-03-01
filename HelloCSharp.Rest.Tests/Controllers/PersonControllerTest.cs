@@ -12,7 +12,7 @@ public class PersonControllerTest : AbstractRepositoryControllerTest<PersonContr
 {
     protected override PersonController CreateRepositoryController(DatabaseContext databaseContext)
     {
-        return new PersonController(databaseContext);
+        return new PersonController(new PersonRepository(databaseContext));
     }
 
     protected override PersonTestData CreateTestData(DatabaseContext databaseContext)

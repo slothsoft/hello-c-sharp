@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HelloCSharp.Persistence.Database;
 
-public class DatabaseContext : DbContext, IDatabaseContext
+public class DatabaseContext : DbContext
 {
 
     public DbSet<RelationshipEntity> Relationship { get; init; }
@@ -67,26 +67,5 @@ public class DatabaseContext : DbContext, IDatabaseContext
         );
 
         base.OnModelCreating(modelBuilder);
-    }
-
-    private CityRepository? _cityRepository;
-
-    public ICityRepository CityRepository
-    {
-        get { return _cityRepository ??= new CityRepository(this, Cities); }
-    }
-
-    private PersonRepository? _personRepository;
-
-    public IPersonRepository PersonRepository
-    {
-        get { return _personRepository ??= new PersonRepository(this, Persons); }
-    }
-
-    private RelationshipRepository? _relationshipRepository;
-
-    public IRelationshipRepository RelationshipRepository
-    {
-        get { return _relationshipRepository ??= new RelationshipRepository(this, Relationship); }
     }
 }

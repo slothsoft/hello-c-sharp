@@ -1,4 +1,5 @@
-@inject IDatabaseContext DatabaseContext
+@inject ICityRepository CityRepository
+@inject IPersonRepository PersonRepository
 
 @if (ViewBag.Id == null) {
     <h2>@i18n.Overview_Cities</h2>
@@ -7,17 +8,17 @@
             <th>@i18n.City_Name</th>
             <th>@i18n.City_Population</th>
         </tr>
-        @foreach(var city in DatabaseContext.CityRepository.FindAll()) {
+        @foreach(var city in CityRepository.FindAll()) {
             <tr>
                 <td><a href="@Url.Action("City", "App", new Identifiable(city.Id))">@city.Name</a></td>
-                <td>@DatabaseContext.PersonRepository.FindByCityId(city.Id).Count</td>
+                <td>@PersonRepository.FindByCityId(city.Id).Count</td>
             </tr>
         }
     </table>
 }
 else
 {
-    var city = DatabaseContext.CityRepository.GetById(ViewBag.Id);
+    var city = CityRepository.GetById(ViewBag.Id);
     <h2>@city.Name</h2>
 
     <table>
@@ -28,7 +29,7 @@ else
         <tr>
             <th>@i18n.City_Population</th>
             <td><ul class="simple-ul">
-                @foreach (var person in DatabaseContext.PersonRepository.FindByCityId(city.Id))
+                @foreach (var person in PersonRepository.FindByCityId(city.Id))
                 {
                     <li><a href="@Url.Action("Person", "App", new Identifiable(person.Id))">@person.Name</a></li>
                 }

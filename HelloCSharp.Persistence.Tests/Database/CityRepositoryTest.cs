@@ -11,7 +11,7 @@ public class CityRepositoryTest : AbstractRepositoryTest<CityRepository, City, S
 {
     protected override CityRepository CreateRepository(DatabaseContext databaseContext)
     {
-        return new CityRepository(databaseContext, databaseContext.Cities);
+        return new CityRepository(databaseContext);
     }
 
     protected override CityTestData CreateTestData(DatabaseContext databaseContext)

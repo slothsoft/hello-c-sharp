@@ -14,7 +14,7 @@ public class RelationshipRepositoryTest : AbstractRepositoryTest<RelationshipRep
 {
     protected override RelationshipRepository CreateRepository(DatabaseContext databaseContext)
     {
-        return new RelationshipRepository(databaseContext, databaseContext.Relationship);
+        return new RelationshipRepository(databaseContext);
     }
 
     protected override RelationshipTestData CreateTestData(DatabaseContext databaseContext)

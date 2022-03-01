@@ -12,7 +12,7 @@ public class CityControllerTest : AbstractRepositoryControllerTest<CityControlle
 {
     protected override CityController CreateRepositoryController(DatabaseContext databaseContext)
     {
-        return new CityController(databaseContext);
+        return new CityController(new CityRepository(databaseContext));
     }
 
     protected override CityTestData CreateTestData(DatabaseContext databaseContext)

@@ -13,7 +13,7 @@ public class PersonRepositoryTest : AbstractRepositoryTest<PersonRepository, Per
 {
     protected override PersonRepository CreateRepository(DatabaseContext databaseContext)
     {
-        return new PersonRepository(databaseContext, databaseContext.Persons);
+        return new PersonRepository(databaseContext);
     }
 
     protected override PersonTestData CreateTestData(DatabaseContext databaseContext)

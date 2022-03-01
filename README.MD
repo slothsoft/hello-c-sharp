@@ -9,8 +9,10 @@ This application features:
 - .Net 6.0 
 - ASP Web frontend (HelloCSharp.Frontend)
 - EntityFramework persistence layer (HelloCSharp.Persistence) featuring a SQLite in-memory database
+- API for separating frontend from persistence layer (HelloCSharp.Api)
 - REST API (HelloCSharp.Rest)
 - Tests for all of those
+- HelloCSharp is the application starter
 - continuous integration using [GitHub Actions](https://github.com/slothsoft/hello-c-sharp/actions)
 
 
@@ -18,7 +20,7 @@ This application features:
 ## TODO
 
 - [x] rename `Database` into something more unique
-- [ ] use lookups instead of these database-based values ?
+- [x] use lookups instead of these database-based values?
 - [x] run tests in Travis
 - [x] create a three-layer tier
 - [ ] create productive database
@@ -29,11 +31,12 @@ This application features:
 - [ ] endpoint for "relationship" is missing
 - [x] test for endpoint "relationshiptype" is missing
 - [x] is it possible to start REST and webapp in one application?
-- [ ] would it be better to inject repositories directly?
+- [x] would it be better to inject repositories directly?
 - [x] I18N
 - [ ] deploy to Azure?
 - [x] endpoint "relationshiptypes" should be string-based, not index-based in REST
 - [ ] Swashbuckle dependency looks incorrect
+- [ ] frontend tests
 
 
 

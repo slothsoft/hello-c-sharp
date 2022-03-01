@@ -7,7 +7,7 @@ namespace HelloCSharp.Persistence.Database;
 
 public class RelationshipRepository : AbstractRepository<RelationshipEntity, Relationship, SaveRelationship>, IRelationshipRepository
 {
-    public RelationshipRepository(DatabaseContext context, DbSet<RelationshipEntity> db) : base(context, db)
+    public RelationshipRepository(DatabaseContext context) : base(context, context.Relationship)
     {
     }
 

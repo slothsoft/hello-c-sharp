@@ -8,7 +8,7 @@ namespace HelloCSharp.Rest.Controllers;
 [Route("api/cities")]
 public class CityController : AbstractRepositoryController<City, SaveCity>
 {
-    public CityController(IDatabaseContext databaseContext) : base(() => databaseContext.CityRepository)
+    public CityController(ICityRepository cityRepository) : base(() => cityRepository)
     {
     }
 }

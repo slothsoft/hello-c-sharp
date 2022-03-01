@@ -8,7 +8,7 @@ namespace HelloCSharp.Persistence.Database;
 public class CityRepository : AbstractRepository<CityEntity, City, SaveCity>, ICityRepository
 {
 
-    public CityRepository(DatabaseContext context, DbSet<CityEntity> db) : base(context, db)
+    public CityRepository(DatabaseContext context) : base(context, context.Cities)
     {
     }
 

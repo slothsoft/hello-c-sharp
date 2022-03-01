@@ -1,4 +1,5 @@
 using HelloCSharp.Api.Database;
+using HelloCSharp.Persistence.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,7 +21,7 @@ public static class PersistenceStartupExtensions
         // Configure database connection for both development and production
         if (usedConnectionString is null or "")
         {
-            builder.Services.AddDbContext<Database.DatabaseContext>(options =>
+            builder.Services.AddDbContext<DatabaseContext>(options =>
                 options.UseInMemoryDatabase("Filename=TestDatabase.db"));
         }
         else
@@ -29,8 +30,9 @@ public static class PersistenceStartupExtensions
             throw new Exception("Actual database connection is not implemented yet! (defaultConnection=" +
                                 usedConnectionString + ")");
         }
-
-        builder.Services.AddScoped<IDatabaseContext, Database.DatabaseContext>();
+        builder.Services.AddScoped<ICityRepository, CityRepository>();
+        builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+        builder.Services.AddScoped<IRelationshipRepository, RelationshipRepository>();
     }
 
     /// <summary>

@@ -1,10 +1,10 @@
-
-@inject IDatabaseContext DatabaseContext
+@inject ICityRepository CityRepository
+@inject IPersonRepository PersonRepository
 
 <h2><a href="@Url.Action("Person", "App")">@i18n.Overview_Persons</a></h2>
 
 <ul>
-    @foreach(var person in DatabaseContext.PersonRepository.FindAll()) {
+    @foreach(var person in PersonRepository.FindAll()) {
         <li><a href="@Url.Action("Person", "App", new Identifiable(person.Id))">@person.Name</a></li>
     }
 </ul>
@@ -12,7 +12,7 @@
 <h2><a href="@Url.Action("City", "App")">@i18n.Overview_Cities</a></h2>
 
 <ul>
-    @foreach(var city in DatabaseContext.CityRepository.FindAll()) {
+    @foreach(var city in CityRepository.FindAll()) {
         <li><a href="@Url.Action("City", "App", new Identifiable(city.Id))">@city.Name</a></li>
     }
 </ul>

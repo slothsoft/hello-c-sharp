@@ -1,4 +1,5 @@
-@inject IDatabaseContext DatabaseContext
+@inject IPersonRepository PersonRepository
+@inject IRelationshipRepository RelationshipRepository
 
 @if (ViewBag.Id == null) {
     <h2>@i18n.Overview_Persons</h2>
@@ -9,19 +10,19 @@
             <th>@i18n.Person_City</th>
             <th>@i18n.Person_Relationships</th>
         </tr>
-        @foreach(var person in DatabaseContext.PersonRepository.FindAll()) {
+        @foreach(var person in PersonRepository.FindAll()) {
             <tr>
                 <td><a href="@Url.Action("Person", "App", new Identifiable(person.Id))">@person.Name</a></td>
                 <td>@person.Age</td>
                 <td><a href="@Url.Action("City", "App", new Identifiable(person.City.Id))">@person.City.Name</a></td>
-                <td>@DatabaseContext.RelationshipRepository.FindByPersonId(person.Id).Count</td>
+                <td>@RelationshipRepository.FindByPersonId(person.Id).Count</td>
             </tr>
         }
     </table>
 }
 else
 {    
-    var person = DatabaseContext.PersonRepository.GetById(ViewBag.Id);
+    var person = PersonRepository.GetById(ViewBag.Id);
     <h2>@person.Name</h2>
     <table>
         <tr>
@@ -40,7 +41,7 @@ else
             <th>@i18n.Person_Relationships</th>
             <td>
                 <ul class="simple-ul">
-                    @foreach (var relationship in DatabaseContext.RelationshipRepository.FindByPersonId(person.Id))
+                    @foreach (var relationship in RelationshipRepository.FindByPersonId(person.Id))
                     {
                         <li>
                             @if (relationship.FromName.Equals(person.Name))

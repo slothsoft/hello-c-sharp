@@ -1,5 +1,4 @@
-
-@inject IDatabaseContext DatabaseContext
+@inject IRelationshipRepository RelationshipRepository
 
 @if (ViewBag.Id == null) {
     <h2>@i18n.Overview_RelationshipTypes</h2>
@@ -11,7 +10,7 @@
         @foreach(var relationshipType in RelationshipTypeMethods.Values()) {
             <tr>
                 <td><a href="@Url.Action("RelationshipType", "App", new { id = relationshipType.ToString() })">@relationshipType.GetDisplayName()</a></td>
-                <td>@DatabaseContext.RelationshipRepository.FindByType(relationshipType).Count</td>
+                <td>@RelationshipRepository.FindByType(relationshipType).Count</td>
             </tr>
         }
     </table>
@@ -29,7 +28,7 @@ else
             <th>@i18n.RelationshipType_Examples</th>
             <td>
                 <ul class="simple-ul">
-                    @foreach (var relationship in DatabaseContext.RelationshipRepository.FindByType(relationshipType))
+                    @foreach (var relationship in RelationshipRepository.FindByType(relationshipType))
                     {
                         <li>
                             <a href="@Url.Action("Person", "App", new Identifiable(relationship.FromId))">@relationship.FromName</a>
