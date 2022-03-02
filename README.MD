@@ -35,13 +35,15 @@ This application features:
 - [x] would it be better to inject repositories directly?
 - [x] I18N
 - [x] endpoint "relationshiptypes" should be string-based, not index-based in REST
+- [x] deploy to Azure!
 </details>
   
 - [ ] create productive database
 - [ ] endpoint for "relationship" is missing
-- [ ] deploy to Azure?
 - [ ] Swashbuckle dependency looks incorrect
 - [ ] frontend tests
+- [ ] way better error handling for the REST API
+- [ ] show language selecter so people know it's localized
 
 
 

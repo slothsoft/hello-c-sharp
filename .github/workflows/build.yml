@@ -1,12 +1,14 @@
-name: .NET Build
+name: .NET Build and Deploy
 
-on: [push]
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
+    runs-on: windows-latest
+    timeout-minutes: 30
  
     strategy:
       matrix:
@@ -15,19 +17,62 @@ jobs:
     steps:
       - name: ⏬ Checkout Repository ${{ github.repository }} (${{ github.ref }})
         uses: actions/checkout@v2
+        
       - name: 🏗 Setup .NET Core SDK ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v1.7.2
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
+          
       - name: 📦 Install Dependencies
         run: dotnet restore
+        
       - name: 👷‍♂️ Build
         run: dotnet build --configuration Release --no-restore
+        
       - name: 🎉 Test
         run: dotnet test --no-restore --verbosity normal --logger:"junit"
+        
       - name: ⏫ Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
         if: always()
         with:
           files: ${{ github.workspace }}/*/TestResults/*.xml
+          
+      - name: ✈ Dotnet publish
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        
+      - name: ⏫ Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: .net-app
+          path: ${{env.DOTNET_ROOT}}/myapp
+  
+  # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+  # More GitHub Actions for Azure: https://github.com/Azure/actions
+  
+  deploy:
+    
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: windows-latest
+    needs: build
+    
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: ⏬ Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: .net-app
+
+      - name: 🌟 Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'HelloCSharp'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FCB8D3BA1380461A9340F01E226C9A74 }}
+          package: .
+
         
