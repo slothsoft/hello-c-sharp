@@ -4,7 +4,7 @@
 
 This is my first C# web application. It's a broad test to see different features of C# in action.
 
-URL: [hellocsharp.azurewebsites.net](https://hellocsharp.azurewebsites.net/)
+**URL:** [hellocsharp.azurewebsites.net](https://hellocsharp.azurewebsites.net/)
 
 This application features:
 
@@ -46,6 +46,7 @@ This application features:
 - [ ] frontend tests
 - [ ] way better error handling for the REST API
 - [ ] show language selecter so people know it's localized
+- [ ] collapsible navbar does not work (probably because I deleted though JS frameworks)
 
 
 
