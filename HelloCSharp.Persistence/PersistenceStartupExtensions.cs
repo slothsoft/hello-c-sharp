@@ -27,8 +27,10 @@ public static class PersistenceStartupExtensions
         else
         {
             // TODO 1) figure out how to start app in production, 2) figure out how to define actual database 3) use both here
-            throw new Exception("Actual database connection is not implemented yet! (defaultConnection=" +
-                                usedConnectionString + ")");
+            // throw new Exception("Actual database connection is not implemented yet! (defaultConnection=" +
+            //                     usedConnectionString + ")");
+            builder.Services.AddDbContext<DatabaseContext>(options =>
+                options.UseInMemoryDatabase("Filename=TestDatabase.db"));
         }
         builder.Services.AddScoped<ICityRepository, CityRepository>();
         builder.Services.AddScoped<IPersonRepository, PersonRepository>();
