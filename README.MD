@@ -4,6 +4,8 @@
 
 This is my first C# web application. It's a broad test to see different features of C# in action.
 
+URL: [hellocsharp.azurewebsites.net](https://hellocsharp.azurewebsites.net/)
+
 This application features:
 
 - .Net 6.0 
