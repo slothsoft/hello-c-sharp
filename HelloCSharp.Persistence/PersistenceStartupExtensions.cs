@@ -26,7 +26,10 @@ public static class PersistenceStartupExtensions
         }
         else
         {
-            Console.WriteLine("Connect to database: " + usedConnectionString);
+            if (usedConnectionString.Equals("this value is set by Azure"))
+            {
+                throw new ArgumentException("Connection string was not set correctly: " + usedConnectionString);
+            }
             builder.Services.AddDbContext<DatabaseContext>(options =>
                 options.UseMySQL(usedConnectionString));
         }
