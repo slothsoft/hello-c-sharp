@@ -77,3 +77,25 @@ The important file for .NET 6.0 projects are:
 - [index.js](.github/dist/index.js) - this file is used by the _action.yml_ to install .NET Core
 
 
+### Debug
+
+#### HTTP Error 500.30 - ASP.NET Core app failed to start 
+
+1. Start "(Development Tools) Console" on the Azure portal
+2. Run `dotnet HelloCSharp.dll` to see a better error message 
+
+OR
+
+1. Start "Diagnose and solve problems" on the Azure portal
+2. Search for "Application Event Logs"
+3. You'll get a list of failed starts
+
+
+#### Database
+
+1. Start "(Settings) MySQL in App" on the Azure portal
+2. Click "Manage" and login
+3. (If you need the login Data) Start "(Development Tools) Advanced Tools" and "Go"
+4. The connection data is in _"d:\home\data\mysql"_
+
+

@@ -30,6 +30,8 @@ public static class PersistenceStartupExtensions
             {
                 throw new ArgumentException("Connection string was not set correctly: " + usedConnectionString);
             }
+            Console.Write("Connecting to " + connectionString);
+            Console.Write("Should be " + Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb"));
             builder.Services.AddDbContext<DatabaseContext>(options =>
                 options.UseMySQL(usedConnectionString));
         }
